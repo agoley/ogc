@@ -1,0 +1,142 @@
+
+<a href="/">
+	<img id="logo" src="../images/logo-white.png"/>
+</a>
+
+<div class="pull-right signinup">
+	<form>
+		<button  class="a"
+			ng-class="showSignUp? 'btn navbar-btn neat outset no-border' : 'btn  navbar-btn neat inset no-border' "
+			ng-click="setSignIn()" > Sign In 
+		</button>
+		<button class="a"
+			ng-class="!showSignUp? 'btn navbar-btn neat outset no-border' : 'btn navbar-btn neat inset no-border' "
+			ng-click="setSignUp()" > Sign Up 
+		</button>
+	</form>
+</div>	
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 marketing-col">
+			<div class="row">
+				<h1>
+					<small class="white regular-bold">THE ONLY PLACE TO</small>	
+					<strong class=" bold white">BUY, SELL, & TRADE</strong>
+					<small class="white regular-bold">VIDEO GAMES IN ONE PLACE FOR FREE.</small>
+				</h1>
+				<button id="get-started" class="a btn-lg btn-attention neat" ng-click="setSignIn()">
+					<strong>Sign In to get Started</strong>
+				</button>
+			</div>	
+		</div>
+		<div class="col-lg-6">
+			<div class="jumbotron low-div" id="signin-jumbo" >
+				<div class="a container" id="signin"  ng-hide="showSignUp">
+					<div class="row">
+						<h2 class="pull-left"> Sign In </h2>
+					</div>
+					<form name="loginForm" ng-submit="login()">
+						<div class="row">
+							<div class="error" ng-show="fail">The email or password you entered was incorrect.</div>
+						</div>
+						<div class="row">
+							<input type="text" id="email" ng-model="credentials.email" class="form-control pull-left neat-input" placeholder="Email..." required>
+						</div>
+						<div class="row low-div">
+							<input type="password" id="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..." required>
+						</div>
+						<div class="row low-div">
+							<input type="submit" class="btn btn-attention pull-left neat" value="Sign In" >
+						</div>
+						<div class="row low-div">
+							Not a member? <button class="a btn btn-default neat no-border" ng-click="flipSignUp()">Sign Up</button> 
+						</div>
+						<div class="row low-div">
+							<a href="/auth/twitter" class="no-decoration"> </a> 	
+							<a href="/auth/twitter" class="btn btn-block btn-social btn-twitter neat no-decoration">
+								<i class="fa fa-twitter"></i> Sign in with Twitter
+							</a>
+						</div>
+						<div class="row low-div">
+							<a href="/auth/facebook" class="btn btn-block btn-social btn-facebook neat no-decoration">
+								<i class="fa fa-facebook"></i> Sign in with Facebook
+							</a>	
+						</div>
+					</form>
+				</div>
+				<div class="a container" id="signup"  ng-show="showSignUp">
+					<div class="row">
+						<h2 class="pull-left"> Sign Up </h2>
+					</div>
+					<form name="signUpForm" ng-submit="signup()" >
+						<div class="row low-div">
+							<input type="email" name="email" ng-model="credentials.email" class="form-control pull-left neat-input" placeholder="Email..."
+								ng-required="true" ng-minlength="5" ng-maxlength="45">
+							<div class="info" ng-show="signUpForm.email.$error.minlength">Email must be at least 5 characters long.</div>
+							<div class="info" ng-show="signUpForm.email.$error.maxlength">Email must be at most 45 characters long.</div>
+						</div>
+						<div class="row low-div">
+							<input type="password" name="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..."
+								ng-required="true" ng-minlength="6" ng-maxlength="45">
+							<div class="info" ng-show="signUpForm.password.$error.minlength">Password must be at least 5 characters long.</div>
+							<div class="info" ng-show="signUpForm.password.$error.maxlength">Password must be at most 45 characters long.</div>
+						</div>
+						<div class="row low-div">
+							<input type="password" name="password2" ng-model="credentials.password2" class="form-control pull-left neat-input" placeholder="Enter password again..."
+								ng-required="true" ng-match="signUpFrom.password">
+							<div class="error" ng-show="
+							credentials.password2 != credentials.password && 
+							signUpForm.password2.$dirty &&
+							!signUpForm.password.$error.maxlength &&
+							!signUpForm.password.$error.minlength &&
+							credentials.password2 != null"> Passwords don't match.</div>
+							<div class="success" ng-show="
+							credentials.password2 == credentials.password && 
+							signUpForm.password2.$dirty &&
+							!signUpForm.password.$error.maxlength &&
+							!signUpForm.password.$error.minlength &&
+							credentials.password2 != null"> Passwords match.</div>
+						</div>
+						<div class="row low-div">
+							<input type="submit" class="btn btn-attention neat" value="Submit">
+						</div>
+						<div class="row low-div">
+							Already a member? <button class="a btn btn-default neat no-border" ng-click="flipSignUp()">Sign In</button>
+						</div>
+						<div class="row low-div">	
+							<a href="/auth/twitter" class="btn btn-block btn-social btn-twitter neat no-decoration">
+								<i class="fa fa-twitter"></i> Sign in with Twitter
+							</a>
+						</div>
+						<div class="row low-div">
+							<a href="/auth/facebook" class="btn btn-block btn-social btn-facebook neat no-decoration">
+								<i class="fa fa-facebook"></i> Sign in with Facebook
+							</a>	
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="footer">
+	<div class="container high-div">
+		<div class="row lower-div">
+			<div class="col-lg-6">
+				<div class="row">
+					<img id="logo-footer" src="../images/logo-gray.png"/>
+					Finally get fair prices and the cash your games are worth.
+				</div>
+			</div>
+			<div class="col-lg-6 pull-right lower-div">
+				<div class="row">
+					<a href="" > About </a> - <a href=""> Help </a> - <a href=""> Terms & Conditions </a>
+				</div>
+			</div>
+		</div>
+	</div>		
+</footer>
+
+<script src="../scripts/bounce.js"></script>

@@ -1,0 +1,242 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+.footer {
+	position: absolute;
+	height: 65px;
+	bottom: 0px;
+	width: 100%;
+	color: #777777;
+	/* background-color: #F0F0F0; */
+	background-color: white; 
+	opacity: 0.8;
+}
+
+/* pad a div down */
+.low-div {
+	padding-top: 5px;
+}
+
+.lower-div {
+	padding-top: 10px;
+}
+
+.high-div {
+	padding-bottom: 10px;
+}
+@font-face {
+    font-family: 'open sans'; /*a name to be used later*/
+    src: url('../fonts/OpenSans-Regular.ttf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'open sans bold'; /*a name to be used later*/
+    src: url('../fonts/OpenSans-ExtraBold.ttf'); /*URL to font*/
+}
+@font-face {
+    font-family: 'open sans bolder'; /*a name to be used later*/
+    src: url('../fonts/OpenSans-Bold.ttf'); /*URL to font*/
+}
+
+body {
+ font-family: open sans;
+ background-image: url("../images/me6.jpg");
+ background-size:   cover;                      
+ background-repeat: no-repeat;
+ margin-bottom: 65px;
+}
+
+.regular-bold {
+	font-family: open sans bolder;
+}
+
+.black {
+	color: black;
+}
+
+.error {
+ color: red;
+ font-size: smaller;
+ }
+ 
+ .info {
+ color: #FF8D00;
+ font-size: smaller;
+ }
+ 
+ .success {
+ color: blue;
+ font-size: smaller;
+ }
+
+.btn-attention {
+	background: #FF8D00;
+	color: white;
+}
+
+.btn-attention:hover {
+	background: #FF6B00;
+	color: white;
+}
+
+.bold {
+	font-family: open sans bold;
+}
+
+.white {
+	color: white;
+}
+
+#logo {
+	position: absolute;
+	top: 0px;
+	width: 120px;
+	height: 120px;
+}
+
+.signinup {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+
+.nav-div {
+	height: 71px;
+}
+
+.neat-input{
+	border-radius: 0;
+}
+
+#logo-footer {
+	width: 45px;
+	height: 45px;
+	opacity: 0.6;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+
+.pull-right {
+	text-align: right;
+}
+
+#signin-jumbo {
+    border-radius: 0;
+	color: black;
+	background: white;
+}
+
+button.a {
+}
+
+div.a {
+	-webkit-animation-duration: 0.6s;
+}
+
+#welcome{
+	padding-top: 125px;
+}
+
+.neat {
+	border-radius: 0;
+	border: 0px;
+}
+
+.no-border {
+	border: 0px;
+}
+
+.outset {
+	background: white;
+	color: black;
+	border: 0px;
+}
+
+.inset {
+	background: #09BD00;
+	color: white;
+	border: 0px;
+}
+
+.inset:hover{
+	color: white;
+}
+
+.outset:hover{
+	color: black;
+	background: #F0F0F0;
+}
+
+.outset:focus{
+	color: white;
+	border: 0px;
+	outline:none;
+    box-shadow:none;
+}
+.inset:focus{
+	color: white;
+	border: 0px;
+	outline:none;
+    box-shadow:none;
+}
+
+
+.text-glow-hover {
+	color: black;
+}
+.text-glow-hover:hover{
+text-shadow: 0 0 20px white;
+}
+
+.marketing-img {
+	display: block;
+	margin: 0 auto
+}
+
+.marketing-col{
+	min-width: 0px;
+	padding-top: 50px;
+}
+
+.center-text {
+	text-align: center;
+}
+
+footer a {
+	color: #777777;
+}
+
+.gold {
+	color: white;
+	text-shadow: 0 0 2px black;
+}
+
+footer a:hover {
+	text-decoration: none;
+}
+
+footer a:focus {
+	text-decoration: none;
+}
+
+.no-decoration:hover {
+	text-decoration: none;
+}
+
+.no-decoration:focus {
+	text-decoration: none;
+}
+
+.navbar {
+ border: none;
+}
+
+.how-it-works {
+	text-align: center;
+}
+
+.how-it-works div{
+	border: 1px solid #F0F0F0;
+	padding-bottom: 20px;
+}

@@ -1,0 +1,40 @@
+/* Server Config */
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+app.engine('.html', require('ejs').__express);
+var mongoose =  require('mongoose');
+var cookieParser = require('cookie-parser');
+app.use(bodyParser());
+app.use(cookieParser());
+var expressSession = require('express-session');
+var mongoStore = require('connect-mongo')({session: expressSession});
+var mongoose = require('mongoose');
+require('./users_model.js');
+var uri = "mongodb://user:user@localhost:27017/testDB";
+var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
+var conn = mongoose.connect(uri,options);
+app.use(expressSession({
+	secret: 'SECRET',
+	cookie: {maxAge: 60*60*1000},
+	db: new mongoStore({
+		mongooseConnection: mongoose.connection,
+		collection: 'sessions'
+	})
+}));
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+    if ('OPTIONS' == req.method){
+        return res.sendStatus(200);
+    }
+    next();
+});
+app.use('/', express.static('./static'));
+app.set('views', __dirname + '\\static\\views');
+app.set('view engine', 'html');
+
+require('./routes')(app);
+
+app.listen(80);
