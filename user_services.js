@@ -55,6 +55,17 @@ exports.signup = function(req, res){
    });
 };
 
+exports.getUserProfile = function(req, res) {
+	User.findOne({ _id: req.session.user })
+	.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			res.json(user);
+		}
+	});
+};
+
 /* Twitter Authorization */
 var twitterAPI = require('node-twitter-api');
 var twitter = new twitterAPI({
@@ -120,7 +131,7 @@ exports.twitterReturn =  function(req, res){
 								}
 							});
 					    } else {
-							console.log("found user, saving and creatin session");
+							console.log("found user, saving and creating session");
 							user.set('access_token_twitter', accessToken);
 							user.set('access_token_secret_twitter', accessTokenSecret);
 							user.save(function(err) {

@@ -3,6 +3,11 @@ html {
 	min-height: 100%;
 }
 
+.add-panel {
+	margin-right: 10px !important;
+	margin-left: 10px !important;
+}
+
 .footer {
 	position: absolute;
 	height: 65px;
@@ -40,12 +45,14 @@ html {
     src: url('../fonts/OpenSans-Bold.ttf'); /*URL to font*/
 }
 
-body {
- font-family: open sans;
- background-image: url("../images/me6.jpg");
+.login-body {
+background-image: url("../images/me6.jpg");
  background-size:   cover;                      
  background-repeat: no-repeat;
  margin-bottom: 65px;
+}
+body {
+ font-family: open sans;
 }
 
 .regular-bold {

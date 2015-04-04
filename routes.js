@@ -2,6 +2,7 @@ var crypto = require('crypto');
 var express = require('express');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Game = mongoose.model('Game');
 var crypto = require('crypto');
 function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
@@ -10,16 +11,17 @@ function hashPW(pwd){
 
 module.exports = function(app) {
 	var users = require('./user_services');
+	var games = require('./game_services');
 	app.use('/static', express.static( './static'));
 	
 	app.get('/', function(req, res){
-     console.log("redirecting");
+     //console.log("redirecting");
 	 if (req.session.user)	 {
-		 console.log("sending to /home");
+		 //console.log("sending to /home");
 		res.redirect('/home');
      } else {
        req.session.msg = 'Access denied!';
-	   console.log("sending to /login");
+	   //console.log("sending to /login");
        res.redirect('/login');
      }
   });
@@ -35,13 +37,26 @@ module.exports = function(app) {
 		}
 	});
 	
+	// Picture api
+	app.post('/api/photo',function(req,res){
+		if(done==true){
+			console.log(req.files);
+			res.end("File uploaded.");
+		}
+	});
+	
+	// Game service routes
+	app.post('/upload/game', games.upload);
+	
+	// User authentication routes
 	app.post('/signup', users.signup);
 	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);
-	
+	app.get('/user/profile', users.getUserProfile);
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);
 	
+	// Passport (Social media authentication) staging
 	var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;		
 	passport.use(new FacebookStrategy({
 		clientID: '1610215232526663',

@@ -16,7 +16,7 @@ var app = angular.module('loginApp')
     ];
   });
   
-app.constant('AUTH_EVENTS', {
+/*app.constant('AUTH_EVENTS', {
   loginSuccess: 'auth-login-success',
   loginFailed: 'auth-login-failed',
   logoutSuccess: 'auth-logout-success',
@@ -55,10 +55,34 @@ app.factory('AuthService', function ($http, Session) {
  
  
   return authService;
-})
+})*/
 
+app.controller('HomeController', ['$scope', '$http', function($scope, $http ) {
+	$http.get('http://localhost/user/profile').
+		success(function(data, status, headers, config) {
+			console.log("user: ", data);
+			$scope.user = data;
+		}).error(function(data, status, headers, config) {
+			console.log('Error getting user');
+		});
+}]);
+app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
+	$scope.game = {};
+	$scope.consoles = ["PS4", "Xbox One", "Wii U", "PS3", "Xbox 360", "Wii", "3DS", "DS" ];
+	$scope.genres = ["Action", "FPS", "RPG", "TPS", "Shooter", "Fighting", "Racing", "Family", "Strategy", "MMO" ];
+	
+	// Post to node server to upload a game
+	$scope.gameUpload = function() {
+		$http.post('http://localhost/upload/game', $scope.game).
+		success(function(data, status, headers, config) {
+			console.log("App posted to http://localhost/upload/game,response: " + data);
+		}).error(function(data, status, headers, config) {
+			console.log("App failed to post to http://localhost/upload/game");
+		});
+	};
+}]);
 
-app.controller('LoginController', ['$scope', '$http', function($scope, $http, AUTH_EVENTS, AuthService) {
+app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.credentials = {};
 	$scope.credentials.password = '';
 	$scope.credentials.password2 = '';
@@ -74,6 +98,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http, AU
 		});
 	}
 	*/
+	
 	$scope.passcheck = function() {
 		console.log("password: " + $scope.credentials.password);
 		console.log("password2: " + $scope.credentials.password2);
@@ -123,5 +148,21 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http, AU
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to http://localhost/signin");
 		});
+	};
+}]);
+
+app.directive('fileModel', ['$parse', function ($parse) {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs) {
+			var model = $parse(attrs.fileModel);
+			var modelSetter = model.assign;
+            
+			element.bind('change', function(){
+				scope.$apply(function(){
+					modelSetter(scope, element[0].files[0]);
+				});
+           });
+		}
 	};
 }]);

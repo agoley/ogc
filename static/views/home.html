@@ -23,12 +23,13 @@
 
     <!-- Add your site or application content here -->
 
-      <div id="welcome" ng-include="'views/main_home.html'"></div>
+      <div id="welcome" ng-include="'views/main_home.html'" ng-conroller="HomeController"></div>
    
 	<script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
-    <script src="scripts/app.js"></script>
+	<script src="scripts/app.js"></script>
+    <script src="scripts/directives/file.js"></script>
     <script src="scripts/controllers/main.js"></script>
 </body>
 </html>

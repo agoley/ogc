@@ -4,7 +4,55 @@
 
 <div class="pull-right signinup" ng-controller="LoginController">
 	<form>
+		<button class="btn navbar-btn neat outset" ng-click="" ><text class="text-glow-hover">{{user.email}}</text>
 		<button class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text>
 	</form>
 </div>
 
+<div class="container" ng-controller="GameController">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<div class="bold">ADD GAME</div>
+		</div>
+		<div class="panel-body">
+			<form id        =  "uploadForm"
+				enctype   =  "multipart/form-data"
+				action    =  "/api/photo"
+				method    =  "post">
+				<div class="regular-bold low-div">
+					<input type="text" ng-model="game.title" class="form-control neat-input" placeholder="Title">
+				</div>
+				<div class="regular-bold low-div">
+					Select A Console
+				</div>
+				<div class="regular-bold low-div">
+					<select data-ng-model="game.console" data-ng-options="con for con in consoles"></select>
+				</div>
+				<div class="regular-bold low-div">
+					Select All Genres That Apply
+				</div>
+				<div class="regular-bold low-div">
+					<select multiple data-ng-model="game.genre" data-ng-options="genre for genre in genres">
+				</div>
+				<div class="regular-bold low-div">
+					<input type="text" ng-model="game.developer" class="form-control neat-input" placeholder="Developer">
+				</div>
+				<div class="regular-bold low-div">
+					<input type="date" ng-model="game.date" class="form-control neat-input" placeholder="Release Date">
+				</div>
+				<div class="regular-bold low-div">
+					<input type="number" ng-model="game.buyPrice" class="form-control neat-input" placeholder="Buy Price">
+				</div>
+				<div class="regular-bold low-div">
+					<input type="number" ng-model="game.sellPrice" class="form-control neat-input" placeholder="Sell Price">
+				</div>
+				<div class="regular-bold low-div">
+					Select Box Art <input type="file" class="neat" name="coverArt" />
+				</div>
+				<div class="low-div pull-right">
+					<input type="submit" ng-click="gameUpload()" class="btn btn-attention pull-left neat" value="Upload New Game" >
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
