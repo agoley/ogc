@@ -58,6 +58,8 @@ app.factory('AuthService', function ($http, Session) {
 })*/
 
 app.controller('HomeController', ['$scope', '$http', function($scope, $http ) {
+	$scope.page = {};
+	$scope.page.number = 0;
 	$http.get('http://localhost/user/profile').
 		success(function(data, status, headers, config) {
 			console.log("user: ", data);
@@ -65,21 +67,64 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http ) {
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
+		
+		$scope.getAction = function() {
+			console.log($scope.page);
+			$http.post('http://localhost/games/action', $scope.page).
+			success(function(data, status, headers, config) {
+				console.log("App posted to http://localhost/game/action,response: ", data[0].image_path);
+				$scope.action = data;
+				$scope.page.number = $scope.page.number + 1;
+			}).error(function(data, status, headers, config) {
+				console.log("App failed to post to http://localhost/game/action");
+			});
+		}
+		
+		$scope.getAction();
+		
+		$scope.reverseAction = function() {
+			if( $scope.page.number > 0 ) {
+				console.log("decrementing page");
+				$scope.page.number -= 2;
+			}
+			console.log($scope.page.number);
+			$scope.getAction();
+		}
+		
 }]);
 app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.game = {};
 	$scope.consoles = ["PS4", "Xbox One", "Wii U", "PS3", "Xbox 360", "Wii", "3DS", "DS" ];
-	$scope.genres = ["Action", "FPS", "RPG", "TPS", "Shooter", "Fighting", "Racing", "Family", "Strategy", "MMO" ];
+	$scope.genres = ["Action", "Adventure", "FPS", "RPG", "TPS", "Shooter", "Fighting", "Racing", "Family", "Strategy", "MMO" ];
+	$scope.uploadGame = false;
+	$scope.uploadPhoto = false;
+	
+	
+	
+	//Display game upload panel.
+	$scope.toggleUploadGame = function() {
+		$scope.uploadPhoto = false;
+		$scope.uploadGame = !$scope.uploadGame;
+	}
+	
+	//Display photo upload panel.
+	$scope.toggleUploadPhoto = function() {
+		$scope.uploadGame = false;
+		$scope.uploadPhoto = !$scope.uploadPhoto;
+	}
 	
 	// Post to node server to upload a game
 	$scope.gameUpload = function() {
 		$http.post('http://localhost/upload/game', $scope.game).
 		success(function(data, status, headers, config) {
 			console.log("App posted to http://localhost/upload/game,response: " + data);
+			$scope.game = {}; // Reset the game inputs
+			$scope.uploadGame = false;
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to http://localhost/upload/game");
 		});
 	};
+		
 }]);
 
 app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {

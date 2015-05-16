@@ -1,3 +1,4 @@
+
 <a href="/">
 	<img id="logo" src="../images/logo-white.png"/>
 </a>
@@ -10,15 +11,16 @@
 </div>
 
 <div class="container" ng-controller="GameController">
-	<div class="panel panel-default">
+	<ul class="list-inline">
+		<li class=""><button class="btn navbar-btn neat outset" ng-click="toggleUploadGame()" ><text class="text-glow-hover">Add Game</text></li>
+		<li class=""><button class="btn navbar-btn neat outset" ng-click="toggleUploadPhoto()" ><text class="text-glow-hover">Add Photo</text></li>
+	</ul>
+	<div class="panel panel-default" ng-if="uploadGame">
 		<div class="panel-heading">
 			<div class="bold">ADD GAME</div>
 		</div>
 		<div class="panel-body">
-			<form id        =  "uploadForm"
-				enctype   =  "multipart/form-data"
-				action    =  "/api/photo"
-				method    =  "post">
+			<form>
 				<div class="regular-bold low-div">
 					<input type="text" ng-model="game.title" class="form-control neat-input" placeholder="Title">
 				</div>
@@ -46,13 +48,42 @@
 				<div class="regular-bold low-div">
 					<input type="number" ng-model="game.sellPrice" class="form-control neat-input" placeholder="Sell Price">
 				</div>
-				<div class="regular-bold low-div">
-					Select Box Art <input type="file" class="neat" name="coverArt" />
-				</div>
 				<div class="low-div pull-right">
 					<input type="submit" ng-click="gameUpload()" class="btn btn-attention pull-left neat" value="Upload New Game" >
 				</div>
 			</form>
 		</div>
 	</div>
+	
+	<div class="panel panel-default" ng-if="uploadPhoto">
+		<div class="panel-heading">
+			<div class="bold">ADD PHOTO</div>
+		</div>
+		<div class="panel-body">
+			<form 
+				id 	      =  "uploadForm"
+				enctype   =  "multipart/form-data"
+				action    =  "/api/photo"
+				method    =  "post" >
+				Select Box Art <input type="file" class="neat" name="coverArt" />
+				<input type="submit" value="Upload Image" name="submit">
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<h4 class="regular-bold">Action</h4>
+	<ul class="list-inline">
+		<li>
+			<button ng-click="reverseAction()" class="btn neat" ><span class="glyphicon glyphicon-arrow-left"></span></button>
+		</li>
+		<li ng-repeat="game in action">
+			<img class="game-image" ng-src="{{game.image_path}}"/>
+		</li>
+		<li>
+			<button ng-click="getAction()" class="btn neat" ><span class="glyphicon glyphicon-arrow-right"></span></button>
+		</li>
+	</ul>
 </div>

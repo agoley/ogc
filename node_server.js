@@ -21,7 +21,7 @@ var conn = mongoose.connect(uri,options);
 
 /* Configure multer for file uploads */
 var done=false;
-app.use(multer({ dest: './uploads/',
+app.use(multer({ dest: './static/images/games',
  rename: function (fieldname, filename) {
     return filename;
   },

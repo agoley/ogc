@@ -37,16 +37,9 @@ module.exports = function(app) {
 		}
 	});
 	
-	// Picture api
-	app.post('/api/photo',function(req,res){
-		if(done==true){
-			console.log(req.files);
-			res.end("File uploaded.");
-		}
-	});
-	
 	// Game service routes
 	app.post('/upload/game', games.upload);
+	app.post('/games/action', games.getActionGames);
 	
 	// User authentication routes
 	app.post('/signup', users.signup);

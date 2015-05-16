@@ -6,8 +6,9 @@ var GameSchema = new Schema({
 	console: String,
 	developer: String,
 	release_date: Date,
-	genre: String,
+	genre: [String],        
 	buy_price: Number,
-	sell_prcoe: Number
+	sell_prcoe: Number,
+	image_path: String
 });
 mongoose.model('Game', GameSchema);
