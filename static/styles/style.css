@@ -160,6 +160,17 @@ div.a {
 	border: 0px;
 }
 
+.outset-arrow {
+	background: white;
+	color: black;
+	border: 0px;
+}
+
+.outset-arrow:hover{
+	color: black;
+	background: #F0F0F0;
+}
+
 .inset {
 	background: #09BD00;
 	color: white;
@@ -173,6 +184,12 @@ div.a {
 .outset:hover{
 	color: black;
 	background: #F0F0F0;
+}
+
+.outset-arrow:focus{
+	border: 0px;
+	outline:none;
+    box-shadow:none;
 }
 
 .outset:focus{

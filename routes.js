@@ -40,6 +40,10 @@ module.exports = function(app) {
 	// Game service routes
 	app.post('/upload/game', games.upload);
 	app.post('/games/action', games.getActionGames);
+	app.post('/games/shooter', games.getShooterGames);
+	app.post('/games/family', games.getFamilyGames);
+	app.post('/games/racing', games.getRacingGames);
+	app.post('/games/fighting', games.getFightingGames);
 	
 	// User authentication routes
 	app.post('/signup', users.signup);

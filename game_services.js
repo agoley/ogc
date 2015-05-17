@@ -27,8 +27,8 @@ exports.upload = function(req, res){
 
 exports.getActionGames = function(req, res) {
 	var paginate = 5;
-	var page = parseInt(req.body.number);
-	console.log("body: " + req.body.number);
+	var page = parseInt(req.body.actionNumber);
+	console.log("body: " + req.body.actionNumber);
 	Game.find({ genre: "Action" })
 	.skip(page * paginate)
 	.limit(paginate)
@@ -37,7 +37,75 @@ exports.getActionGames = function(req, res) {
 			res.json(404, {err: 'Data Not Found.'});
 		} else {
 			var json = JSON.stringify(games);
-			console.log(json);
+			res.send(json);
+		}
+	});
+};
+
+
+exports.getShooterGames = function(req, res) {
+	var paginate = 5;
+	var page = parseInt(req.body.shooterNumber);
+	console.log("body: " + req.body.shooterNumber);
+	Game.find({ genre: "Shooter" })
+	.skip(page * paginate)
+	.limit(paginate)
+	.exec(function(err, games) {
+		if (!games){
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			var json = JSON.stringify(games);
+			res.send(json);
+		}
+	});
+};
+
+exports.getFamilyGames = function(req, res) {
+	var paginate = 5;
+	var page = parseInt(req.body.familyNumber);
+	console.log("body: " + req.body.familyNumber);
+	Game.find({ genre: "Family" })
+	.skip(page * paginate)
+	.limit(paginate)
+	.exec(function(err, games) {
+		if (!games){
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			var json = JSON.stringify(games);
+			res.send(json);
+		}
+	});
+};
+
+exports.getRacingGames = function(req, res) {
+	var paginate = 5;
+	var page = parseInt(req.body.racingNumber);
+	console.log("body: " + req.body.racingNumber);
+	Game.find({ genre: "Racing" })
+	.skip(page * paginate)
+	.limit(paginate)
+	.exec(function(err, games) {
+		if (!games){
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			var json = JSON.stringify(games);
+			res.send(json);
+		}
+	});
+};
+
+exports.getFightingGames = function(req, res) {
+	var paginate = 5;
+	var page = parseInt(req.body.fightingNumber);
+	console.log("body: " + req.body.fightingNumber);
+	Game.find({ genre: "Fighting" })
+	.skip(page * paginate)
+	.limit(paginate)
+	.exec(function(err, games) {
+		if (!games){
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			var json = JSON.stringify(games);
 			res.send(json);
 		}
 	});

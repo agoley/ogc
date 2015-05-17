@@ -59,7 +59,12 @@ app.factory('AuthService', function ($http, Session) {
 
 app.controller('HomeController', ['$scope', '$http', function($scope, $http ) {
 	$scope.page = {};
-	$scope.page.number = 0;
+	$scope.page.actionNumber = 0;
+	$scope.page.shooterNumber = 0;
+	$scope.page.familyNumber = 0;
+	$scope.page.racingNumber = 0;
+	$scope.page.fightingNumber = 0;
+	
 	$http.get('http://localhost/user/profile').
 		success(function(data, status, headers, config) {
 			console.log("user: ", data);
@@ -74,21 +79,100 @@ app.controller('HomeController', ['$scope', '$http', function($scope, $http ) {
 			success(function(data, status, headers, config) {
 				console.log("App posted to http://localhost/game/action,response: ", data[0].image_path);
 				$scope.action = data;
-				$scope.page.number = $scope.page.number + 1;
+				$scope.page.actionNumber = $scope.page.actionNumber + 1;
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to http://localhost/game/action");
 			});
 		}
 		
+		$scope.getShooter = function() {
+			console.log($scope.page);
+			$http.post('http://localhost/games/shooter', $scope.page).
+			success(function(data, status, headers, config) {
+				console.log("App posted to http://localhost/game/shooter,response: ", data[0].image_path);
+				$scope.shooter = data;
+				$scope.page.shooterNumber = $scope.page.shooterNumber + 1;
+			}).error(function(data, status, headers, config) {
+				console.log("App failed to post to http://localhost/game/shooter");
+			});
+		}
+		
+		$scope.getFamily = function() {
+			$http.post('http://localhost/games/family', $scope.page).
+			success(function(data, status, headers, config) {
+				$scope.family = data;
+				$scope.page.familyNumber = $scope.page.familyNumber + 1;
+			}).error(function(data, status, headers, config) {
+				console.log("App failed to post to http://localhost/game/family");
+			});
+		}
+		
+		$scope.getRacing = function() {
+			$http.post('http://localhost/games/racing', $scope.page).
+			success(function(data, status, headers, config) {
+				$scope.racing = data;
+				$scope.page.racingNumber = $scope.page.racingNumber + 1;
+			}).error(function(data, status, headers, config) {
+				console.log("App failed to post to http://localhost/game/racing");
+			});
+		}
+		
+		$scope.getFighting = function() {
+			$http.post('http://localhost/games/fighting', $scope.page).
+			success(function(data, status, headers, config) {
+				$scope.fighting = data;
+				$scope.page.fightingNumber = $scope.page.fightingNumber + 1;
+			}).error(function(data, status, headers, config) {
+				console.log("App failed to post to http://localhost/game/fighting");
+			});
+		}
+		
 		$scope.getAction();
+		$scope.getShooter();
+		$scope.getFamily();
+		$scope.getRacing();
+		$scope.getFighting();
 		
 		$scope.reverseAction = function() {
-			if( $scope.page.number > 0 ) {
+			if( $scope.page.actionNumber > 1 ) {
 				console.log("decrementing page");
-				$scope.page.number -= 2;
+				$scope.page.actionNumber -= 2;
+				console.log($scope.page.actionNumber);
+				$scope.getAction();
 			}
-			console.log($scope.page.number);
-			$scope.getAction();
+		}
+		
+		$scope.reverseShooter = function() {
+			if( $scope.page.shooterNumber > 1 ) {
+				console.log("decrementing page");
+				$scope.page.shooterNumber -= 2;
+				console.log($scope.page.shooterNumber);
+				$scope.getShooter();
+			}
+		}
+		
+		$scope.reverseFamily = function() {
+			if( $scope.page.familyNumber > 1 ) {
+				console.log("decrementing page");
+				$scope.page.familyNumber -= 2;
+				$scope.getFamily();
+			}
+		}
+		
+		$scope.reverseRacing = function() {
+			if( $scope.page.racingNumber > 1 ) {
+				console.log("decrementing page");
+				$scope.page.racingNumber -= 2;
+				$scope.getRacing();
+			}
+		}
+		
+		$scope.reverseFighting = function() {
+			if( $scope.page.fightingNumber > 1 ) {
+				console.log("decrementing page");
+				$scope.page.fightingNumber -= 2;
+				$scope.getFighting();
+			}
 		}
 		
 }]);
