@@ -29,6 +29,14 @@ module.exports = function(app) {
 		res.render('index', {msg:req.session.msg});
 	});
 	
+	app.get('/gameView', function(req,res) {
+		if (req.session.user) {
+			res.render('game',  {game: req.session.game, msg:req.session.msg});
+		} else {
+			res.redirect('/login');
+		}
+	});
+	
 	app.get('/home',  function(req, res){
 		if (req.session.user) {
 			res.render('home',  {username: req.session.username, msg:req.session.msg});
@@ -44,11 +52,16 @@ module.exports = function(app) {
 	app.post('/games/family', games.getFamilyGames);
 	app.post('/games/racing', games.getRacingGames);
 	app.post('/games/fighting', games.getFightingGames);
+	app.get('/games/titles', games.getAllTitles);
+	app.get('/games/profile', games.getGameProfile);
+	app.post('/game', games.game);
+	app.post('/games/update', games.update);
 	
 	// User authentication routes
 	app.post('/signup', users.signup);
 	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);
+	app.post('/user/addGame', users.addToCart);
 	app.get('/user/profile', users.getUserProfile);
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);

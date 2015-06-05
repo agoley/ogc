@@ -1,14 +1,32 @@
-
-<a href="/">
-	<img id="logo" src="../images/logo-white.png"/>
-</a>
-
-<div class="pull-right signinup" ng-controller="LoginController">
-	<form>
-		<button class="btn navbar-btn neat outset" ng-click="" ><text class="text-glow-hover">{{user.email}}</text>
-		<button class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text>
-	</form>
+<div class="row" ng-controller="GameController">
+	<div class="col col-md-2">
+		<a href="/">
+			<img id="logo" src="../images/logo-white.png"/>
+		</a>
+	</div>	
+	<div class="col col-md-4 ">
+		<div class="input-group browse">
+			<span class="input-group-addon neat" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
+			<input type="text" class="form-control neat" ng-model="query" ng-change="getMatches()"  placeholder="Browse" aria-describedby="basic-addon1">
+		</div>
+		<div class="games-matched">
+			<ul class="list-group matches neat">
+				<a href="" ng-click="getGame(match)" ng-repeat="match in matches track by $index" class="list-group-item">{{match}} </a>
+			</ul>
+		</div>
+	</div>
+	<div class="col col-md-6">
+		<div class="pull-right signinup">
+			<div class="pull-right signinup" ng-controller="LoginController">
+				<form>
+					<button class="btn navbar-btn neat outset" ng-click="" ><text class="text-glow-hover">{{user.email}}</text>
+					<button class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
+
 
 <div class="container" ng-controller="GameController">
 	<ul class="list-inline">
@@ -72,66 +90,22 @@
 	</div>
 </div>
 
+<games ng-controller="GameController"></games>
 
-<div class="container">
-	<h4 class="regular-bold">Action</h4>
-	<ul class="list-inline">
-		<li>
-			<button ng-click="reverseAction()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>
-		<li ng-repeat="game in action">
-			<img class="game-image" ng-src="{{game.image_path}}"/>
-		</li>
-		<li>
-			<button ng-click="getAction()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>
-	</ul>
-	<h4 class="regular-bold">Shooter</h4>
-	<ul class="list-inline">
-		<li>
-			<button ng-click="reverseShooter()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>
-		<li ng-repeat="game in shooter">
-			<img class="game-image" ng-src="{{game.image_path}}"/>
-		</li>
-		<li>
-			<button ng-click="getShooter()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>
-	</ul>
-	<h4 class="regular-bold">Family</h4>
-	<ul class="list-inline">
-		<li>
-			<button ng-click="reverseFamily()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>
-		<li ng-repeat="game in family">
-			<img class="game-image" ng-src="{{game.image_path}}"/>
-		</li>
-		<li>
-			<button ng-click="getFamily()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>
-	</ul>
-	<h4 class="regular-bold">Racing</h4>
-	<ul class="list-inline">
-		<li>
-			<button ng-click="reverseRacing()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>
-		<li ng-repeat="game in racing">
-			<img class="game-image" ng-src="{{game.image_path}}"/>
-		</li>
-		<li>
-			<button ng-click="getRacing()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>
-	</ul>
-	<h4 class="regular-bold">Fighting</h4>
-	<ul class="list-inline">
-		<li>
-			<button ng-click="reverseFighting()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>
-		<li ng-repeat="game in fighting">
-			<img class="game-image" ng-src="{{game.image_path}}"/>
-		</li>
-		<li>
-			<button ng-click="getFighting()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>
-	</ul>
-</div>
+<footer class="footer">
+	<div class="container high-div">
+		<div class="row lower-div">
+			<div class="col-lg-6">
+				<div class="row">
+					<img id="logo-footer" src="../images/logo-gray.png"/>
+					Finally get fair prices and the cash your games are worth.
+				</div>
+			</div>
+			<div class="col-lg-6 pull-right lower-div">
+				<div class="row">
+					<a href="" > About </a> - <a href=""> Help </a> - <a href=""> Terms & Conditions </a>
+				</div>
+			</div>
+		</div>
+	</div>		
+</footer>

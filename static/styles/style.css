@@ -46,11 +46,16 @@ html {
 }
 
 .login-body {
-background-image: url("../images/me6.jpg");
- background-size:   cover;                      
+ background-image: url("../images/me6.jpg");
+ background-size: 100%;                      
  background-repeat: no-repeat;
- margin-bottom: 65px;
+ z-index: 0;
 }
+
+.main-body{
+	margin-bottom: 75px;
+}
+
 body {
  font-family: open sans;
 }
@@ -97,30 +102,43 @@ body {
 }
 
 #logo {
-	position: absolute;
 	top: 0px;
 	width: 120px;
 	height: 120px;
 }
 
-.signinup {
-	position: absolute;
-	top: 15px;
-	right: 15px;
+.browse {
+	top: 10px;
+	padding-left: 15px;
 }
 
-.nav-div {
-	height: 71px;
+.signinup {
+	top: 15px;
 }
+
 
 .neat-input{
 	border-radius: 0;
 }
 
+.row{
+    margin-right: 0;
+}
+
+.matches {
+	background: white !important;
+	position: absolute;
+	z-index: 999;
+}
+
+.games-matched {
+	padding-top: 10px;
+	padding-left: 15px;
+}
+
 #logo-footer {
 	width: 45px;
 	height: 45px;
-	opacity: 0.6;
     filter: alpha(opacity=40); /* For IE8 and earlier */
 }
 
@@ -139,10 +157,6 @@ button.a {
 
 div.a {
 	-webkit-animation-duration: 0.6s;
-}
-
-#welcome{
-	padding-top: 125px;
 }
 
 .neat {
@@ -266,6 +280,39 @@ footer a:focus {
 }
 
 .game-image {
-	width: 185px;
-	height: 225px;
+	width: 175px;
+	height: 215px;
+
+}
+
+.game-profile-image {
+	width: 275px;
+	height: 315px;
+
+}
+
+.game-profile-container {
+	margin; 0 auto;
+	padding-left: 50px;
+	padding-top: 30px;
+}
+
+.add-button{
+	margin-top: 10px;
+}
+
+.game-container {
+	width: 95%;
+	margin; 0 auto;
+	padding-left: 50px;
+}
+
+img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.genre-header {
+	padding-left: 50px;
 }

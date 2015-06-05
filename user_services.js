@@ -6,6 +6,26 @@ function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
           digest('base64').toString();
 };
+
+exports.addToCart = function(req, res) {
+	console.log(req.body);
+	User.findOne({ _id: req.session.user })
+	.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			var cart = user.cart;
+			if(!cart){
+				cart = [];
+			} 
+			cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, cost: req.body.sell_price});
+			user.cart = cart;
+			user.save();
+			console.log(user);
+			res.json(user)
+		}
+	});
+};
 exports.signout = function(req, res) {
 	req.session.destroy(function(){
 		res.redirect('/');

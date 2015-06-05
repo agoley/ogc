@@ -1,6 +1,52 @@
 var mongoose = require('mongoose');
 var Game = mongoose.model('Game');
 
+var query = Game.find({}).select('title -_id');
+
+var allGameTitles = [];
+query.exec(function (err, titles) {
+	if (err) return next(err);
+	for(i = 0; i < titles.length; i++){
+		allGameTitles.push(titles[i].title);
+	}
+	//console.log("All Titles: " + allGameTitles);
+});
+exports.refreshTitles = function(req,res) {
+	query.exec(function (err, titles) {
+		if (err) return next(err);
+		for(i = 0; i < titles.length; i++){
+			allGameTitles.push(titles[i].title);
+		}
+		//console.log("All Titles: " + allGameTitles);
+	})
+	res.end();
+}
+
+exports.getAllTitles = function(req, res) {
+	var titles = JSON.stringify(allGameTitles);
+	res.send(titles);
+};
+
+exports.update = function(req, res){
+	console.log(req.body);
+	Game.findOne({ _id: req.body._id })
+	.exec(function(err,game) {
+		if(!game){
+			err = 'Game Not Found.';
+			console.log(err);
+		} else {
+			game.title = req.body.title
+			game.genre = req.body.genre
+			game.summary= req.body.summary
+			game.release_date = req.body.release_date
+			game.buy_price = req.body.buy_price
+			game.sell_price = req.body.sell_price
+			game.save();
+		}
+		res.json(game);
+	});
+}
+
 exports.upload = function(req, res){
    console.log("Begining game upload.");
    var game = new Game({title:req.body.title});
@@ -26,9 +72,8 @@ exports.upload = function(req, res){
 };
 
 exports.getActionGames = function(req, res) {
-	var paginate = 5;
+	var paginate = 6;
 	var page = parseInt(req.body.actionNumber);
-	console.log("body: " + req.body.actionNumber);
 	Game.find({ genre: "Action" })
 	.skip(page * paginate)
 	.limit(paginate)
@@ -44,9 +89,8 @@ exports.getActionGames = function(req, res) {
 
 
 exports.getShooterGames = function(req, res) {
-	var paginate = 5;
+	var paginate = 6;
 	var page = parseInt(req.body.shooterNumber);
-	console.log("body: " + req.body.shooterNumber);
 	Game.find({ genre: "Shooter" })
 	.skip(page * paginate)
 	.limit(paginate)
@@ -61,9 +105,8 @@ exports.getShooterGames = function(req, res) {
 };
 
 exports.getFamilyGames = function(req, res) {
-	var paginate = 5;
+	var paginate = 6;
 	var page = parseInt(req.body.familyNumber);
-	console.log("body: " + req.body.familyNumber);
 	Game.find({ genre: "Family" })
 	.skip(page * paginate)
 	.limit(paginate)
@@ -78,9 +121,8 @@ exports.getFamilyGames = function(req, res) {
 };
 
 exports.getRacingGames = function(req, res) {
-	var paginate = 5;
+	var paginate = 6;
 	var page = parseInt(req.body.racingNumber);
-	console.log("body: " + req.body.racingNumber);
 	Game.find({ genre: "Racing" })
 	.skip(page * paginate)
 	.limit(paginate)
@@ -95,9 +137,8 @@ exports.getRacingGames = function(req, res) {
 };
 
 exports.getFightingGames = function(req, res) {
-	var paginate = 5;
+	var paginate = 6;
 	var page = parseInt(req.body.fightingNumber);
-	console.log("body: " + req.body.fightingNumber);
 	Game.find({ genre: "Fighting" })
 	.skip(page * paginate)
 	.limit(paginate)
@@ -110,3 +151,49 @@ exports.getFightingGames = function(req, res) {
 		}
 	});
 };
+
+exports.game = function(req, res){
+	console.log(req.body);
+	Game.findOne({ title: req.body.title })
+	.exec(function(err,game) {
+		if(!game){
+			err = 'Game Not Found.';
+		} else {
+			req.session.game = game;
+			res.redirect('/gameView');
+		}
+		res.end();
+	});
+}
+
+exports.getGameProfile = function(req, res){
+	res.json(req.session.game)
+}
+
+/*
+exports.signin = function(req, res){
+   User.findOne({ email: req.body.email })
+   .exec(function(err, user) {
+     if (!user){
+       err = 'User Not Found.';
+     } else if (user.password ===
+                hashPW(req.body.password.toString())) {
+       req.session.regenerate(function(){
+         req.session.user = user.id;
+         req.session.username = user.username;
+         req.session.msg = 'Authenticated as ' + user.username;
+         res.redirect('/');
+       });
+     }else{
+       err = 'Authentication failed.';
+     }
+     if(err){
+       req.session.regenerate(function(){
+         req.session.msg = err;
+	 res.send();
+         //res.redirect('/login');
+       });
+     }
+   });
+};
+*/

@@ -9,6 +9,14 @@ var UserSchema = new Schema({
 	access_token_secret_twitter: String,
 	facebook_id: String,
 	access_token_facebook: String,
-	token_refresh_facebook: String
+	token_refresh_facebook: String,
+	coin: Number,
+	admin: Boolean,
+	cart: [{
+				title: String,
+				console: String,
+				path: String,
+				cost: Number
+			}]
 });
 mongoose.model('User', UserSchema);

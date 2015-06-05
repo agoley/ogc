@@ -14,7 +14,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/style.css">
 	<link rel="stylesheet" href="lib/animate.css">
-    <!-- endbuild -->
+	
   </head>
   <body ng-app="loginApp">
     <!--[if lt IE 7]>
@@ -22,16 +22,16 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-
-      <div id="welcome" ng-include="'views/main_home.html'" ng-controller="HomeController" class="main-body"></div>
+	<div id="welcome" ng-include="'views/game_view.html'" ng-controller="HomeController" class="main-body"></div>
+      
    
 	<script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
-	
 	<script src="scripts/app.js"></script>
-    <script src="scripts/directives/file.js"></script>
-    <script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/main.js"></script>
 	<script src="scripts/directives/games.js"></script>
+    <script src="scripts/directives/file.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

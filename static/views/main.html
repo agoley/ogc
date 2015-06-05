@@ -1,20 +1,36 @@
-
-<a href="/">
-	<img id="logo" src="../images/logo-white.png"/>
-</a>
-
-<div class="pull-right signinup">
-	<form>
-		<button  class="a"
-			ng-class="showSignUp? 'btn navbar-btn neat outset no-border' : 'btn  navbar-btn neat inset no-border' "
-			ng-click="setSignIn()" > Sign In 
-		</button>
-		<button class="a"
-			ng-class="!showSignUp? 'btn navbar-btn neat outset no-border' : 'btn navbar-btn neat inset no-border' "
-			ng-click="setSignUp()" > Sign Up 
-		</button>
-	</form>
-</div>	
+<div class="login-body">
+	<div class="row" ng-controller="GameController">
+		<div class="col col-md-2">
+			<a href="/">
+				<img id="logo" src="../images/logo-white.png"/>
+			</a>
+		</div>
+		<div class="col col-md-4 ">
+			<div class="input-group browse">
+				<span class="input-group-addon neat" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
+				<input type="text" class="form-control neat" ng-model="query" ng-change="getMatches()"  placeholder="Browse" aria-describedby="basic-addon1">
+			</div>
+			<div class="games-matched">
+				<ul class="list-group matches neat">
+					<a href="" ng-click="getGame(match)" ng-repeat="match in matches track by $index" class="list-group-item">{{match}} </a>
+				</ul>
+			</div>
+		</div>
+		<div class="col col-md-6">
+			<div class="pull-right signinup">
+				<form>
+					<button  class="a"
+						ng-class="showSignUp? 'btn navbar-btn neat outset no-border' : 'btn  navbar-btn neat inset no-border' "
+						ng-click="setSignIn()" > Sign In 
+					</button>
+					<button class="a"
+						ng-class="!showSignUp? 'btn navbar-btn neat outset no-border' : 'btn navbar-btn neat inset no-border' "
+						ng-click="setSignUp()" > Sign Up 
+					</button>
+		    	</form>
+			</div>
+		</div>	
+	</div>
 
 <div class="container">
 	<div class="row">
@@ -41,10 +57,10 @@
 							<div class="error" ng-show="fail">The email or password you entered was incorrect.</div>
 						</div>
 						<div class="row">
-							<input type="text" id="email" ng-model="credentials.email" class="form-control pull-left neat-input" placeholder="Email..." required>
+							<input type="text" id="email" ng-model="credentials.email" class="form-control pull-left neat-input" placeholder="Email..." >
 						</div>
 						<div class="row low-div">
-							<input type="password" id="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..." required>
+							<input type="password" id="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..." >
 						</div>
 						<div class="row low-div">
 							<input type="submit" class="btn btn-attention pull-left neat" value="Sign In" >
@@ -72,19 +88,19 @@
 					<form name="signUpForm" ng-submit="signup()" >
 						<div class="row low-div">
 							<input type="email" name="email" ng-model="credentials.email" class="form-control pull-left neat-input" placeholder="Email..."
-								ng-required="true" ng-minlength="5" ng-maxlength="45">
+								 ng-minlength="5" ng-maxlength="45">
 							<div class="info" ng-show="signUpForm.email.$error.minlength">Email must be at least 5 characters long.</div>
 							<div class="info" ng-show="signUpForm.email.$error.maxlength">Email must be at most 45 characters long.</div>
 						</div>
 						<div class="row low-div">
 							<input type="password" name="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..."
-								ng-required="true" ng-minlength="6" ng-maxlength="45">
+								 ng-minlength="6" ng-maxlength="45">
 							<div class="info" ng-show="signUpForm.password.$error.minlength">Password must be at least 5 characters long.</div>
 							<div class="info" ng-show="signUpForm.password.$error.maxlength">Password must be at most 45 characters long.</div>
 						</div>
 						<div class="row low-div">
 							<input type="password" name="password2" ng-model="credentials.password2" class="form-control pull-left neat-input" placeholder="Enter password again..."
-								ng-required="true" ng-match="signUpFrom.password">
+								 ng-match="signUpFrom.password">
 							<div class="error" ng-show="
 							credentials.password2 != credentials.password && 
 							signUpForm.password2.$dirty &&
@@ -120,6 +136,9 @@
 		</div>
 	</div>
 </div>
+</div>
+
+<games ng-controller="GameController"></games>
 
 <footer class="footer">
 	<div class="container high-div">
@@ -138,5 +157,7 @@
 		</div>
 	</div>		
 </footer>
+
+
 
 <script src="../scripts/bounce.js"></script>
