@@ -3,17 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>OnlineGameCash - Home</title>
+	<link rel="shortcut icon" href="../images/logo-icon.ico" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="lib/animate.css">
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+	<link rel="stylesheet" href="styles/bootstrap-social.css">
+	<link rel="stylesheet" href="styles/font-awesome.css">
     <link rel="stylesheet" href="styles/style.css">
-	<link rel="stylesheet" href="lib/animate.css">
     <!-- endbuild -->
   </head>
   <body ng-app="loginApp">
@@ -25,13 +29,13 @@
 
       <div id="welcome" ng-include="'views/main_home.html'" ng-controller="HomeController" class="main-body"></div>
    
-	<script src="lib/jquery/jquery.min.js"></script>
+	<script src="lib/jquery/jquery.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
-	
 	<script src="scripts/app.js"></script>
     <script src="scripts/directives/file.js"></script>
     <script src="scripts/controllers/main.js"></script>
 	<script src="scripts/directives/games.js"></script>
+
 </body>
 </html>

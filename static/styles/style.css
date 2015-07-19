@@ -3,6 +3,10 @@ html {
 	min-height: 100%;
 }
 
+animated.ng-enter {
+  animation: bounce 1s;
+}
+
 .add-panel {
 	margin-right: 10px !important;
 	margin-left: 10px !important;
@@ -207,7 +211,6 @@ div.a {
 }
 
 .outset:focus{
-	color: white;
 	border: 0px;
 	outline:none;
     box-shadow:none;
@@ -290,6 +293,18 @@ footer a:focus {
 	height: 315px;
 
 }
+
+.game-cart-image {
+	width: 100px;
+	height: 120px;
+
+}
+
+.add-success {
+	width: 120px;
+	border-radius: 0;
+}
+
 
 .game-profile-container {
 	margin; 0 auto;

@@ -1,0 +1,64 @@
+<div class="container game-profile-container">
+		<button class="btn navbar-btn neat outset" ng-click="toggleEditGame()" ><text class="text-glow-hover">Edit Game</text></button>
+		<div ng-if="user.email == 'baymax@bot.com' && editGame">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="bold">Edit Game</div>
+				</div>
+				<div class="panel-body">
+					<form name="edit-game"  ng-submit="updateGame(game)">
+						<div class="regular-bold low-div">
+							Select All Genres That Apply
+						</div>
+						<div class="regular-bold low-div">
+							<select multiple data-ng-model="game.genre" data-ng-options="genre for genre in genres">
+						</div>
+						<div class="regular-bold low-div">
+							<input type="text" ng-model="game.developer" class="form-control neat-input" placeholder="Developer">
+						</div>
+						<div class="regular-bold low-div">
+							<textarea type="text" ng-model="game.summary" class="form-control neat-input" placeholder="Summary"></textarea>
+						</div>
+						<div class="regular-bold low-div">
+							<input type="date" ng-model="game.release_date" class="form-control neat-input" placeholder="yyyy-MM-dd">
+						</div>
+						<div class="regular-bold low-div">
+							<input type="number" step="any" ng-model="game.buy_price" class="form-control neat-input" placeholder="Buy Price">
+						</div>
+						<div class="regular-bold low-div">
+							<input type="number" step="any" ng-model="game.sell_price" class="form-control neat-input" placeholder="Sell Price">
+						</div>
+						<div class="low-div pull-right">
+							<input type="submit" class="btn btn-attention pull-left neat" value="Update Game" >
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	<div class="media">
+		<div class="media-left">
+			<img class="game-profile-image" ng-src="{{game.image_path}}"/>
+		</div>
+		<div class="media-body">
+			<h4 class="media-heading bold"> {{game.title}} </h4>
+				<ul class="list-unstyled">
+					<li>Console: {{game.console}}</li>
+					<li>Developer: {{game.developer}}</li>
+					<li>Genre: {{game.genre}}</li>
+					<li>Release Date: {{game.release_date}}</li>
+					<li>Summary: {{game.summary}}</li>
+				</ul>
+		</div>
+	</div>
+	 <div class="radio low-div">
+		<label><input type="radio" name="optradio" ng-model="transaction.type" value="sale"> Buy this game for <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{game.sell_price}}</label>
+	</div>
+	<div class="radio">
+		<label><input type="radio" name="optradio" ng-model="transaction.type" value="ingest">Sell this game for <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{game.buy_price}}</label>
+	</div>
+	<div class="radio">
+		<label><input type="radio" name="optradio" ng-model="transaction.type" value="trade">Trade in for {{game.buy_price + 5}} game cash</label>
+	</div>
+	<button id="addBtn" class="btn-lg btn-attention neat add-button" ng-click="addToCart(game)"> Add to Cart </button>
+	<button class="a btn-lg btn-default neat add-button" ng-click="clearGame()"> Back to Browsing </button>
+</div>

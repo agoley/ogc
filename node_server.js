@@ -18,6 +18,7 @@ require('./games_model.js');
 var uri = "mongodb://user:user@localhost:27017/testDB";
 var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var conn = mongoose.connect(uri,options);
+var https = require('https');
 
 /* Configure multer for file uploads */
 var done=false;
@@ -66,3 +67,18 @@ app.set('view engine', 'html');
 require('./routes')(app);
 
 app.listen(80);
+
+
+/* https.createServer(options, app).listen(443);
+var https = require('https');
+var fs = require('fs');
+
+var options = {
+  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
+  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.pem')
+};
+
+https.createServer(options, function (req, res) {
+  res.writeHead(200);
+  res.end("hello world\n");
+}).listen(8000); */

@@ -1,0 +1,36 @@
+<div class="container game-profile-container">
+	<ul class="list-unstyled">
+		<li ng-repeat="item in user.cart" class="low-div">
+			<div class="media">
+				<div class="media-left">
+					<img class="game-cart-image" ng-src="{{item.path}}"/>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading bold"> {{item.title}} </h4>
+					<ul class="list-unstyled">
+						<li>Console: {{item.console}}</li>
+						<li ng-if="item.type == 'sale'">Cost: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{item.cost}}</li>
+						<li ng-if="item.type == 'ingest'">Credit: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{item.cost}}</li>
+						<li ng-if="item.type == 'trade'">Game Cash: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{item.cost}}</li> 
+						<li><button class="a btn-md btn-default neat add-button" ng-click="removeFromCart(item)">Remove from cart</button></li>
+					</ul>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<ul class="list-inline low-div">
+		<li ng-if="total > 0">
+			Total Due:  <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{total}}
+		</li>
+		<li ng-if="credit > 0">
+			Total Credit:  <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{credit}}
+		</li>
+		<li ng-if="coin > 0">
+			Total Game Cash:  <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{coin}}
+		</li>
+	</ul>
+	<div class="low-div">
+		<button class="a btn-lg btn-attention neat add-button" ng-click=""> Check Out </button>
+		<button class="a btn-lg btn-default neat add-button" ng-click="clearGame()"> Back to Browsing </button>
+	</div>
+</div>

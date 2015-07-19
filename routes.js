@@ -31,7 +31,8 @@ module.exports = function(app) {
 	
 	app.get('/gameView', function(req,res) {
 		if (req.session.user) {
-			res.render('game',  {game: req.session.game, msg:req.session.msg});
+			//res.render('game',  {game: req.session.game, msg:req.session.msg});
+			res.json(req.session.game);
 		} else {
 			res.redirect('/login');
 		}
@@ -57,11 +58,14 @@ module.exports = function(app) {
 	app.post('/game', games.game);
 	app.post('/games/update', games.update);
 	
-	// User authentication routes
+	// User service routes
 	app.post('/signup', users.signup);
 	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);
 	app.post('/user/addGame', users.addToCart);
+	app.post('/user/addCredit', users.creditUser);
+	app.post('/user/addCoin', users.coinUser);
+	app.post('/user/removeGame', users.removeFromCart);
 	app.get('/user/profile', users.getUserProfile);
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);
@@ -75,7 +79,6 @@ module.exports = function(app) {
 		passReqToCallback: true
 	},
 	function(req, accessToken, refreshToken, profile, done) {
-		//console.log(req);
 		// Look for the user
 		console.log("Looking for the user from facebook");
 		users.findUser(req, profile, accessToken, refreshToken, function(err, result) { 

@@ -10,13 +10,11 @@ var UserSchema = new Schema({
 	facebook_id: String,
 	access_token_facebook: String,
 	token_refresh_facebook: String,
-	coin: Number,
+	coin_available: { type: Number, default: 0 },
+	coin_buffered: { type: Number, default: 0 },
 	admin: Boolean,
-	cart: [{
-				title: String,
-				console: String,
-				path: String,
-				cost: Number
-			}]
+	cart:  { type : Array , default : [] },
+	credit_available: { type: Number, default: 0 },
+	credit_buffered: { type: Number, default: 0 }
 });
 mongoose.model('User', UserSchema);

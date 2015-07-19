@@ -3,6 +3,9 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+.alarm.ng-enter {
+  animation: bounce 1s;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,

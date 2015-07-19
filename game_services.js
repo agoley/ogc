@@ -48,27 +48,35 @@ exports.update = function(req, res){
 }
 
 exports.upload = function(req, res){
-   console.log("Begining game upload.");
-   var game = new Game({title:req.body.title});
-   game.set('console', req.body.console);
-   game.set('developer', req.body.developer);
-   game.set('release_date', req.body.date);
-   game.set('genre', req.body.genre);
-   game.set('buy_price', req.body.buyPrice);
-   game.set('sell_price', req.body.sellPrice);
-   var imgPath = "http://localhost/images/games/".concat(req.body.title.toLowerCase().concat("_").concat(req.body.console.toLowerCase()).replace(/[^\w\s]/gi, '').concat('.jpg'));
-   imgPath = imgPath.split(' ').join('_');
-   game.set('image_path', imgPath);
-   console.log(game);
-   res.send();
-   game.save(function(err) {
-     if (err){
-		console.log(err);
-		res.end(0);
-     } else {
-       res.end(1);
-     }
-   });
+	// Check if the game exists already. If it does add to the quantity. Otherwise add the game.
+	Game.findOne({title: req.body.title, console: req.body.console}).exec(function(err,dup) {
+		if(dup){
+			console.log("ITS A DUP!");
+			err = "It's a dup!";
+			res.end(err);
+		} else {
+			var game = new Game({title:req.body.title});
+			game.set('console', req.body.console);
+			game.set('developer', req.body.developer);
+			game.set('release_date', req.body.date);
+			game.set('genre', req.body.genre);
+			game.set('buy_price', req.body.buyPrice);
+			game.set('sell_price', req.body.sellPrice);
+			var imgPath = "http://localhost/images/games/".concat(req.body.title.toLowerCase().concat("_").concat(req.body.console.toLowerCase()).replace(/[^\w\s]/gi, '').concat('.jpg'));
+			imgPath = imgPath.split(' ').join('_');
+			game.set('image_path', imgPath);
+			console.log(game);
+			res.send();
+			game.save(function(err) {
+				if (err){
+					console.log(err);
+					res.end(0);
+				} else {
+					res.end(1);
+				}
+			});
+		}
+	})
 };
 
 exports.getActionGames = function(req, res) {
