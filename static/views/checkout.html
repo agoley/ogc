@@ -1,0 +1,38 @@
+<div class="container game-profile-container">
+	<h3 class="bold"> Order Summary </h3>
+	<div class="low div"  ng-if="credit > 0">
+		<h5 class="bold"> Here is what you're selling: </h5>
+		<ol class="list">
+			<li ng-repeat="item in user.cart" class="low-div">
+				<div ng-if="item.type == 'ingest'">
+					{{item.title}} for ${{item.cost}}
+				</div>
+			</li>
+		</ol>
+		<mark>Total credit: ${{credit}}</mark>
+		<h3><small><span class="glyphicon glyphicon-piggy-bank"></span> Credit Policy</small></h3>
+		<h4><small>Credit is payed out after OnlineGameCash recieves the game(s) and verifies working condition. If the game(s) recieved are not in working condition they will be mailed back to you with no credit.</small></h4>
+		<h4><small><input class="low-div" type="checkbox" ng-model="checkout.policy_accepted"> I accept the credit policy. </small></h4>
+		<div>
+			Preffered method to recieve credit: <select data-ng-model="checkout.credit_preference" data-ng-options="opt for opt in creditTypes" required></select>
+		</div>
+		<div ng-if="checkout.credit_preference == 'Venmo'">
+			<div class="low-div input-group col col-md-4">
+				<span class="input-group-addon">@</span>
+				<input type="text" class="form-control neat" placeholder="Venmo username">
+			</div>
+			<div class="low-div input-group col col-md-4">
+				<span class="input-group-addon glyphicon glyphicon-envelope"></span>
+				<input type="text" ng-model="user.email" class="form-control neat" placeholder="email">
+			</div>
+		</div>
+	</div>
+	<div class="low div" ng-if="coin > 0">
+		<h5 class="bold"> Here is what you're trading: </h5>
+		Handle Coining user
+	</div>
+	<div class="low div" ng-if="total > 0">
+		<h5 class="bold"> Here is what you're buying: </h5>
+		Handle selling game
+	</div>
+</div>

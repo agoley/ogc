@@ -231,7 +231,6 @@ exports.twitterReturn =  function(req, res){
 						if (!user){
 							console.log("didnt find user, creating one: " + data );
 							var twitUser = new User({username:data["screen_name"]});
-							twitUser.set('email', data["screen_name"]);
 							twitUser.set('access_token_twitter', accessToken);
 							twitUser.set('access_token_secret_twitter', accessTokenSecret);
 							console.log("saving new user");
@@ -286,7 +285,6 @@ exports.findUser = function(req, profile, at, rt, fn) {
 			var faceUser = new User({facebook_id:profile.id});
 			faceUser.set('access_token_facebook', at);
 			faceUser.set('token_refresh_facebook', rt);
-			faceUser.set('email', profile.id);
 			faceUser.save(function(err) {
 				if (err){
 					console.log("An error occured saving the new user from facebook login");

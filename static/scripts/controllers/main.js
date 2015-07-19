@@ -15,6 +15,7 @@ var app = angular.module('loginApp')
 app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
 	$scope.addConfirm = false;
 	$scope.transaction = {};
+	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	
 	$http.get('http://localhost/user/profile').
 		success(function(data, status, headers, config) {
@@ -137,10 +138,20 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.editGame = false;
 	$scope.displayGame = false;
 	$scope.displayCart = false;
+	$scope.displayCheckout = false;
 	
-	$scope.toggleCart = function() {
-		$scope.displayCart = !$scope.displayCart;
+	$scope.viewCheckout = function() {
+		$scope.displayCheckout = true;
+		$scope.displayCart = false;
+		$scope.displayGame = false;
 	}
+	
+	$scope.viewCart = function() {
+		$scope.displayCheckout = false;
+		$scope.displayCart = true;
+		$scope.displayGame = false;
+	}
+	
 
 	$http.get('http://localhost/games/profile').
 		success(function(data, status, headers, config) {
@@ -335,6 +346,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 					$scope.game = data;
 					console.log($scope.game.genre);
 					$scope.displayCart = false;
+					$scope.displayCheckout = false;
 					$scope.displayGame = true;
 					$scope.query = null;
 					$scope.getMatches();

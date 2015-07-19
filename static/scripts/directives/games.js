@@ -41,3 +41,10 @@ app.directive("cartDisplay", function() {
     };
 });
 
+app.directive("checkout", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "views/checkout.html"
+    };
+});
+
