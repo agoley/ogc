@@ -3,6 +3,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Game = mongoose.model('Game');
+var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
 function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
@@ -66,9 +67,11 @@ module.exports = function(app) {
 	app.post('/user/addCredit', users.creditUser);
 	app.post('/user/addCoin', users.coinUser);
 	app.post('/user/removeGame', users.removeFromCart);
+	app.post('/submitTransaction', users.submitTransaction);
 	app.get('/user/profile', users.getUserProfile);
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);
+	app.post('/submitTransaction', users.submitTransaction);
 	
 	// Passport (Social media authentication) staging
 	var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;		

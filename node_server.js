@@ -15,6 +15,7 @@ var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 require('./users_model.js');
 require('./games_model.js');
+require('./transaction_model.js');
 var uri = "mongodb://user:user@localhost:27017/testDB";
 var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var conn = mongoose.connect(uri,options);

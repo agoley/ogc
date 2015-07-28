@@ -1,8 +1,9 @@
 <div ng-controller="GameController">
 	<authorized-header></authorized-header>
+	<confirmation ng-show="displayConf"></confirmation>
 	<cart-display ng-show="displayCart"></cart-display>
 	<game-display ng-show="displayGame && !displayCart"></game-display>
-	<games ng-hide="displayGame || displayCart || displayCheckout"></games>
+	<games ng-hide="displayGame || displayCart || displayCheckout || displayConf"></games>
 	<checkout ng-show="displayCheckout"></checkout>
 </div>
 <ogc-footer></ogc-footer>

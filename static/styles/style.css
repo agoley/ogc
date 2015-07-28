@@ -7,6 +7,10 @@ animated.ng-enter {
   animation: bounce 1s;
 }
 
+.policy {
+	font-size: small;
+}
+
 .add-panel {
 	margin-right: 10px !important;
 	margin-left: 10px !important;

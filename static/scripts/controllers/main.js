@@ -16,6 +16,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.addConfirm = false;
 	$scope.transaction = {};
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
+	$scope.checkout = {};
 	
 	$http.get('http://localhost/user/profile').
 		success(function(data, status, headers, config) {
@@ -24,12 +25,46 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			$scope.total = $scope.totalCart();
 			$scope.credit = $scope.totalCredit();
 			$scope.coin = $scope.totalCoin();
+			$scope.sales = $scope.allSalesInCart();
+			$scope.buys = $scope.allBuysInCart();
+			$scope.trades = $scope.allTradesInCart();
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
-		
+	
+	$scope.allSalesInCart = function() {
+		var currSales = [];
+		for(var i = 0; i < $scope.user.cart.length; i++){
+			if($scope.user.cart[i].type == 'sale'){
+				currSales.push($scope.user.cart[i]);
+			}
+		}
+		return currSales;
+	}
+	
+	$scope.allBuysInCart = function() {
+		var currBuys = [];
+		for(var i = 0; i < $scope.user.cart.length; i++){
+			if($scope.user.cart[i].type == 'ingest'){
+				currBuys.push($scope.user.cart[i]);
+			}
+		}
+		return currBuys;
+	}
+	
+	$scope.allTradesInCart = function() {
+		var currTrades = [];
+		for(var i = 0; i < $scope.user.cart.length; i++){
+			if($scope.user.cart[i].type == 'trade'){
+				currTrades.push($scope.user.cart[i]);
+			}
+		}
+		return currTrades;
+	}
+	
 	$scope.totalCart = function() {
 		var tot = 0;
+		var currSales = [];
 		for(var i = 0; i < $scope.user.cart.length; i++) {
 			if($scope.user.cart[i].type == 'sale') {
 				tot += $scope.user.cart[i].cost;
@@ -70,6 +105,9 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
 				$scope.coin = $scope.totalCoin();
+				$scope.sales = $scope.allSalesInCart();
+				$scope.buys = $scope.allBuysInCart();
+				$scope.trades = $scope.allTradesInCart();
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to http://localhost/user/addGame");
 			});
@@ -84,6 +122,9 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
 				$scope.coin = $scope.totalCoin();
+				$scope.sales = $scope.allSalesInCart();
+				$scope.buys = $scope.allBuysInCart();
+				$scope.trades = $scope.allTradesInCart();
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to http://localhost/user/addGame");
 			});
@@ -98,6 +139,9 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
 				$scope.coin = $scope.totalCoin();
+				$scope.sales = $scope.allSalesInCart();
+				$scope.buys = $scope.allBuysInCart();
+				$scope.trades = $scope.allTradesInCart();
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to http://localhost/user/addGame");
 			});
@@ -139,17 +183,27 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.displayGame = false;
 	$scope.displayCart = false;
 	$scope.displayCheckout = false;
+	$scope.displayConf = false;
 	
 	$scope.viewCheckout = function() {
 		$scope.displayCheckout = true;
 		$scope.displayCart = false;
 		$scope.displayGame = false;
+		$scope.displayConf = false;
+	}
+	
+	$scope.viewConf = function() {
+		$scope.displayCheckout = false;
+		$scope.displayCart = false;
+		$scope.displayGame = false;
+		$scope.displayConf = true;
 	}
 	
 	$scope.viewCart = function() {
 		$scope.displayCheckout = false;
 		$scope.displayCart = true;
 		$scope.displayGame = false;
+		$scope.displayConf = false;
 	}
 	
 
@@ -161,7 +215,28 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 			console.log('Error getting game');
 		});
 		
-
+	/*
+		Submit a transaction.
+		Change view to a confirmation page if successful.
+	*/
+	// TODO clear cart when done
+	$scope.submitTransaction = function(user){
+		// Finalize the transaction
+		$scope.checkout.email = user.email;
+		$scope.checkout.mailing_address = user.mailing_address;
+		$scope.checkout.billing_address = user.billing_address;
+		$scope.checkout.user_cart = user.cart;
+		$scope.checkout.credit = $scope.credit;
+		$scope.checkout.charge = $scope.total;
+		$scope.checkout.coin = $scope.coin;
+		$http.post('http://localhost/submitTransaction', $scope.checkout).success(function(data, status, headers, config) {
+			console.log("transaction:  " + JSON.stringify(data));
+			$scope.viewConf();
+			$scope.trans = data;
+		}).error(function(data, status, headers, config) {
+			console.log("App failed to post to http://localhost/submitTransaction");
+		});
+	}
 		
 	$scope.getAction = function() {
 		console.log($scope.page);
@@ -362,6 +437,8 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.clearGame = function(){
 		$scope.displayGame = false;
 		$scope.displayCart = false;
+		$scope.displayCheckout = false;
+		$scope.displayConf = false;
 	}
 }]);
 

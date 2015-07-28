@@ -48,3 +48,10 @@ app.directive("checkout", function() {
     };
 });
 
+app.directive("confirmation", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "views/confirmation.html"
+    };
+});
+

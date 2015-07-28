@@ -1,6 +1,7 @@
 /* User Services */
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
 function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
@@ -32,6 +33,82 @@ exports.removeFromCart = function(req, res) {
 			res.json(user)
 		}
 	});
+}
+
+/* 
+	Save a transaction to the database
+	Coin/Credit/Charge a user
+	Req contains the transaction
+	Return the transaction
+*/
+exports.submitTransaction = function(req, res) {
+	// If policy accepted
+	var trans = new Transaction({user_id: req.session.user.toString()});
+	// Set transaction fields
+	trans.set('user_cart', req.body.user_cart );
+	trans.set('email', req.body.email );
+	
+	// If there is credit, add credit to the users credit buffer.
+	if(req.body.credit != null){
+		trans.set('credit', req.body.credit );
+		trans.set('credit_preference', req.body.credit_preference );
+		if( trans.credit_preference == 'Venmo' ) {
+			trans.set('credit_preference', req.body.credit_preference );
+			trans.set('venmo_name', req.body.venmo_name );
+		}
+		
+		// add credit 
+		User.findOne({ _id: req.session.user }).exec(function(err, user) {
+			if (!user){
+				res.json(404, {err: 'User Not Found.'});
+			} else {
+			if(user.credit_buffered == null){
+				user.credit_buffered = 0;
+			}
+			user.credit_buffered = user.credit_buffered +  parseInt(req.body.credit);
+			user.save();
+			}	
+		});
+	}
+	
+	// If there is coin, add coin to the users coin buffer
+	if(req.body.coin != null) {
+		trans.set('coin', req.body.coin );
+		
+		// add coin 
+		User.findOne({ _id: req.session.user }).exec(function(err, user) {
+			if (!user){
+				res.json(404, {err: 'User Not Found.'});
+			} else {
+			if(user.coin_buffered == null){
+				user.coin_buffered = 0;
+			}
+			user.coin_buffered = user.coin_buffered + parseInt(req.body.coin);
+			user.save();
+			}	
+		});
+	}
+	
+	// If there is a charge, charge the user.
+	if(req.body.charge != null){
+		trans.set('charge', req.body.charge );
+		// Set mailing address
+		// Set billing address
+		// Set shipping type
+		// Charge here
+	}
+	
+	// Save the transaction
+	trans.save(function(err) {
+     if (err){
+		console.log(err);
+		res.redirect('/');
+     } else {
+       res.json(trans);
+     }
+   });
+	
+	
 }
 
 exports.addToCart = function(req, res) {
@@ -87,7 +164,7 @@ exports.creditUser = function(req, res) {
 			}
 			cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: req.body.buy_price, type: 'ingest'});
 			user.cart = cart;
-			user.credit_buffered = user.credit_buffered + req.body.buy_price;
+			//user.credit_buffered = user.credit_buffered + req.body.buy_price;
 			user.save();
 			res.json(user)
 		}
@@ -116,7 +193,7 @@ exports.coinUser = function(req, res) {
 			}
 			cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: (req.body.buy_price + 5), type: 'trade'});
 			user.cart = cart;
-			user.coin_buffered = user.coin_buffered + (req.body.buy_price + 5);
+			//user.coin_buffered = user.coin_buffered + (req.body.buy_price + 5);
 			user.save();
 			res.json(user)
 		}
