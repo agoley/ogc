@@ -11,6 +11,10 @@ animated.ng-enter {
 	font-size: small;
 }
 
+.clean {
+	border-radius: 0;
+}
+
 .add-panel {
 	margin-right: 10px !important;
 	margin-left: 10px !important;

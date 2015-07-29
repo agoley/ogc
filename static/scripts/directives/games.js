@@ -55,3 +55,10 @@ app.directive("confirmation", function() {
     };
 });
 
+app.directive("userProfile", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "views/user_profile.html"
+    };
+});
+

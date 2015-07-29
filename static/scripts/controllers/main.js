@@ -184,12 +184,22 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.displayCart = false;
 	$scope.displayCheckout = false;
 	$scope.displayConf = false;
+	$scope.displayProf = false;
 	
 	$scope.viewCheckout = function() {
 		$scope.displayCheckout = true;
 		$scope.displayCart = false;
 		$scope.displayGame = false;
 		$scope.displayConf = false;
+		$scope.displayProf = false;
+	}
+	
+	$scope.viewProf = function() {
+		$scope.displayCheckout = false;
+		$scope.displayCart = false;
+		$scope.displayGame = false;
+		$scope.displayConf = false;
+		$scope.displayProf = true;
 	}
 	
 	$scope.viewConf = function() {
@@ -197,6 +207,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.displayCart = false;
 		$scope.displayGame = false;
 		$scope.displayConf = true;
+		$scope.displayProf = false;
 	}
 	
 	$scope.viewCart = function() {
@@ -204,6 +215,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.displayCart = true;
 		$scope.displayGame = false;
 		$scope.displayConf = false;
+		$scope.displayProf = false;
 	}
 	
 
@@ -423,6 +435,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 					$scope.displayCart = false;
 					$scope.displayCheckout = false;
 					$scope.displayGame = true;
+					$scope.displayProf = false;
 					$scope.query = null;
 					$scope.getMatches();
 				} else {
@@ -439,6 +452,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.displayCart = false;
 		$scope.displayCheckout = false;
 		$scope.displayConf = false;
+		$scope.displayProf = false;
 	}
 }]);
 

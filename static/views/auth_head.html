@@ -20,7 +20,7 @@
 			<div class="pull-right signinup" ng-controller="LoginController">
 				<form>
 					<button class="btn navbar-btn neat outset" ng-click="viewCart()" >Shopping Cart <span class="badge">{{user.cart.length}}</span></button>
-					<button class="btn navbar-btn neat outset" ng-click="" ><text class="text-glow-hover">{{user.email}}</text></button>
+					<button class="btn navbar-btn neat outset" ng-click="viewProf()" ><text class="text-glow-hover">{{user.email}}</text></button>
 					<button class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text></button>
 				</form>
 				<div  class="animated bounce alert alert-success add-success" ng-if="addConfirm"><strong>Game added</strong></div>
