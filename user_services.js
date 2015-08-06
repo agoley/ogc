@@ -35,6 +35,21 @@ exports.removeFromCart = function(req, res) {
 	});
 }
 
+/**
+	Return all pending transactions for a given user.
+	Passed in the request is a user id.
+*/
+exports.getPendingTransForUser = function(req, res) {
+	Transaction.find({ user_id: req.session.user, status: 'pending' })
+	.exec(function(err, data) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			res.json(data);
+		}
+	});
+}
+
 /* 
 	Save a transaction to the database
 	Coin/Credit/Charge a user
@@ -47,6 +62,7 @@ exports.submitTransaction = function(req, res) {
 	// Set transaction fields
 	trans.set('user_cart', req.body.user_cart );
 	trans.set('email', req.body.email );
+	trans.set('status', "pending" );
 	
 	// If there is credit, add credit to the users credit buffer.
 	if(req.body.credit != null){
