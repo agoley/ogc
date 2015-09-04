@@ -35,14 +35,47 @@ exports.removeFromCart = function(req, res) {
 	});
 }
 
+/** Update a user
+* Req: user information to update with.
+*/
+exports.updateUser = function(req, res) {
+	User.findOne({ _id: req.session.user }).exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			//var ma = user.mailing_address;
+			user.email = req.body.email;
+			
+			user.set('mailing_address.lineOne', req.body.mailing_address.lineOne);
+			user.set('mailing_address.lineTwo', req.body.mailing_address.lineTwo);
+			user.set('mailing_address.city', req.body.mailing_address.city);
+			user.set('mailing_address.state', req.body.mailing_address.state);
+			user.set('mailing_address.zip', req.body.mailing_address.zip);
+			
+			//user.mailing_address = ma;
+			console.log(user);
+			// Save the changes.
+			user.save(function (err) {
+				if (err) { 
+					console.log(err);
+				} else {
+					console.log("Successfully saved user changes");
+					res.json(user)
+				}
+			});	
+		}
+	});
+}
+
 /**
 	Return all pending transactions for a given user.
 	Passed in the request is a user id.
 */
 exports.getPendingTransForUser = function(req, res) {
 	Transaction.find({ user_id: req.session.user, status: 'pending' })
+	.limit(20)
 	.exec(function(err, data) {
-		if (!user){
+		if (!data){
 			res.json(404, {err: 'User Not Found.'});
 		} else {
 			res.json(data);
@@ -63,6 +96,7 @@ exports.submitTransaction = function(req, res) {
 	trans.set('user_cart', req.body.user_cart );
 	trans.set('email', req.body.email );
 	trans.set('status', "pending" );
+	trans.set('date', new Date());
 	
 	// If there is credit, add credit to the users credit buffer.
 	if(req.body.credit != null){
@@ -73,6 +107,8 @@ exports.submitTransaction = function(req, res) {
 			trans.set('venmo_name', req.body.venmo_name );
 		}
 		
+		//TODO: clean this method. All user changes should be made in a single find.
+		
 		// add credit 
 		User.findOne({ _id: req.session.user }).exec(function(err, user) {
 			if (!user){
@@ -82,6 +118,7 @@ exports.submitTransaction = function(req, res) {
 				user.credit_buffered = 0;
 			}
 			user.credit_buffered = user.credit_buffered +  parseInt(req.body.credit);
+			user.cart = [];
 			user.save();
 			}	
 		});

@@ -68,11 +68,13 @@ module.exports = function(app) {
 	app.post('/user/addCoin', users.coinUser);
 	app.post('/user/removeGame', users.removeFromCart);
 	app.post('/submitTransaction', users.submitTransaction);
+	app.post('/user/update', users.updateUser);
+	
 	app.get('/user/profile', users.getUserProfile);
 	app.get('/user/transactions', users.getPendingTransForUser);
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);
-	app.post('/submitTransaction', users.submitTransaction);
+
 	
 	// Passport (Social media authentication) staging
 	var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;		

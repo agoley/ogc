@@ -15,6 +15,10 @@ animated.ng-enter {
 	border-radius: 0;
 }
 
+.transaction-info {
+	border: 2px solid #FF8D00; 
+}
+
 .add-panel {
 	margin-right: 10px !important;
 	margin-left: 10px !important;

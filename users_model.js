@@ -16,8 +16,14 @@ var UserSchema = new Schema({
 	cart:  { type : Array , default : [] },
 	credit_available: { type: Number, default: 0 },
 	credit_buffered: { type: Number, default: 0 },
-	billing_address: { type : Array , default : [] },
-	mailing_address: { type : Array , default : [] },
+	billing_address: {},
+	mailing_address: {
+					lineOne: String,
+					lineTwo: String,
+					city: String,
+					state: String,
+					zip: Number
+					},
 	billing_info: { type : Array , default : [] }
 });
 mongoose.model('User', UserSchema);
