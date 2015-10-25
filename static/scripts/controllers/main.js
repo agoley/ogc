@@ -18,6 +18,16 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
 	
+	$scope.clearLastTransaction = function(){
+		console.log("clearing.");
+		$http.get('http://localhost/user/clearLastTransaction').
+		success(function(data, status, headers, config) {
+			console.log("cleared the last transaction.");
+		}).error(function(data, status, headers, config) {
+			console.log("App failed to post to http://localhost/clearLastTransaction");
+		});
+	}
+	
 	// Get pending transactions for the user. Displayed in the profile page.
 	$http.get('http://localhost/user/transactions').success(function(data, status, headers, config) {
 		console.log("transactions: ", data);
@@ -64,6 +74,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			console.log('Error getting user');
 		});
 	}
+	
 	$scope.allSalesInCart = function() {
 		var currSales = [];
 		for(var i = 0; i < $scope.user.cart.length; i++){
@@ -192,7 +203,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to http://localhost/user/addGame");
 		});
-	}	
+	} 	
 }]);
 
 app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
@@ -219,7 +230,30 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.displayProf = false;
 	$scope.transForUser = [];
 	
+	
+	// Request the token here.
+	$scope.getClientToken = function() {
+		$http.get('http://localhost/client_token')
+			.success(function(data, status, headers, config) {
+			var client_token = data;
+			console.log("token: " + client_token);
+			// Init braintree.
+			braintree.setup(client_token, "custom", {
+				id: "checkout"
+				/*onPaymentMethodReceived: function (obj) {
+					// Do some logic in here.
+					// When you're ready to submit the form:
+					console.log("pay callback");
+					document.forms["co"].submit();
+				}*/ 
+			});
+		}).error(function(data, status, headers, config) {
+			console.log("App failed to get client braintree token.");
+		});
+	}
+	
 	$scope.viewCheckout = function() {
+		$scope.getClientToken();
 		$scope.displayCheckout = true;
 		$scope.displayCart = false;
 		$scope.displayGame = false;
@@ -251,7 +285,11 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.displayProf = false;
 	}
 	
-
+	if($scope.user.last_transaction != null){
+		console.log("last not null");
+		$scope.viewConf();
+	}
+	
 	$http.get('http://localhost/games/profile').
 		success(function(data, status, headers, config) {
 			//console.log("game: ", data);
@@ -274,16 +312,18 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	*/
 	// TODO clear cart when done
 	$scope.submitTransaction = function(user){
+		if(!$scope.checkout.policy_accepted) { return; }
+		//if($scope.total > 0) { document.co.submit(); }
 		// Finalize the transaction
-		$scope.checkout.email = user.email;
 		$scope.checkout.mailing_address = user.mailing_address;
 		$scope.checkout.billing_address = user.billing_address;
 		$scope.checkout.user_cart = user.cart;
 		$scope.checkout.credit = $scope.credit;
 		$scope.checkout.charge = $scope.total;
 		$scope.checkout.coin = $scope.coin;
+		
 		$http.post('http://localhost/submitTransaction', $scope.checkout).success(function(data, status, headers, config) {
-			//console.log("transaction:  " + JSON.stringify(data));
+			console.log("transaction:  " + JSON.stringify(data));
 			$scope.viewConf();
 			$scope.trans = data;
 			user.cart = [];
@@ -297,6 +337,16 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 			console.log("App failed to post to http://localhost/submitTransaction");
 		});
 	}
+	
+	/* $scope.clearLastTransaction = function(){
+		console.log("clearing.");
+		$http.get('http://localhost/user/clearLastTransaction').
+		success(function(data, status, headers, config) {
+			console.log("cleared the last transaction.");
+		}).error(function(data, status, headers, config) {
+			console.log("App failed to post to http://localhost/clearLastTransaction");
+		});
+	}	*/
 		
 	$scope.getAction = function() {
 		//console.log($scope.page);

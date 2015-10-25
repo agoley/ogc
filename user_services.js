@@ -67,13 +67,32 @@ exports.updateUser = function(req, res) {
 	});
 }
 
+exports.clearLastTransaction = function(req, res) {
+	User.findOne({ _id: req.session.user }).exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			console.log('clearing last transaction.');
+			user.set('last_transaction', null);
+			user.save(function (err) {
+				if (err) { 
+					console.log(err);
+				} else {
+					console.log("Successfully saved user changes");
+					res.json(user)
+				}
+			});	
+		}
+	})
+}
+
 /**
 	Return all pending transactions for a given user.
 	Passed in the request is a user id.
 */
 exports.getPendingTransForUser = function(req, res) {
 	Transaction.find({ user_id: req.session.user, status: 'pending' })
-	.limit(20)
+	.limit(5)
 	.exec(function(err, data) {
 		if (!data){
 			res.json(404, {err: 'User Not Found.'});

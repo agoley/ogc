@@ -33,16 +33,17 @@
     <script src="lib/angular.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
 	<script src="scripts/app.js"></script>
+	<script src="scripts/braintree.js"></script>
     <script src="scripts/directives/file.js"></script>
     <script src="scripts/controllers/main.js"></script>
 	<script src="scripts/directives/games.js"></script>
-	<script type="text/javascript" language="javascript>
-		// Handle custom triggering of clicks for browse button in IE10
+	<script type="text/javascript" language="javascript">
+		//Handle custom triggering of clicks for browse button in IE10
 		if (navigator.userAgent.indexOf("MSIE") > 0) {
 			$(".btn").mousedown(function() {
 				$(this).trigger('click');
 			});
-		}
+		};
 	</script>
 
 </body>

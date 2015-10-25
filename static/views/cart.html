@@ -1,4 +1,7 @@
 <div class="container game-profile-container">
+	<div ng-if="user.cart.length == 0">
+	Your cart is currently empty.
+	</div>
 	<ul class="list-unstyled">
 		<li ng-repeat="item in user.cart" class="low-div">
 			<div class="media">

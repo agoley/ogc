@@ -46,7 +46,7 @@
 			<span class="input-group-addon glyphicon glyphicon-envelope"></span>
 			<input type="text" ng-model="user.email" class="form-control" placeholder="email">
 		</div>
-		<div ng-if="checkout.credit_preference == 'Mailed Check' && credit > 0 || charge > 0">
+		<div ng-if="checkout.credit_preference == 'Mailed Check' || total > 0">
 			<div class="low-div input-group col col-md-4">
 				Address Line 1: <input type="text" ng-model="user.mailing_address.lineOne" class="form-control" placeholder="Mailing Address Line 1">
 			</div>
@@ -66,20 +66,60 @@
 	</div>
 	<div class="low-div" ng-if="total > 0">
 		<h3>Billing Information</h3>
+		<form name="co" id="checkout" action="http://localhost/payment-methods" method="post">
+			<label>Card Number</label>
+			<input class="form-control" data-braintree-name="number" value="4111111111111111">
+			<label>CVV</label>
+			<input class="form-control" data-braintree-name="cvv" value="100">
+			
+			<label>Expiration Date</label>
+			<input class="form-control" data-braintree-name="expiration_date" value="10/20">
+			<label>Postal Code</label>
+			<input class="form-control" data-braintree-name="postal_code" value="94107">
+			<label>Card Holder Name</label>
+			<input class="form-control" data-braintree-name="cardholder_name" value="John Smith">
+			<input type="hidden" name="checkout" value="{{checkout}}">
+			<input type="hidden" name="user" value="{{user}}">
+			<input type="hidden" name="total" value="{{total}}">
+			<input type="hidden" name="credit" value="{{credit}}">
+			<input type="hidden" name="coin" value="{{coin}}">
+			
+			<div class="low-div policy">
+				<h3>Policy</h3>
+				<span class="glyphicon glyphicon-piggy-bank"></span> Credit Policy
+				Credit is payed out after OnlineGameCash recieves the game(s) and verifies working condition. If the game(s) recieved are not in working condition they will be mailed back to you with no credit.
+				You are responsible for mailing the game to OnlineGameCash.
+				<span class="glyphicon glyphicon-send"></span> Trade Policy
+				Game ca$h is acknowledged and will appear in your onlinegamecash.com account after OnlineGameCash recieves the game(s) and verifies working condition. If the game(s) recieved are not in working condition they will be mailed back to you with no game ca$h.
+				You are responsible for mailing the game to OnlineGameCash. Game cash is only redeemable at onlinegamecash.com. 
+			</div>
+			<input class="low-div" type="checkbox" ng-model="checkout.policy_accepted"> I accept the policy.
+			<div class="low-div">
+				<div><input class="low-div" type="checkbox" ng-model="checkout.save"> save my info for future use.</div>
+				<!-- <button class="a btn-lg btn-attention neat add-button" ng-click="pay(); submitTransaction(user); refreshUser();" >Submit Order</button> -->
+				<!-- <input type="button" class="a btn-lg btn-attention neat add-button" onclick="pay();" value="Submit form"> -->
+			</div>
+			<input type="submit" id="submit" class="btn-lg btn-attention neat" value="Submit Order">
+		</form>
 	</div>
-	<div class="low-div policy">
-		<h3>Policy</h3>
-		<span class="glyphicon glyphicon-piggy-bank"></span> Credit Policy
-		Credit is payed out after OnlineGameCash recieves the game(s) and verifies working condition. If the game(s) recieved are not in working condition they will be mailed back to you with no credit.
-		You are responsible for mailing the game to OnlineGameCash.
-		<span class="glyphicon glyphicon-send"></span> Trade Policy
-		Game ca$h is acknowledged and will appear in your onlinegamecash.com account after OnlineGameCash recieves the game(s) and verifies working condition. If the game(s) recieved are not in working condition they will be mailed back to you with no game ca$h.
-		You are responsible for mailing the game to OnlineGameCash. Game cash is only redeemable at onlinegamecash.com. 
+	<div ng-if="total == 0">
+		<div class="low-div policy">
+			<h3>Policy</h3>
+			<span class="glyphicon glyphicon-piggy-bank"></span> Credit Policy
+			Credit is payed out after OnlineGameCash recieves the game(s) and verifies working condition. If the game(s) recieved are not in working condition they will be mailed back to you with no credit.
+			You are responsible for mailing the game to OnlineGameCash.
+			<span class="glyphicon glyphicon-send"></span> Trade Policy
+			Game ca$h is acknowledged and will appear in your onlinegamecash.com account after OnlineGameCash recieves the game(s) and verifies working condition. If the game(s) recieved are not in working condition they will be mailed back to you with no game ca$h.
+			You are responsible for mailing the game to OnlineGameCash. Game cash is only redeemable at onlinegamecash.com. 
+		</div>
+		<input class="low-div" type="checkbox" ng-model="checkout.policy_accepted"> I accept the policy.
+		<div class="low-div">
+			<div><input class="low-div" type="checkbox" ng-model="checkout.save"> save my info for future use.</div>
+			<button class="a btn-lg btn-attention neat add-button" ng-click="submitTransaction(user); refreshUser();" >Submit Order</button> 
+			<!-- <button class="a btn-lg btn-default neat add-button" ng-click="clearGame()"> Back to Browsing </button> -->
+		</div>
 	</div>
-	<input class="low-div" type="checkbox" ng-model="checkout.policy_accepted"> I accept the policy.
-	<div class="low-div">
-		<div><input class="low-div" type="checkbox" ng-model="checkout.save"> save my info for future use.</div>
-		<button class="a btn-lg btn-attention neat add-button" ng-click="submitTransaction(user); refreshUser();"> Submit Order </button>
-		<button class="a btn-lg btn-default neat add-button" ng-click="clearGame()"> Back to Browsing </button>
-	</div>
+	<button class="a btn-lg btn-default neat add-button" ng-click="clearGame()">Back to Browsing </button>
 </div>
+
+=

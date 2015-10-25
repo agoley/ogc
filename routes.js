@@ -5,6 +5,17 @@ var User = mongoose.model('User');
 var Game = mongoose.model('Game');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
+
+/* Braintree config */
+var braintree = require("braintree");
+
+var gateway = braintree.connect({
+  environment: braintree.Environment.Sandbox,
+  merchantId: "yznj2nd338249bxn",
+  publicKey: "2h2srgd23vdmj5xp",
+  privateKey: "c8823318fc817d0ceb25f87e3e5fb86e"
+});
+
 function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
           digest('base64').toString();
@@ -47,6 +58,75 @@ module.exports = function(app) {
 		}
 	});
 	
+	// Braintree client token generation.
+	app.get("/client_token", function (req, res) {
+		gateway.clientToken.generate({}, function (err, response) {
+			res.send(response.clientToken);
+		});
+	});
+	
+	// Braintree recieve payment.
+	app.post("/payment-methods", function (req, res) {
+		var nonce = req.body.payment_method_nonce;
+		// Use payment method nonce here (using test nonce for now)
+		console.log("req: " + JSON.stringify(req.body));
+		//console.log("checkout: " + JSON.stringify(req.body.checkout))
+		//Submit the transaction
+		var trans = new Transaction({user_id: req.session.user.toString()});
+		// Set transaction fields
+		trans.set('user_cart', req.body.user.user_cart );
+		trans.set('email', req.body.user.email );
+		trans.set('status', "pending" );
+		trans.set('date', new Date()); 
+		trans.set('credit', req.body.credit );
+		trans.set('charge', req.body.charge );
+		trans.set('coin', req.body.coin );
+		trans.set('credit_preference', req.body.credit_preference );
+		if( trans.credit_preference == 'Venmo' ) {
+			trans.set('credit_preference', req.body.credit_preference );
+			trans.set('venmo_name', req.body.venmo_name );
+		}
+		
+		// Save the user
+		User.findOne({ _id: req.session.user }).exec(function(err, user) {
+			if (!user){
+				res.json(404, {err: 'User Not Found.'});
+			} else {
+			if(user.credit_buffered == null || user.credit_buffered == 'NaN'){
+				user.credit_buffered = 0;
+			}
+			if(user.coin_buffered == null || user.coin_buffered == 'NaN' ){
+				user.coin_buffered = 0;
+			}
+			user.last_transaction = trans;
+			user.credit_buffered = user.credit_buffered +  parseInt(req.body.credit);
+			user.coin_buffered = user.coin_buffered + parseInt(req.body.coin);
+			trans.set('charge', req.body.charge );
+			user.cart = [];
+			user.save();
+			}	
+		});
+		
+		// Save the transaction
+		trans.save(function(err) {
+			if (err){
+				console.log(err);
+				res.redirect('/');
+			} else {
+				
+			}
+		});
+		
+		//Submit the payment
+		gateway.transaction.sale({
+			amount: '10.00',
+			paymentMethodNonce: nonce,
+			}, function (err, result) {
+			//console.log("payment result" + JSON.stringify(result));
+		});
+		res.redirect('/');
+	});
+	
 	// Game service routes
 	app.post('/upload/game', games.upload);
 	app.post('/games/action', games.getActionGames);
@@ -74,6 +154,7 @@ module.exports = function(app) {
 	app.get('/user/transactions', users.getPendingTransForUser);
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);
+	app.get('/user/clearLastTransaction', users.clearLastTransaction);
 
 	
 	// Passport (Social media authentication) staging

@@ -17,6 +17,7 @@ var UserSchema = new Schema({
 	credit_available: { type: Number, default: 0 },
 	credit_buffered: { type: Number, default: 0 },
 	billing_address: {},
+	last_transaction: {},
 	mailing_address: {
 					lineOne: String,
 					lineTwo: String,
