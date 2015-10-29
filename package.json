@@ -2,18 +2,27 @@
   "name": "dolphin",
   "version": "1.0.0",
   "description": "",
-  "main": "games_model.js",
+  "main": "node_server.js",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "braintree": "^1.29.0",
+    "connect-mongo": "^0.8.2",
+    "ejs": "^2.3.4",
+    "cookie-parser": "^1.4.0",
+    "express-session": "^1.12.0",
     "mongodb": "^2.0.46",
-    "multer": "^0.1.8",
-    "mongoose": "^3.8.36",
     "express": "^4.10.8",
-    "mongodb-uri": "^0.9.7"
+    "mongodb-uri": "^0.9.7",
+    "mongoose": "^3.8.36",
+    "multer": "^0.1.8",
+    "passport-facebook": "^2.0.0",
+    "passport": "^0.3.0",
+    "node-twitter-api": "^1.6.1",
+    "passport-google": "^0.3.0"
   },
   "devDependencies": {},
   "scripts": {
-	"start": "node node_server.js",
+	"start": "node_server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
