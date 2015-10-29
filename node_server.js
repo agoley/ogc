@@ -19,7 +19,7 @@ require('./games_model.js');
 require('./transaction_model.js');
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
-var  uri = process.env.MONGOURI;
+var  uri = process.env.MONGOLAB_URI;
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },  
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };    
 
