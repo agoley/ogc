@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "~4.10.2",
-    "multer": "~0.1.6"
-, "braintree",
-  "version": "1.29.0"  },
+    "multer": "~0.1.6",
+	"braintree": "1.29.0"  },
   "main": "node_server.js",
   "devDependencies": {},
   "scripts": {
