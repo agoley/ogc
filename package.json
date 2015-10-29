@@ -1,11 +1,16 @@
 {
-  "name": "ogc",
-  "version": "0.0.1",
+  "name": "dolphin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "games_model.js",
   "dependencies": {
-    "express": "~4.10.2",
-    "multer": "~0.1.6",
-	"braintree": "1.29.0"  },
-  "main": "node_server.js",
+    "braintree": "^1.29.0",
+    "mongodb": "^2.0.46",
+    "multer": "^0.1.8",
+    "mongoose": "^3.8.36",
+    "express": "^4.10.8",
+    "mongodb-uri": "^0.9.7"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
