@@ -13,14 +13,27 @@ app.use(cookieParser());
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
+var uriUtil = require('mongodb-uri');
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
-var uri = "mongodb://user:user@localhost:27017/testDB";
-var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
-var conn = mongoose.connect(uri,options);
-var https = require('https');
+//var uri = "mongodb://user:user@localhost:27017/testDB";
+//var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
+var  uri = process.env.MONGOURI;
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },  
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };    
 
+var mongooseUri = uriUtil.formatMongoose(uri);
+//var conn = mongoose.connect(uri,options);
+mongoose.connect(mongooseUri, options); 
+var conn = mongoose.connection;  
+
+var https = require('https');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("h");
+});
 /* Configure multer for file uploads */
 var done=false;
 app.use(multer({ dest: './static/images/games',
