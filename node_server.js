@@ -79,8 +79,8 @@ app.set('views', __dirname + '\\static\\views');
 app.set('view engine', 'html');
 
 require('./routes')(app);
-
-app.listen(8080);
+var port = process.env.PORT || 3000;
+app.listen(port);
 
 
 /* https.createServer(options, app).listen(443);
