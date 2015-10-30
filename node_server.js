@@ -75,7 +75,8 @@ app.all('*', function(req, res, next) {
     next();
 });
 app.use('/', express.static('./static'));
-app.set('views', __dirname + '\\static\\views');
+//app.set('views', __dirname + '\\static\\views');
+app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
 require('./routes')(app);
