@@ -285,7 +285,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.displayProf = false;
 	}
 	
-	if($scope.user.last_transaction != null){
+	if($scope.user != null && $scope.user.last_transaction != null){
 		console.log("last not null");
 		$scope.viewConf();
 	}
