@@ -1,6 +1,6 @@
 <div class="container game-profile-container">
 		<button class="btn navbar-btn neat outset" ng-click="toggleEditGame()" ><text class="text-glow-hover">Edit Game</text></button>
-		<div ng-if="user.email == 'baymax@bot.com' && editGame">
+		<div ng-if="user.admin && editGame">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="bold">Edit Game</div>
