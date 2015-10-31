@@ -406,7 +406,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$http.get('https://agile-shelf-4123.herokuapp.com/games/titles').
 		success(function(data, status, headers, config) {
 			$scope.titles = data;
-			console.log("titles: " + $scope.titles);
+			console.log("titles: " + data);
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to https://agile-shelf-4123.herokuapp.com/games/titles");
 		});
