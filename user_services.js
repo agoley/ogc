@@ -337,7 +337,7 @@ var twitterAPI = require('node-twitter-api');
 var twitter = new twitterAPI({
     consumerKey: 'rASJtoCIWHLvqMDgvx3VgdkLd',
     consumerSecret: '8FGvXSwJof0eoehWgVQ1EdcBAOmGIV56X0s9YHNWvHV589Suna',
-    callback: 'http://127.0.0.1/auth/twitter/return'
+    callback: 'https://agile-shelf-4123.herokuapp.com/auth/twitter/return'
 });
 
 var rt, rts;
