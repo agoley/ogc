@@ -79,6 +79,16 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
+//Clean up sessions
+function sessionCleanup() {
+    sessionStore.all(function(err, sessions) {
+        for (var i = 0; i < sessions.length; i++) {
+            sessionStore.get(sessions[i], function() {} );
+        }
+    });
+}
+setInterval(sessionCleanup(), 36000000);
+//
 require('./routes')(app);
 var port = process.env.PORT || 3000;
 app.listen(port);
