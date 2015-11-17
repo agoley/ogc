@@ -4,13 +4,13 @@ var User = mongoose.model('User');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
 var sha256 = rewuire('sha256');
-/*function hashPW(pwd){
+function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
           digest('base64').toString();
-};*/
-function hashPW(pwd) {
-	return sha256(pwd);
 };
+/*function hashPW(pwd) {
+	return sha256(pwd);
+};*/
 
 exports.removeFromCart = function(req, res) {
 	console.log(req.body);
