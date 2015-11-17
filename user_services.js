@@ -5,7 +5,7 @@ var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
 var sha = require('sha256');
 function hashPW(pwd){
-   return crypto.createHash('sha256').update(pwd).
+   return crypto.createHash('sha256').update(pwd.toString()).
           digest('base64').toString();
 };
 
