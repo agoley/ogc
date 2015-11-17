@@ -302,13 +302,15 @@ exports.signup = function(req, res){
 };
 
  exports.signin = function(req, res){
+	console.log("pass: " + req.body.password.toString());
    User.findOne({ email: req.body.email })
    .exec(function(err, user) {
      if (!user){
        err = 'User Not Found.';
 	   console.log("no user found");
+	   console.log("user: " user);
 	   res.end();
-     } else if (user.password ===
+     } else if (user.password != null && user.password ===
                 hashPW(req.body.password.toString())) {
        req.session.regenerate(function(){
          req.session.user = user.id;
