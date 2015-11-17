@@ -320,10 +320,12 @@ exports.signup = function(req, res){
      if(err){
        req.session.regenerate(function(){
          req.session.msg = err;
-	 res.send();
+		res.send();
+		res.end();
          //res.redirect('/login');
        });
      }
+	 res.end();
    });
 };
 
