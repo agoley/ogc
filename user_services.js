@@ -3,14 +3,14 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
-var sha256 = require('sha256');
+var sha = require('sha256');
 /*function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
           digest('base64').toString();
 };
 */
 function hashPW(pwd) {
-	return sha256(pwd);
+	return sha.sha256(pwd);
 };
 
 exports.removeFromCart = function(req, res) {
