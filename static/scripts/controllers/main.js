@@ -37,7 +37,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	});
 	
 	$scope.updateUser = function(){
-		$http.post('https://agile-shelf-4123.herokuapp.com/user/update', $scope.user).
+		$http.post('https://agile-shelf-4123.herokuapp.com/user/update',  headers: {'Content-Type': 'application/x-www-form-urlencoded', $scope.user).
 		success(function(data, status, headers, config) {
 			console.log("user: ", data);
 			$scope.user = data;
@@ -560,6 +560,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.credentials.password2 = '';
 	$scope.showSignUp = true;
 	$scope.fail = false;
+	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 	
 	$scope.passcheck = function() {
 		//console.log("password: " + $scope.credentials.password);
@@ -589,7 +590,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	
 	$scope.signup = function() {
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('https://agile-shelf-4123.herokuapp.com/signup', $scope.credentials).success(function(data, status, headers, config) {
+			$http.post('https://agile-shelf-4123.herokuapp.com/signup',  $scope.credentials).success(function(data, status, headers, config) {
 			//	console.log("App posted to https://agile-shelf-4123.herokuapp.com/signup,response: " + data);
 				window.location = 'https://agile-shelf-4123.herokuapp.com/home';
 			}).error(function(data, status, headers, config) {
