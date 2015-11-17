@@ -309,7 +309,7 @@ exports.signup = function(req, res){
 	   console.log("no user found");
 	   res.end();
      } else if (user.password ===
-                hashPW(req.body.password)) {
+                hashPW(req.body.password.toString())) {
        req.session.regenerate(function(){
          req.session.user = user.id;
          req.session.username = user.username;
