@@ -3,9 +3,13 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
-function hashPW(pwd){
+var sha256 = rewuire('sha256');
+/*function hashPW(pwd){
    return crypto.createHash('sha256').update(pwd).
           digest('base64').toString();
+};*/
+function hashPW(pwd) {
+	return sha256(pwd);
 };
 
 exports.removeFromCart = function(req, res) {
@@ -277,10 +281,11 @@ exports.signout = function(req, res) {
 		res.redirect('/');
     });
 };
-	   
+	
+//sign up	
 exports.signup = function(req, res){
    var user = new User({username:req.body.username});
-   user.set('password', hashPW(req.body.password));
+   user.set('password', hashPW(req.body.password.toString()));
    user.set('email', req.body.email);
    user.save(function(err) {
      if (err){
