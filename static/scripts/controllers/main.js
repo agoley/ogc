@@ -17,6 +17,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.transaction = {};
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
+	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 	
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
@@ -37,7 +38,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	});
 	
 	$scope.updateUser = function(){
-		$http.post('https://agile-shelf-4123.herokuapp.com/user/update',  headers: {'Content-Type': 'application/x-www-form-urlencoded', $scope.user).
+		$http.post('https://agile-shelf-4123.herokuapp.com/user/update', $scope.user).
 		success(function(data, status, headers, config) {
 			console.log("user: ", data);
 			$scope.user = data;
