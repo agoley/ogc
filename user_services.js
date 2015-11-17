@@ -329,7 +329,6 @@ exports.signup = function(req, res){
          //res.redirect('/login');
        });
      }
-	 res.end();
    });
 };
 
