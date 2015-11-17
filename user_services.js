@@ -10,7 +10,7 @@ var sha = require('sha256');
 };
 */
 function hashPW(pwd) {
-	return sha.sha256(pwd);
+	return sha(pwd);
 };
 
 exports.removeFromCart = function(req, res) {
