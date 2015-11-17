@@ -8,10 +8,11 @@
  * Controller of the loginApp
  */
 var app = angular.module('loginApp')
-  .config(function($httpProvider){
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
   .controller('MainCtrl', function ($scope) {
   });
+  
+app.config(function($httpProvider){
+    delete $httpProvider.defaults.headers.common['X-Requested-With']; });
   
 
 app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
