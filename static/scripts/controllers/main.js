@@ -591,7 +591,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	
 	$scope.signup = function() {
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('https://agile-shelf-4123.herokuapp.com/signup',  $scope.credentials).success(function(data, status, headers, config) {
+			$http.post('http://agile-shelf-4123.herokuapp.com/signup',  $scope.credentials).success(function(data, status, headers, config) {
 			//	console.log("App posted to https://agile-shelf-4123.herokuapp.com/signup,response: " + data);
 				window.location = 'https://agile-shelf-4123.herokuapp.com/home';
 			}).error(function(data, status, headers, config) {
