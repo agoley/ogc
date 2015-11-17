@@ -18,7 +18,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
 	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-	
+	$http.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
 		$http.get('https://agile-shelf-4123.herokuapp.com/user/clearLastTransaction').
@@ -230,7 +230,8 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.displayConf = false;
 	$scope.displayProf = false;
 	$scope.transForUser = [];
-	
+	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+	$http.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 	
 	// Request the token here.
 	$scope.getClientToken = function() {
@@ -562,7 +563,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.showSignUp = true;
 	$scope.fail = false;
 	$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-	
+	$http.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 	$scope.passcheck = function() {
 		//console.log("password: " + $scope.credentials.password);
 		//console.log("password2: " + $scope.credentials.password2);
