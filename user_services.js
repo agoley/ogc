@@ -6,7 +6,7 @@ var crypto = require('crypto');
 var sha = require('sha256');
 function hashPW(pwd){
 	console.log("pwd: " + pwd);
-   return crypto.createHash('sha256').update(pwd.toString()).
+   return crypto.createHash('sha256').update(pwd).
           digest('base64').toString();
 };
 
@@ -286,9 +286,11 @@ exports.signout = function(req, res) {
 	
 //sign up	
 exports.signup = function(req, res){
-	console.log("body:" + JSON.stringify(req.body));
+	//console.log("body:" + JSON.stringify(req.body));
+   var pwd = req.body.password;
+   console.log("password: " + pwd);
    var user = new User({username:req.body.username});
-   user.set('password', hashPW(JSON.stringify(req.body.password)));
+   user.set('password', hashPW(pwd);
    user.set('email', req.body.email);
    user.save(function(err) {
      if (err){
