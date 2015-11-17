@@ -11,9 +11,9 @@ var app = angular.module('loginApp')
   .controller('MainCtrl', function ($scope) {
   });
   
-app.config(function($httpProvider){
+/*app.config(function($httpProvider){
     delete $httpProvider.defaults.headers.common['X-Requested-With']; });
-  
+ */ 
 
 app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
 	$scope.addConfirm = false;
