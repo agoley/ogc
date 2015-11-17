@@ -330,6 +330,7 @@ exports.signup = function(req, res){
      }
 	 res.end();
    });
+   res.end();
 };
 
 exports.getUserProfile = function(req, res) {
