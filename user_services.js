@@ -308,7 +308,7 @@ exports.signup = function(req, res){
      if (!user){
        err = 'User Not Found.';
 	   console.log("no user found");
-	   console.log("user: " user);
+	   console.log("user: " + user);
 	   res.end();
      } else if (user.password != null && user.password ===
                 hashPW(req.body.password.toString())) {
