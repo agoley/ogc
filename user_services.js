@@ -316,6 +316,7 @@ exports.signup = function(req, res){
        });
      }else{
        err = 'Authentication failed.';
+	   res.end();
      }
      if(err){
        req.session.regenerate(function(){
