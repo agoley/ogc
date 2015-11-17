@@ -311,7 +311,6 @@ exports.signup = function(req, res){
      if (!user){
        err = 'User Not Found.';
 	   console.log("no user found");
-	   res.end();
      } else if (user.password != null && user.password ===
                 hashPW(req.body.password.toString())) {
        req.session.regenerate(function(){
@@ -322,19 +321,16 @@ exports.signup = function(req, res){
        });
      }else{
        err = 'Authentication failed.';
-	   res.end();
      }
      if(err){
        req.session.regenerate(function(){
          req.session.msg = err;
 		res.send();
-		res.end();
          //res.redirect('/login');
        });
      }
 	 res.end();
    });
-   res.end();
 };
 
 exports.getUserProfile = function(req, res) {
