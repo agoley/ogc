@@ -306,6 +306,8 @@ exports.signup = function(req, res){
    .exec(function(err, user) {
      if (!user){
        err = 'User Not Found.';
+	   console.log("no user found");
+	   res.end();
      } else if (user.password ===
                 hashPW(req.body.password)) {
        req.session.regenerate(function(){
