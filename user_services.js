@@ -301,6 +301,7 @@ exports.signup = function(req, res){
    });
 };
 
+
  exports.signin = function(req, res){
    User.findOne({ email: req.body.email })
    .exec(function(err, user) {
