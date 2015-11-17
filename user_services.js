@@ -290,7 +290,7 @@ exports.signup = function(req, res){
    var pwd = req.body.password;
    console.log("password: " + pwd);
    var user = new User({username:req.body.username});
-   user.set('password', hashPW(pwd);
+   user.set('password', hashPW(pwd));
    user.set('email', req.body.email);
    user.save(function(err) {
      if (err){
