@@ -4,6 +4,7 @@
 var express = require('express');
 var multer  = require('multer');
 var app = express();
+var cors = require('cors');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
@@ -17,6 +18,8 @@ var uriUtil = require('mongodb-uri');
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
+
+app.options('*', cors());
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var  uri = process.env.MONGOLAB_URI;
