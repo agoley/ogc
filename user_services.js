@@ -286,11 +286,11 @@ exports.signout = function(req, res) {
 	
 //sign up	
 exports.signup = function(req, res){
-	//console.log("body:" + JSON.stringify(req.body));
-   var pwd = req.body.password;
-   console.log("password: " + req.body.password);
+   console.log("body:" + JSON.stringify(req.body));
+   var usr = JSON.parse(req);
+   console.log("password: " + usr.password);
    var user = new User({username:req.body.username});
-   user.set('password', hashPW(pwd));
+   user.set('password', hashPW(usr.password));
    user.set('email', req.body.email);
    user.save(function(err) {
      if (err){
