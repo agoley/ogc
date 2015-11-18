@@ -311,24 +311,24 @@ exports.signup = function(req, res){
      if (!user){
        err = 'User Not Found.';
 	   console.log("no user found");
-     } else if (user.password != null && user.password ===
-                hashPW(req.body.password.toString())) {
-       req.session.regenerate(function(){
-         req.session.user = user.id;
-         req.session.username = user.username;
-         req.session.msg = 'Authenticated as ' + user.username;
-         res.redirect('/');
-       });
-     }else{
-       err = 'Authentication failed.';
-     }
-     if(err){
-       req.session.regenerate(function(){
-         req.session.msg = err;
-		res.send();
-         //res.redirect('/login');
-       });
-     }
+     } else { 
+		if(err){
+			req.session.regenerate(function(){ 
+				req.session.msg = err;
+				res.send();
+				//res.redirect('/login');
+			});
+		} else {
+			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
+				req.session.regenerate(function(){
+					req.session.user = user.id;
+					req.session.username = user.username;
+					req.session.msg = 'Authenticated as ' + user.username;
+					res.redirect('/');
+				});
+			} 
+		}
+	} 
    });
 };
 
