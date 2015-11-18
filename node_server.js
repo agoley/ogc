@@ -6,10 +6,7 @@
 //var app = express();
 var express = require('express');
 var cors = require('cors');
-
 var app = express();
-app.use(cors());
-
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
