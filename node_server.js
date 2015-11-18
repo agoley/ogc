@@ -4,11 +4,12 @@
 //var express = require('express');
 //var cors = require('cors');
 //var app = express();
-var express = require('express')
-     , cors = require('cors')
-     , app = express();
+var express = require('express')'
+var cors = require('cors')
 
-app.use(cors());
+var app = express()
+app.use(cors())
+
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
@@ -72,18 +73,18 @@ app.use(expressSession({
 		collection: 'sessions'
 	})
 }));
-app.all('*', function(req, res, next) {
+/*app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Origin", "http://agile-shelf-4123.herokuapp.com");
    res.header("Access-Control-Allow-Origin", "https://agile-shelf-4123.herokuapp.com*");
    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
     res.header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
-    if (req.method === 'OPTIONS') {
-    res.send(200);
-  } else {
+    if ('OPTIONS' == req.method){
+        return res.sendStatus(200);
+    }
     next();
-  }
-});
+});*/
+
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');
