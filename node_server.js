@@ -62,7 +62,7 @@ app.post('/api/photo',function(req,res){
 	}
 });
 
-app.use(expressSession({
+app.use(cors(), expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
@@ -70,7 +70,7 @@ app.use(expressSession({
 		collection: 'sessions'
 	})
 }));
-app.all('*', cors(), function(req, res, next) {
+/*app.all('*', cors(), function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
@@ -79,8 +79,7 @@ app.all('*', cors(), function(req, res, next) {
         return res.sendStatus(200);
     }
     next();
-});
-
+});*/
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');

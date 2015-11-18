@@ -5,7 +5,6 @@ var User = mongoose.model('User');
 var Game = mongoose.model('Game');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
-var cors = require('cors');
 
 /* Braintree config */
 var braintree = require("braintree");
@@ -142,7 +141,7 @@ module.exports = function(app) {
 	
 	// User service routes
 	app.post('/signup', users.signup);
-	app.post('/signin', cors(), users.signin);
+	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);
 	app.post('/user/addGame', users.addToCart);
 	app.post('/user/addCredit', users.creditUser);
