@@ -39,6 +39,16 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
   console.log("h");
 });
+
+app.use(cors(), expressSession({
+	secret: 'SECRET',
+	cookie: {maxAge: 60*60*1000},
+	db: new mongoStore({
+		mongooseConnection: mongoose.connection,
+		collection: 'sessions'
+	})
+}));
+
 /* Configure multer for file uploads */
 var done=false;
 app.use(multer({ dest: './static/images/games',
@@ -62,15 +72,7 @@ app.post('/api/photo',function(req,res){
 	}
 });
 
-app.use(cors(), expressSession({
-	secret: 'SECRET',
-	cookie: {maxAge: 60*60*1000},
-	db: new mongoStore({
-		mongooseConnection: mongoose.connection,
-		collection: 'sessions'
-	})
-}));
-/*app.all('*', cors(), function(req, res, next) {
+/*app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
