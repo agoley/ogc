@@ -4,11 +4,11 @@
 //var express = require('express');
 //var cors = require('cors');
 //var app = express();
-var express = require('express')'
-var cors = require('cors')
+var express = require('express');
+var cors = require('cors');
 
-var app = express()
-app.use(cors())
+var app = express();
+app.use(cors());
 
 var multer  = require('multer');
 var bodyParser = require('body-parser');
