@@ -1,10 +1,15 @@
 /* Server Config */
 
 /* Define dependencies */
-var express = require('express');
+//var express = require('express');
+//var cors = require('cors');
+//var app = express();
+var express = require('express')
+     , cors = require('cors')
+     , app = express();
+
+app.use(cors());
 var multer  = require('multer');
-var app = express();
-var cors = require('cors');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
@@ -19,7 +24,6 @@ require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
 
-app.options('*', cors());
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var  uri = process.env.MONGOLAB_URI;

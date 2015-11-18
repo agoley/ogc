@@ -319,6 +319,7 @@ exports.signup = function(req, res){
 				//res.redirect('/login');
 			});
 		} else {
+			console.log("user: " + user);
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
 				req.session.regenerate(function(){
 					req.session.user = user.id;
