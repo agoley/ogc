@@ -7,6 +7,7 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
+app.options('*', cors());
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
@@ -40,7 +41,7 @@ db.once('open', function callback () {
   console.log("h");
 });
 
-app.use(cors(), expressSession({
+app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
