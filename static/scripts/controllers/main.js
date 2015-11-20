@@ -352,7 +352,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		
 	$scope.getAction = function() {
 		//console.log($scope.page);
-		$http.post('https://agile-shelf-4123.herokuapp.com/games/action', $scope.page).
+		$http.post('//agile-shelf-4123.herokuapp.com/games/action', $scope.page).
 		success(function(data, status, headers, config) {
 			//console.log("App posted to https://agile-shelf-4123.herokuapp.com/game/action,response: ", data[0].image_path);
 			$scope.action = data;
@@ -602,7 +602,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	
 	$scope.login = function() {
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('https://agile-shelf-4123.herokuapp.com/signin', $scope.credentials).success(function(data, status, headers, config) {
+			$http.post('//agile-shelf-4123.herokuapp.com/signin', $scope.credentials).success(function(data, status, headers, config) {
 			//	console.log("App posted to https://agile-shelf-4123.herokuapp.com/signin, resonse: " + data);
 				if(data){
 					window.location = 'https://agile-shelf-4123.herokuapp.com/home';
