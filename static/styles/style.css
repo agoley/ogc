@@ -340,7 +340,10 @@ img.center {
     margin-right: auto;
 }
 
-.genre-header {
+.genre-list {
+	display:inline-block;
+    width: 100%;
+    white-space: normal;
 }
 
 .minwidth { white-space: nowrap; }
