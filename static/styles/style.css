@@ -343,7 +343,6 @@ img.center {
 .genre-list {
 	display:inline-block;
     width: 100%;
-    white-space: normal;
 }
 
 .minwidth { white-space: nowrap; }
