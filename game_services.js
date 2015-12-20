@@ -81,7 +81,7 @@ exports.upload = function(req, res){
 };
 
 exports.getActionGames = function(req, res) {
-	var paginate = 6;
+	var paginate = 15;
 	var page = parseInt(req.body.actionNumber);
 	Game.find({ genre: "Action" })
 	.skip(page * paginate)
@@ -98,7 +98,7 @@ exports.getActionGames = function(req, res) {
 
 
 exports.getShooterGames = function(req, res) {
-	var paginate = 6;
+	var paginate = 15;
 	var page = parseInt(req.body.shooterNumber);
 	Game.find({ genre: "Shooter" })
 	.skip(page * paginate)
@@ -114,7 +114,7 @@ exports.getShooterGames = function(req, res) {
 };
 
 exports.getFamilyGames = function(req, res) {
-	var paginate = 6;
+	var paginate = 15;
 	var page = parseInt(req.body.familyNumber);
 	Game.find({ genre: "Family" })
 	.skip(page * paginate)
@@ -130,7 +130,7 @@ exports.getFamilyGames = function(req, res) {
 };
 
 exports.getRacingGames = function(req, res) {
-	var paginate = 6;
+	var paginate = 15;
 	var page = parseInt(req.body.racingNumber);
 	Game.find({ genre: "Racing" })
 	.skip(page * paginate)
@@ -146,7 +146,7 @@ exports.getRacingGames = function(req, res) {
 };
 
 exports.getFightingGames = function(req, res) {
-	var paginate = 6;
+	var paginate = 15;
 	var page = parseInt(req.body.fightingNumber);
 	Game.find({ genre: "Fighting" })
 	.skip(page * paginate)
