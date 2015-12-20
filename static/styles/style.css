@@ -343,4 +343,4 @@ img.center {
 .genre-header {
 }
 
-.minwidth { min-width:100px; width: auto !important; width: 100px; white-space: nowrap; }
+.minwidth { white-space: nowrap; }
