@@ -329,9 +329,8 @@ footer a:focus {
 }
 
 .game-container {
-	width: 95%;
+	width: 100%;
 	margin; 0 auto;
-	padding-left: 50px;
 }
 
 img.center {
