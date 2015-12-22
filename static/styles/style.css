@@ -345,4 +345,8 @@ img.center {
     width: 100%;
 }
 
+.genre-header {
+	padding-left: 10;
+}
+
 .minwidth { white-space: nowrap; }
