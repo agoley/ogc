@@ -297,8 +297,6 @@ footer a:focus {
 .game-image {
 	width: 175px;
 	height: 215px;
-	z-index: -1;
-	
 }
 
 .game-profile-image {
@@ -353,6 +351,7 @@ img.center {
 .reverse-game-btn {
 	position: absolute:
 	left: 0px;
+	z-index: 10;
 }
 
 .minwidth { white-space: nowrap; }
