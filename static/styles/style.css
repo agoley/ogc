@@ -345,16 +345,12 @@ img.center {
 	display:inline-block;
     width: 100%;
 	left: 0px;
-	position: absolute;
 }
 
 .genre-header {
 	padding-left: 10px !important;
 }
 
-.game-row {
-	height: 215px;
-}
 .reverse-game-btn {
 	position: absolute:
 	left: 0px;
