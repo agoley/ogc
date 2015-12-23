@@ -297,7 +297,7 @@ footer a:focus {
 .game-image {
 	width: 175px;
 	height: 215px;
-	position: absolute;
+	position: relative;
 	z-index: -1;
 }
 
@@ -351,7 +351,7 @@ img.center {
 }
 
 .reverse-game-btn {
-	position: absolute:
+	position: fixed:
 	left: 0px;
 	z-index: 1;
 }

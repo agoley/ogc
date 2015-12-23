@@ -18,12 +18,11 @@
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Shooter</h4>
 	<ul class="list-inline genre-list">
-		
-		<li ng-repeat="game in shooter">
-			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
-		</li>
 		<li>
 			<button ng-click="reverseShooter()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+		</li>
+		<li ng-repeat="game in shooter">
+			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
 		</li>
 		<!--<li>
 			<button ng-click="getShooter()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
