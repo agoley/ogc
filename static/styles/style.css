@@ -344,7 +344,7 @@ img.center {
 .genre-list {
 	display:inline-block;
     width: 100%;
-	left: 0px;
+	margin: -20px;
 }
 
 .genre-header {
