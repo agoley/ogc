@@ -297,7 +297,6 @@ footer a:focus {
 .game-image {
 	width: 175px;
 	height: 215px;
-	position:fixed;
 	z-index: -1;
 	
 }
