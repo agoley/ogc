@@ -2,7 +2,6 @@
 <div class="game-container" padding-top="10px">
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Action</h4>
-	<div class="game-row">
 	<button ng-click="reverseAction()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 	<ul class="list-inline genre-list">
 		<li class="game-row" ng-repeat="game in action">
@@ -13,15 +12,12 @@
 		</li>-->
 	</ul>
 	</div>
-	</div>
 	
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Shooter</h4>
+	<button ng-click="reverseShooter()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 	<ul class="list-inline genre-list">
-		<!--<li>
-			<button ng-click="reverseShooter()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>-->
-		<li  class="game-row"  ng-repeat="game in shooter">
+		<li   ng-repeat="game in shooter">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
 		</li>
 		<!--<li>

@@ -344,7 +344,7 @@ img.center {
 .genre-list {
 	display:inline-block;
     width: 100%;
-	margin: -20px;
+	margin-left: -60px;
 }
 
 .genre-header {
@@ -354,6 +354,7 @@ img.center {
 .reverse-game-btn {
 	position: absolute:
 	left: 0px;
+	width: 60px;
 	z-index: 1;
 }
 
