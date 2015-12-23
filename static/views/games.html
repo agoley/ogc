@@ -22,8 +22,8 @@
 		<li ng-repeat="game in shooter">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
 		</li>
-		<li class="reverse-game-btn">
-			<button ng-click="reverseShooter()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+		<li>
+			<button ng-click="reverseShooter()" class="btn black neat outset-arrow reverse-game-btn" ><span class="glyphicon glyphicon-menu-left"></span></button>
 		</li>
 		<!--<li>
 			<button ng-click="getShooter()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
