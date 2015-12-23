@@ -26,10 +26,8 @@
 	</ul></div>
 	<div class="minwidth">
 		<h4 class="genre-header regular-bold">Family</h4>
+		<button ng-click="reverseFamily()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 		<ul class="list-inline genre-list">
-		<!--<li>
-			<button ng-click="reverseFamily()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>-->
 		<li class="game-row"  ng-repeat="game in family">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		</li>
 		<!--<li>
@@ -39,10 +37,8 @@
 	
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Racing</h4>
+	<button ng-click="reverseRacing()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 	<ul class="list-inline genre-list">
-		<!--<li>
-			<button ng-click="reverseRacing()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>-->
 		<li ng-repeat="game in racing">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>
 		</li>
@@ -53,10 +49,8 @@
 	
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Fighting</h4>
+	<button ng-click="reverseFighting()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 	<ul class="list-inline genre-list">
-	<!--<li>
-			<button ng-click="reverseFighting()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		</li>-->
 		<li ng-repeat="game in fighting">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>
 		</li>
