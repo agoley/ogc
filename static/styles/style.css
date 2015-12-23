@@ -344,6 +344,8 @@ img.center {
 .genre-list {
 	display:inline-block;
     width: 100%;
+	left: 0px;
+	position: absolute;
 }
 
 .genre-header {
