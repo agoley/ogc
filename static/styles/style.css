@@ -349,11 +349,7 @@ img.center {
 .genre-header {
 	padding-left: 10px !important;
 }
-.game-row {
-	position: absolute;
-	z-index: -1;
-	left: 0px;
-}
+
 .reverse-game-btn {
 	position: fixed:
 	left: 0px;
