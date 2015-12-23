@@ -352,6 +352,7 @@ img.center {
 
 .game-row {
 	left: 0;
+	position: absolute;
 }
 .reverse-game-btn {
 	position: absolute:
