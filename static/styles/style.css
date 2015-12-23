@@ -353,6 +353,7 @@ img.center {
 .reverse-game-btn {
 	position: absolute:
 	left: 0px;
+	z-index: 1;
 }
 
 .minwidth { white-space: nowrap; }
