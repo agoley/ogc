@@ -21,7 +21,7 @@
 		<!--<li>
 			<button ng-click="reverseShooter()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 		</li>-->
-		<li  ng-repeat="game in shooter">
+		<li  class="game-row"  ng-repeat="game in shooter">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
 		</li>
 		<!--<li>
@@ -34,7 +34,7 @@
 		<!--<li>
 			<button ng-click="reverseFamily()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 		</li>-->
-		<li ng-repeat="game in family">
+		<li class="game-row"  ng-repeat="game in family">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		</li>
 		<!--<li>
 			<button ng-click="getFamily()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
