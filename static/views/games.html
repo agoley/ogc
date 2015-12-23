@@ -4,7 +4,7 @@
 	<h4 class="genre-header regular-bold">Action</h4>
 	<ul class="list-inline genre-list">
 		<button ng-click="reverseAction()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
-		<li ng-repeat="game in action">
+		<li class="game-row" ng-repeat="game in action">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>
 		</li>
 		<!--<li>
@@ -19,7 +19,7 @@
 		<!--<li>
 			<button ng-click="reverseShooter()" class="btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
 		</li>-->
-		<li class="game-row" ng-repeat="game in shooter">
+		<li  ng-repeat="game in shooter">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
 		</li>
 		<!--<li>

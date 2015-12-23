@@ -350,8 +350,11 @@ img.center {
 	padding-left: 10px !important;
 }
 
+.game-row {
+	left: 0;
+}
 .reverse-game-btn {
-	position: fixed:
+	position: absolute:
 	left: 0px;
 	z-index: 1;
 }
