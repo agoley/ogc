@@ -355,7 +355,20 @@ img.center {
 	position: absolute:
 	left: 0px;
 	width: 60px;
+	height: 215px;
+	opacity: 0.5;
 	z-index: 1;
 }
+
+.fwd-game-btn {
+	position: absolute:
+	right: 0px;
+	width: 60px;
+	height: 215px;
+	opacity: 0.5;
+	z-index: 1;
+}
+
+
 
 .minwidth { white-space: nowrap; }
