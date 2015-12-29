@@ -361,6 +361,7 @@ img.center {
 }
 
 .fwd-game-btn {
+	position: absolute;
 	width: 60px;
 	height: 215px;
 	opacity: 0.5;
