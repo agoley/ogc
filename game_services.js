@@ -82,10 +82,11 @@ exports.upload = function(req, res){
 
 exports.getActionGames = function(req, res) {
 	var paginate = 3;
+	var size = 15;
 	var page = parseInt(req.body.actionNumber);
 	Game.find({ genre: "Action" })
 	.skip(page * paginate)
-	.limit(paginate)
+	.limit(size)
 	.exec(function(err, games) {
 		if (!games){
 			res.json(404, {err: 'Data Not Found.'});
@@ -102,7 +103,7 @@ exports.getShooterGames = function(req, res) {
 	var page = parseInt(req.body.shooterNumber);
 	Game.find({ genre: "Shooter" })
 	.skip(page * paginate)
-	.limit(paginate)
+	.limit(size)
 	.exec(function(err, games) {
 		if (!games){
 			res.json(404, {err: 'Data Not Found.'});
@@ -118,7 +119,7 @@ exports.getFamilyGames = function(req, res) {
 	var page = parseInt(req.body.familyNumber);
 	Game.find({ genre: "Family" })
 	.skip(page * paginate)
-	.limit(paginate)
+	.limit(size)
 	.exec(function(err, games) {
 		if (!games){
 			res.json(404, {err: 'Data Not Found.'});
@@ -134,7 +135,7 @@ exports.getRacingGames = function(req, res) {
 	var page = parseInt(req.body.racingNumber);
 	Game.find({ genre: "Racing" })
 	.skip(page * paginate)
-	.limit(paginate)
+	.limit(size)
 	.exec(function(err, games) {
 		if (!games){
 			res.json(404, {err: 'Data Not Found.'});
@@ -150,7 +151,7 @@ exports.getFightingGames = function(req, res) {
 	var page = parseInt(req.body.fightingNumber);
 	Game.find({ genre: "Fighting" })
 	.skip(page * paginate)
-	.limit(paginate)
+	.limit(size)
 	.exec(function(err, games) {
 		if (!games){
 			res.json(404, {err: 'Data Not Found.'});
