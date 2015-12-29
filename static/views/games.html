@@ -14,46 +14,40 @@
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Shooter</h4>
 	<button ng-click="reverseShooter()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+	<button ng-click="getShooter()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
 	<ul class="list-inline genre-list">
 		<li   ng-repeat="game in shooter">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
 		</li>
-		<!--<li>
-			<button ng-click="getShooter()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>-->
 	</ul></div>
 	<div class="minwidth">
 		<h4 class="genre-header regular-bold">Family</h4>
 		<button ng-click="reverseFamily()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+		<button ng-click="getFamily()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
 		<ul class="list-inline genre-list">
 		<li class="game-row"  ng-repeat="game in family">
-			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		</li>
-		<!--<li>
-			<button ng-click="getFamily()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>-->
+			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>		
+		</li>
 	</ul></div>
 	
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Racing</h4>
 	<button ng-click="reverseRacing()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+	<button ng-click="getRacing()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
 	<ul class="list-inline genre-list">
 		<li ng-repeat="game in racing">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>
 		</li>
-		<!--<li>
-			<button ng-click="getRacing()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>-->
-	</ul></div>
+	</ul>
+	</div>
 	
 	<div class="minwidth">
 	<h4 class="genre-header regular-bold">Fighting</h4>
 	<button ng-click="reverseFighting()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+	<button ng-click="getFighting()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
 	<ul class="list-inline genre-list">
 		<li ng-repeat="game in fighting">
 			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>
 		</li>
-		<!--<li>
-			<button ng-click="getFighting()" class="btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
-		</li>-->
 	</ul></div>
 </div>
