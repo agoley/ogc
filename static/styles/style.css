@@ -298,6 +298,12 @@ footer a:focus {
 	width: 175px;
 	height: 215px;
 	position: relative;
+	z-index: -1;
+}
+
+.game-link{
+	position: relative;
+	z-index: -1;
 }
 
 .game-profile-image {
