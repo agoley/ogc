@@ -6,7 +6,7 @@
 	<button ng-click="getAction()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
 	<ul class="list-inline genre-list">
 		<li class="game-row" ng-repeat="game in action">
-			<a href="" class="game-image" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>
+			<a href="" ng-click="getGame(game.title)"><img class="game-image" ng-src="{{game.image_path}}"/></a>
 		</li>
 	</ul>
 	</div>

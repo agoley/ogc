@@ -298,13 +298,9 @@ footer a:focus {
 	width: 175px;
 	height: 215px;
 	position: relative;
-	z-index: -1;
+	z-index: 0;
 }
 
-.game-link{
-	position: relative;
-	z-index: -1;
-}
 
 .game-profile-image {
 	width: 275px;
@@ -348,6 +344,7 @@ img.center {
 
 .genre-list {
 	display:inline-block;
+	width: 100%;
 	margin-left: -70px;
 }
 
@@ -361,7 +358,7 @@ img.center {
 	width: 60px;
 	height: 215px;
 	opacity: 0.5;
-	z-index: 1;
+	z-index: 2;
 }
 
 .fwd-game-btn {
