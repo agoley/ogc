@@ -12,7 +12,7 @@
 			</div>
 			<div class="games-matched">
 				<ul class="list-group matches neat">
-					<a href="" ng-click="getGame(match)" ng-repeat="match in matches track by $index" class="list-group-item">{{match}} </a>
+					<div ng-repeat="match in matches track by $index" class="list-group-item">{{match}} </div>
 				</ul>
 			</div>
 		</div>
