@@ -6,6 +6,13 @@ app.directive("games", function() {
     };
 });
 
+app.directive("gamesUnauth", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "views/games-unauth.html"
+    };
+});
+
 app.directive("contentManager", function() {
   return {
     restrict: 'E',

@@ -1,0 +1,53 @@
+<content-manager ng-if="user.admin" ></content-manager>
+<div class="game-container" padding-top="10px">
+	<div class="minwidth">
+	<h4 class="genre-header regular-bold">Action</h4>
+	<button ng-click="reverseAction()" class="reverse-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-left"></span></button>
+	<button ng-click="getAction()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
+	<ul class="list-inline genre-list">
+		<li class="game-row" ng-repeat="game in action">
+			<img class="game-image" ng-src="{{game.image_path}}"/>
+		</li>
+	</ul>
+	</div>
+	
+	<div class="minwidth">
+	<h4 class="genre-header regular-bold">Shooter</h4>
+	<button ng-click="reverseShooter()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+	<button ng-click="getShooter()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
+	<ul class="list-inline genre-list">
+		<li   ng-repeat="game in shooter">
+			<img class="game-image" ng-src="{{game.image_path}}"/>		
+		</li>
+	</ul></div>
+	<div class="minwidth">
+		<h4 class="genre-header regular-bold">Family</h4>
+		<button ng-click="reverseFamily()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+		<button ng-click="getFamily()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
+		<ul class="list-inline genre-list">
+		<li class="game-row"  ng-repeat="game in family">
+			<img class="game-image" ng-src="{{game.image_path}}"/>		
+		</li>
+	</ul></div>
+	
+	<div class="minwidth">
+	<h4 class="genre-header regular-bold">Racing</h4>
+	<button ng-click="reverseRacing()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+	<button ng-click="getRacing()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
+	<ul class="list-inline genre-list">
+		<li ng-repeat="game in racing">
+			<img class="game-image" ng-src="{{game.image_path}}"/>
+		</li>
+	</ul>
+	</div>
+	
+	<div class="minwidth">
+	<h4 class="genre-header regular-bold">Fighting</h4>
+	<button ng-click="reverseFighting()" class="reverse-game-btn btn black neat outset-arrow" ><span class="glyphicon glyphicon-menu-left"></span></button>
+	<button ng-click="getFighting()" class="fwd-game-btn btn neat outset-arrow black" ><span class="glyphicon glyphicon-menu-right"></span></button>
+	<ul class="list-inline genre-list">
+		<li ng-repeat="game in fighting">
+			<img class="game-image" ng-src="{{game.image_path}}"/>
+		</li>
+	</ul></div>
+</div>
