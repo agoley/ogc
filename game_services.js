@@ -80,6 +80,19 @@ exports.upload = function(req, res){
 	})
 };
 
+
+var getActionCount = function() { 
+	var actionCount;
+	Game.count({genre: "Action"}, function(err, c) {
+		actionCount = c;
+      });
+      return actionCount;
+}
+
+exports.actionCount = function(req, res) {
+	res.send(getActionCount());
+}
+
 exports.getActionGames = function(req, res) {
 	var paginate = 3;
 	var size = 15;
