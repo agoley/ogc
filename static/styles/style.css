@@ -297,8 +297,6 @@ footer a:focus {
 .game-image {
 	width: 175px;
 	height: 215px;
-	position: relative;
-	z-index: 0;
 }
 
 
@@ -358,7 +356,7 @@ img.center {
 	width: 60px;
 	height: 215px;
 	opacity: 0.5;
-	z-index: 99;
+	z-index: 1;
 }
 
 .fwd-game-btn {
