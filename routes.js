@@ -135,6 +135,7 @@ module.exports = function(app) {
 	app.post('/games/racing', games.getRacingGames);
 	app.post('/games/fighting', games.getFightingGames);
 	app.get('/games/titles', games.getAllTitles);
+	app.get('/games/actoincount', games.actionCount);
 	app.get('/games/profile', games.getGameProfile);
 	app.post('/game', games.game);
 	app.post('/games/update', games.update);
