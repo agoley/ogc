@@ -355,7 +355,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		
 		$http.post('//agile-shelf-4123.herokuapp.com/games/action', $scope.page).
 		success(function(data, status, headers, config) {
-			console.log(data);
+			//console.log(data);
 			if(data != ""){ 
 				$scope.action = data;
 				$scope.page.actionNumber = $scope.page.actionNumber + 1;
@@ -370,8 +370,10 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$http.post('//agile-shelf-4123.herokuapp.com/games/shooter', $scope.page).
 		success(function(data, status, headers, config) {
 			//console.log("App posted to //agile-shelf-4123.herokuapp.com/game/shooter,response: ", data[0].image_path);
-			$scope.shooter = data;
-			$scope.page.shooterNumber = $scope.page.shooterNumber + 1;
+			if(data != ""){ 
+				$scope.shooter = data;
+				$scope.page.shooterNumber = $scope.page.shooterNumber + 1;
+			}
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/shooter");
 		});
@@ -380,8 +382,10 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.getFamily = function() {
 		$http.post('//agile-shelf-4123.herokuapp.com/games/family', $scope.page).
 		success(function(data, status, headers, config) {
-			$scope.family = data;
-			$scope.page.familyNumber = $scope.page.familyNumber + 1;
+			if(data != ""){ 
+				$scope.family = data;
+				$scope.page.familyNumber = $scope.page.familyNumber + 1;
+			}
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/family");
 		});
@@ -390,8 +394,10 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.getRacing = function() {
 		$http.post('//agile-shelf-4123.herokuapp.com/games/racing', $scope.page).
 		success(function(data, status, headers, config) {
-			$scope.racing = data;
-			$scope.page.racingNumber = $scope.page.racingNumber + 1;
+			if(data != ""){ 
+				$scope.racing = data;
+				$scope.page.racingNumber = $scope.page.racingNumber + 1;
+			}
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/racing");
 		});
@@ -400,8 +406,10 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.getFighting = function() {
 		$http.post('//agile-shelf-4123.herokuapp.com/games/fighting', $scope.page).
 		success(function(data, status, headers, config) {
-			$scope.fighting = data;
-			$scope.page.fightingNumber = $scope.page.fightingNumber + 1;
+			if(data != ""){ 
+				$scope.fighting = data;
+				$scope.page.fightingNumber = $scope.page.fightingNumber + 1;
+			}
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/fighting");
 		});
