@@ -94,13 +94,14 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);*/
 
+//cors and preflight filtering 
 app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With','X-Custom-Header');
+    res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
     if ('OPTIONS' == req.method){
-        return res.sendStatus(200);
+        return res.sendStatus(204);
     }
     next();
 });
