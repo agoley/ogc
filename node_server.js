@@ -72,7 +72,9 @@ app.post('/api/photo',function(req,res){
 		res.redirect('/home');
 	}
 });
-app.use(express.methodOverride());
+
+// attempting to fix preflight req,, but this broke the site
+/*app.use(express.methodOverride());
 
 // ## CORS middleware
 // 
@@ -90,7 +92,7 @@ var allowCrossDomain = function(req, res, next) {
       next();
     }
 };
-app.use(allowCrossDomain);
+app.use(allowCrossDomain);*/
 
 app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*' );
