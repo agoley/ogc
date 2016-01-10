@@ -601,8 +601,14 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	};
 	
 	$scope.signup = function() {
+		 var config = {
+			headers: { 
+				'Content-Type': 'text/plain'
+			}
+		};
+		var POSTDATA= JSON.stringify($scope.credentials);
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//agile-shelf-4123.herokuapp.com/signup',  $scope.credentials).success(function(data, status, headers, config) {
+			$http.post('//agile-shelf-4123.herokuapp.com/signup',  POSTDATA, config).success(function(data, status, headers, config) {
 			//	console.log("App posted to //agile-shelf-4123.herokuapp.com/signup,response: " + data);
 				window.location = '//agile-shelf-4123.herokuapp.com/home';
 			}).error(function(data, status, headers, config) {
