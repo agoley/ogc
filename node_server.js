@@ -74,10 +74,25 @@ app.post('/api/photo',function(req,res){
 });
 
 // attempting to fix preflight req,, but this broke the site
-/*app.use(express.methodOverride());*/
+/*app.use(express.methodOverride());
 
-
-app.use(allowCrossDomain);
+// ## CORS middleware
+// 
+// see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+app.use(allowCrossDomain);*/
 
 //cors and preflight filtering 
 app.all('*', function(req, res, next) {
@@ -85,6 +100,9 @@ app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
     res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
+    if ('OPTIONS' == req.method){
+        return res.sendStatus(200);
+    }
     next();
 });
 app.use('/', express.static('./static'));
