@@ -306,7 +306,8 @@ exports.signup = function(req, res){
 
 
  exports.signin = function(req, res){
-   User.findOne({ email: req.body.email })
+	var postReq = JSON.parse(Object.keys(req.body));
+   User.findOne({ email: postReq.email })
    .exec(function(err, user) {
      if (!user){
        err = 'User Not Found.';
@@ -320,7 +321,7 @@ exports.signup = function(req, res){
 			});
 		} else {
 			console.log("user: " + user);
-			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
+			if (user.password != null && user.password === hashPW(postReq.password.toString())) {
 				req.session.regenerate(function(){
 					req.session.user = user.id;
 					req.session.username = user.username;
