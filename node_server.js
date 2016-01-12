@@ -7,31 +7,13 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
-//app.options('*', cors());
-/ ## CORS middleware
-// 
-// see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
-};
-app.use(allowCrossDomain);
+app.options('*', cors());
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
-app.use(bodyParser());
-app.use(cookieParser());
+
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
@@ -40,6 +22,19 @@ require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
 
+//cors and preflight filtering 
+app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*' );
+	res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    if ('OPTIONS' == req.method){
+        return res.sendStatus(200);
+    }
+    next();
+});
+app.use(bodyParser());
+app.use(cookieParser());
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var  uri = process.env.MONGOLAB_URI;
@@ -91,21 +86,27 @@ app.post('/api/photo',function(req,res){
 });
 
 // attempting to fix preflight req,, but this broke the site
-//app.use(express.methodOverride());
+/*app.use(express.methodOverride());
 
-/
-
-/*cors and preflight filtering 
-app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*' );
-	res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    if ('OPTIONS' == req.method){
-        return res.sendStatus(200);
+// ## CORS middleware
+// 
+// see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
     }
-    next();
-});*/
+    else {
+      next();
+    }
+};
+app.use(allowCrossDomain);*/
+
+
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');
