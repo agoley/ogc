@@ -13,18 +13,6 @@ var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
-app.use(function(req, res, next) {
-  req.rawBody = '';
-  req.setEncoding('utf8');
-
-  req.on('data', function(chunk) { 
-    req.rawBody += chunk;
-  });
-
-  req.on('end', function() {
-    next();
-  });
-});
 app.use(bodyParser());
 app.use(cookieParser());
 var expressSession = require('express-session');
