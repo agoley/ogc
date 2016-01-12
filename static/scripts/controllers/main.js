@@ -628,7 +628,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			$http.post('//www.onlinegamecash.com/signin', $scope.credentials).success(function(data, status, headers, config) {
 			//	console.log("App posted to //agile-shelf-4123.herokuapp.com/signin, resonse: " + data);
 				if(data){
-					window.location = '//agile-shelf-4123.herokuapp.com/home';
+					window.location = '//www.onlinegamecash.com/home';
 				} else {
 					console.log("handle error");
 					$scope.fail = true;
