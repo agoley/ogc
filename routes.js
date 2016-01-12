@@ -28,6 +28,7 @@ module.exports = function(app) {
 	
 	app.get('/', function(req, res){
      console.log("redirecting");
+	 console.log("authenticated user id: " + req.session.user)
 	 if (req.session.user)	 {
 		 console.log("sending to /home");
 		res.redirect('/home');
