@@ -15,7 +15,6 @@ function hashPW(pwd){
 };*/
 
 exports.removeFromCart = function(req, res) {
-	console.log(req.body);
 	User.findOne({ _id: req.session.user })
 	.exec(function(err, user) {
 		if (!user){
