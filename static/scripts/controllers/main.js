@@ -625,7 +625,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		};
 		var POSTDATA= JSON.stringify($scope.credentials);
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('www.onlinegamecash.com/signin', $scope.credentials).success(function(data, status, headers, config) {
+			$http.post('//www.onlinegamecash.com/signin', $scope.credentials).success(function(data, status, headers, config) {
 			//	console.log("App posted to //agile-shelf-4123.herokuapp.com/signin, resonse: " + data);
 				if(data){
 					window.location = '//agile-shelf-4123.herokuapp.com/home';
