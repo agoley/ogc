@@ -307,7 +307,7 @@ exports.signup = function(req, res){
  exports.signin = function(req, res){
 	//console.log("req body: " +  Object.values(req));
 	//var postReq = JSON.parse(Object.keys(req.body));
-	console.log(postReq);
+	//console.log(postReq);
    User.findOne({ email: req.body.email })
    .exec(function(err, user) {
      if (!user){
