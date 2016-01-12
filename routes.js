@@ -27,9 +27,9 @@ module.exports = function(app) {
 	app.use('/static', express.static( './static'));
 	
 	app.get('/', function(req, res){
-     //console.log("redirecting");
+     console.log("redirecting");
 	 if (req.session.user)	 {
-		 //console.log("sending to /home");
+		 console.log("sending to /home");
 		res.redirect('/home');
      } else {
        req.session.msg = 'Access denied!';

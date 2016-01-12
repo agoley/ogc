@@ -317,8 +317,8 @@ exports.signup = function(req, res){
 		if(err){
 			req.session.regenerate(function(){ 
 				req.session.msg = err;
-				res.send();
-				//res.redirect('/login');
+				//res.send();
+				res.redirect('/login');
 			});
 		} else {
 			console.log("user: " + user);
@@ -327,6 +327,7 @@ exports.signup = function(req, res){
 					req.session.user = user.id;
 					req.session.username = user.username;
 					req.session.msg = 'Authenticated as ' + user.username;
+					console.log("authenticated user: " + user.username)
 					res.redirect('/');
 				});
 			} 
