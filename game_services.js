@@ -187,7 +187,7 @@ exports.game = function(req, res){
 			err = 'Game Not Found.';
 		} else {
 			req.session.game = game;
-			res.redirect('/gameView');
+			res.json(req.session.game);
 		}
 		res.end();
 	});
