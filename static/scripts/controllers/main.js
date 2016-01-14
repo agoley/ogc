@@ -574,10 +574,17 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.credentials.password2 = '';
 	$scope.showSignUp = true;
 	$scope.fail = false;
-	$scope.authenticated = false;
+	$scope.authenticated;
 	
 	// Check if a user is logged in
 	$scope.isAuthenticated = function() {
+	$http.get('//agile-shelf-4123.herokuapp.com/user/isAuth').
+		success(function(data, status, headers, config) {
+			$scope.authenticated = data;
+			console.log("isAuth: " + data);
+		}).error(function(data, status, headers, config) {
+			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/isAuth");
+		});
 	}
 
 	$scope.passcheck = function() {
@@ -601,7 +608,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//agile-shelf-4123.herokuapp.com/signin2',  $scope.credentials).success(function(data, status, headers, config) {
 				console.log(data);
-				$scope.authenticated = true;
+				$scope.isAuthenticated();
 				console.log("auth: " + $scope.authenticated);
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
