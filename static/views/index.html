@@ -33,9 +33,11 @@
 
     <!-- Add your site or application content here -->
 
-      <div id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
-      
-    <script src="lib/jquery/jquery.min.js"></script>
+      <div ng-if="!authenticated" id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
+	  
+      <div ng-if="authenticated" id="welcome" ng-include="'views/main_home.html'" ng-controller="HomeController" class="main-body"></div>
+    
+	<script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
     <script src="scripts/app.js"></script>
