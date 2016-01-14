@@ -142,6 +142,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.addToCart = function(game) {
 		// Filter by transaction type
 		if($scope.transaction.type == "sale") {
+			console.log("adding game: " + game);
 			$http.post('//agile-shelf-4123.herokuapp.com/user/addGame', game).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
@@ -628,7 +629,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			$http.post('//www.onlinegamecash.com/signin', $scope.credentials).success(function(data, status, headers, config) {
 			//	console.log("App posted to //agile-shelf-4123.herokuapp.com/signin, resonse: " + data);
 				if(data){
-					window.location = '//www.onlinegamecash.com/home';
+					window.location = '//agile-shelf-4123.herokuapp.com/home';
 				} else {
 					console.log("handle error");
 					$scope.fail = true;
