@@ -53,7 +53,14 @@ module.exports = function(app) {
 	
 	app.get('/home',  function(req, res){
 		if (req.session.user) {
-			res.render('home',  {username: req.session.username, msg:req.session.msg});
+		//res.render('index', function(err, html) {
+		//res.send(html);
+		//});
+
+			res.render('home',  {username: req.session.username, msg:req.session.msg}, function(err, html)
+				{
+					res.redirect('/home');
+				});
 		} else {
 			res.redirect('/login');
 		}
