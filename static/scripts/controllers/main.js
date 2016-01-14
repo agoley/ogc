@@ -590,14 +590,23 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		$scope.showSignUp = !$scope.showSignUp;
 	}
 	
+	// SIGN IN
+	$scope.signin2 = function(){
+		if($scope.credentials.email && $scope.credentials.password){
+			$http.post('//agile-shelf-4123.herokuapp.com/signin2',  $scope.credentials).success(function(data, status, headers, config) {
+				console.log(data);
+			}).error(function(data, status, headers, config) {
+				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
+			});
+		}
+	}
+	
 	$scope.signout = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/signout').
+		$http.post('//agile-shelf-4123.herokuapp.com/signin2').
 		success(function(data, status, headers, config) {
-			//console.log("App posted to //agile-shelf-4123.herokuapp.com/signout,response: " + data);
-			window.location = '//agile-shelf-4123.herokuapp.com';
+			
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signout");
-			window.location = '//agile-shelf-4123.herokuapp.com/login';
+			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/login");
 		});
 	};
 	

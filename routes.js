@@ -57,10 +57,7 @@ module.exports = function(app) {
 		//res.send(html);
 		//});
 
-			res.render('home',  {username: req.session.username, msg:req.session.msg}, function(err, html)
-				{
-					res.redirect('/home');
-				});
+			res.render('home',  {username: req.session.username, msg:req.session.msg});
 		} else {
 			res.redirect('/login');
 		}
@@ -149,6 +146,7 @@ module.exports = function(app) {
 	app.post('/games/update', games.update);
 	
 	// User service routes
+	app.post('/signin2', users.signup2);
 	app.post('/signup', users.signup);
 	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);

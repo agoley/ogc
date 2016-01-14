@@ -303,6 +303,44 @@ exports.signup = function(req, res){
    });
 };
 
+// return true if req.session.user is not null
+exports.userLoggedIn = function(req, res) {
+	if(req.session.user != null){
+		res.send(true);
+	}
+	res.send(false);
+}
+
+// Set the sessions user and return 
+exports.signin2 = function(req, res) {
+	User.findOne({ email: req.body.email })
+   .exec(function(err, user) {
+     if (!user){
+       err = 'User Not Found.';
+	   console.log("no user found");
+     } else { 
+		if(err){
+			req.session.regenerate(function(){ 
+				req.session.msg = err;
+				//res.send();
+				res.redirect('/login');
+			});
+		} else {
+			console.log("user: " + user);
+			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
+				req.session.regenerate(function(){
+					req.session.user = user.id;
+					req.session.username = user.username;
+					req.session.msg = 'Authenticated as ' + user.username;
+					console.log("authenticated user id: " + JSON.stringify(user))
+					res.send(user.ud);
+				});
+			} 
+		}
+	} 
+   });
+}
+
 
  exports.signin = function(req, res){
 	//console.log("req body: " +  Object.values(req));
