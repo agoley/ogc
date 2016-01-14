@@ -328,7 +328,8 @@ exports.signup = function(req, res){
 					req.session.username = user.username;
 					req.session.msg = 'Authenticated as ' + user.username;
 					console.log("authenticated user id: " + JSON.stringify(user))
-					res.redirect('/home');
+					res.render('home',  {username: req.session.username, msg:req.session.msg});
+					//res.redirect('/home');
 				});
 			} 
 		}
