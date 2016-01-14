@@ -309,7 +309,7 @@ exports.isUserLoggedIn = function(req, res) {
 		res.send("true");
 	}
 	res.send("false");
-}
+};
 
 // Set the sessions user and return 
 exports.signin2 = function(req, res) {
