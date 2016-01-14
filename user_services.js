@@ -304,11 +304,11 @@ exports.signup = function(req, res){
 };
 
 // return true if req.session.user is not null
-exports.userLoggedIn = function(req, res) {
+exports.isUserLoggedIn = function(req, res) {
 	if(req.session.user != null){
-		res.send(true);
+		res.send("true");
 	}
-	res.send(false);
+	res.send("false");
 }
 
 // Set the sessions user and return 
