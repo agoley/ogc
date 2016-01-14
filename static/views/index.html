@@ -32,11 +32,11 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-
-      <div ng-if="!authenticated" id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
+	<div ng-controller="LoginController">
+      <div ng-hide="!authenticated" id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
 	  
       <div ng-if="authenticated" id="welcome" ng-include="'views/main_home.html'" ng-controller="HomeController" class="main-body"></div>
-    
+    </div>
 	<script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.js"></script>

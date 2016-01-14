@@ -595,7 +595,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signin2 = function(){
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//agile-shelf-4123.herokuapp.com/signin2',  $scope.credentials).success(function(data, status, headers, config) {
-				//console.log(data);
+				console.log(data);
 				$scope.authenticated = true;
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
