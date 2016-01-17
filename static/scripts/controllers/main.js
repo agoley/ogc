@@ -608,6 +608,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	}
 	$scope.setAuth = function() {
 		$scope.authenticated = true;
+		console.log("auth: " + $scope.authenticated)
 	}
 	
 	// SIGN IN
