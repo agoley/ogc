@@ -606,19 +606,20 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.flipSignUp = function() {
 		$scope.showSignUp = !$scope.showSignUp;
 	}
-	
+	$scope.setAuth = function() {
+		$scope.authenticated = true;
+	}
 	
 	// SIGN IN
 	$scope.signin2 = function(){
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//agile-shelf-4123.herokuapp.com/signin2',  $scope.credentials).success(function(data, status, headers, config) {
 				console.log(data);
-				console.log("auth: " + $scope.authenticated);
+				$scope.isAuthenticated();
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
 			});
 		}
-		$scope.isAuthenticated();
 	}
 	
 	$scope.signout = function() {

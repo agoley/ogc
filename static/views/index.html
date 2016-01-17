@@ -34,7 +34,7 @@
     <!-- Add your site or application content here -->
 	<div ng-controller="LoginController">
 		{{authenticated}}
-      <div ng-show="!authenticated" id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
+      <div ng-hide="authenticated" id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
 	  
       <div ng-show="authenticated" id="home" ng-include="'views/main_home.html'" ng-controller="HomeController" class="main-body"></div>
 		
