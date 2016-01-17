@@ -26,7 +26,7 @@ module.exports = function(app) {
 	var games = require('./game_services');
 	app.use('/static', express.static( './static'));
 	
-	app.get('/', function(req, res){
+	/*app.get('/', function(req, res){
      console.log("redirecting");
 	 console.log("authenticated user id: " + req.session.user)
 	 if (req.session.user)	 {
@@ -37,7 +37,11 @@ module.exports = function(app) {
 	   //console.log("sending to /login");
        res.redirect('/login');
      }
+  });*/
+  app.get('/', function(req, res){
+		res.render('home',  {username: req.session.username, msg:req.session.msg});
   });
+  
 	app.get('/login',  function(req, res){
 		res.render('index', {msg:req.session.msg});
 	});
