@@ -23,6 +23,14 @@
 					<button class="btn navbar-btn neat outset" ng-click="viewCart()" >Shopping Cart <span class="badge">{{user.cart.length}}</span></button>
 					<button ng-show="authenticated" class="btn navbar-btn neat outset" ng-click="viewProf()" ><text class="text-glow-hover">{{user.email}}</text></button>
 					<button ng-show="authenticated" class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text></button>
+					<button  class="a" ng-hide="authenticated"
+						ng-class="showSignUp? 'btn navbar-btn neat outset no-border' : 'btn  navbar-btn neat inset no-border' "
+						ng-click="setSignIn()" > Sign In 
+					</button>
+					<button class="a" ng-hide="authenticated"
+						ng-class="!showSignUp? 'btn navbar-btn neat outset no-border' : 'btn navbar-btn neat inset no-border' "
+						ng-click="setSignUp()" > Sign Up 
+					</button>
 				</form>
 				<div  class="animated bounce alert alert-success add-success" ng-if="addConfirm"><strong>Game added</strong></div>
 			</div>
