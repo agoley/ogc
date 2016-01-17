@@ -33,11 +33,13 @@
 
     <!-- Add your site or application content here -->
 	<div ng-controller="LoginController">
-		{{authenticated}}
-      <div ng-hide="authenticated" id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
+      <!--<div ng-hide="authenticated" id="welcome" ng-include="'views/main.html'" ng-controller="LoginController"></div>
 	  
       <div ng-show="authenticated" id="home" ng-include="'views/main_home.html'" ng-controller="HomeController" class="main-body"></div>
-		
+		-->
+	<unauth-home ng-show="unauthenticated" ng-controller="LoginController"></unauth-home>
+	<auth-home ng-show="authenticated" ng-controller="HomeController"></auth-home>
+	
 	</div>
 	<script src="lib/jquery/jquery.min.js"></script>
     <script src="lib/angular.min.js"></script>

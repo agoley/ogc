@@ -69,3 +69,16 @@ app.directive("userProfile", function() {
     };
 });
 
+app.directive("unauthHome", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "views/main.html"
+    };
+});
+app.directive("authHome", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "views/main_home.html"
+    };
+});
+
