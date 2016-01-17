@@ -82,3 +82,10 @@ app.directive("authHome", function() {
     };
 });
 
+app.directive("newMember", function() {
+  return {
+    restrict: 'E',
+    templateUrl: "views/new_member.html"
+    };
+});
+
