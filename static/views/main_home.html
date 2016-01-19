@@ -1,6 +1,8 @@
 <div ng-controller="GameController">
-	<authorized-header></authorized-header>
-	<new-member></new-member>
+	<div ng-controller="LoginController">
+		<authorized-header></authorized-header>
+		<new-member></new-member>
+	</div>
 	<user-profile ng-show="displayProf"></user-profile>
 	<confirmation ng-show="displayConf"></confirmation>
 	<cart-display ng-show="displayCart"></cart-display>
