@@ -68,6 +68,10 @@ animated.ng-enter {
  z-index: 0;
 }
 
+.header-bar {
+	background-color: #00CC00;
+}
+
 .main-body{
 	margin-bottom: 75px;
 }
