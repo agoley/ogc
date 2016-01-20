@@ -23,7 +23,7 @@ require('./games_model.js');
 require('./transaction_model.js');
 
 //cors and preflight filtering 
-app.all('*', function(req, res, next) {
+/*app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
@@ -33,7 +33,26 @@ app.all('*', function(req, res, next) {
     } else {
 		next();
 	}
-});
+});*/
+function corsHandler(req, res, next) {
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://www.onlinegamecash.com/');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
+    res.setHeader('Access-Control-Max-Age', '1000');
+
+    return next();
+}
+
+function optionsRoute(req, res, next) {
+
+    res.send(200);
+    return next();
+}
+
+app.opts('/\.*/', corsHandler, optionsRoute);
+
 app.use(bodyParser());
 app.use(cookieParser());
 //var uri = "mongodb://user:user@localhost:27017/testDB";
