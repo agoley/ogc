@@ -314,7 +314,7 @@ exports.isUserLoggedIn = function(req, res) {
 
 // Set the sessions user and return 
 exports.signin2 = function(req, res) {
-	console.log("req body on sign in:" + req.params.creds.email);
+	console.log("req body on sign in:" + req.params.creds);
 	User.findOne({ email: req.body.email })
    .exec(function(err, user) {
      if (!user){
