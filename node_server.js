@@ -24,14 +24,13 @@ require('./transaction_model.js');
 
 //cors and preflight filtering 
 app.all('*', function(req, res, next) {
-	if (req.method === 'OPTIONS'){
-        return res.sendStatus(200);
-    }
 	res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    
+    if (req.method === 'OPTIONS'){
+        return res.sendStatus(200);
+    }
     next();
 });
 app.use(bodyParser());
