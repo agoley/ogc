@@ -1,10 +1,7 @@
 <div ng-controller="GameController">
-	<div ng-controller="LoginController" class="login-body" ng-hide="authenticated">
+	<div ng-controller="LoginController" ng-class="authenticated? 'login-body' : ''">
 		<authorized-header></authorized-header>
 		<new-member></new-member>
-	</div>
-	<div ng-show="authenticated">
-		<authorized-header></authorized-header>
 	</div>
 	<authorized-header></authorized-header>
 	<user-profile ng-show="displayProf"></user-profile>
