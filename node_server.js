@@ -22,44 +22,17 @@ require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
 
-/*(cors and preflight filtering 
+//cors and preflight filtering 
 app.all('*', function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*' );
+	if (req.method === 'OPTIONS'){
+        return res.sendStatus(200);
+    }
+	res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    /*if ('OPTIONS' == req.method){
-		res.header('Access-Control-Allow-Origin', '*' );
-        return res.sendStatus(200);
-    }*
+    
     next();
-});*/
-// Add headers
-app.use(function(req, res, next) {
-    var oneof = false;
-    if(req.headers.origin) {
-        res.header('Access-Control-Allow-Origin', req.headers.origin);
-        oneof = true;
-    }
-    if(req.headers['access-control-request-method']) {
-        res.header('Access-Control-Allow-Methods', req.headers['access-control-request-method']);
-        oneof = true;
-    }
-    if(req.headers['access-control-request-headers']) {
-        res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
-        oneof = true;
-    }
-    if(oneof) {
-        res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365);
-    }
-
-    // intercept OPTIONS method
-    if (oneof && req.method == 'OPTIONS') {
-        res.send(200);
-    }
-    else {
-        next();
-    }
 });
 app.use(bodyParser());
 app.use(cookieParser());
