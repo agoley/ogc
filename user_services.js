@@ -324,7 +324,7 @@ exports.signin2 = function(req, res) {
 			req.session.regenerate(function(){ 
 				req.session.msg = err;
 				//res.send();
-				res.redirect('/login');
+				res.redirect('/');
 			});
 		} else {
 			console.log("user: " + user);
