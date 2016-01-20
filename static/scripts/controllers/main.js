@@ -616,7 +616,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signin2 = function(){
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.get('//agile-shelf-4123.herokuapp.com/signin2',  { params: { creds: $scope.credentials}).success(function(data, status, headers, config) {
+			$http.get('//agile-shelf-4123.herokuapp.com/signin2',  { params: { creds: $scope.credentials} }).success(function(data, status, headers, config) {
 				console.log(data);
 				$scope.isAuthenticated();
 			}).error(function(data, status, headers, config) {
