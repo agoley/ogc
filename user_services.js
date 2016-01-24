@@ -324,7 +324,7 @@ exports.signin2 = function(req, res) {
 			res.send(200);
 		}
    });
-	res.send(200);
+	//res.send(200);
 	/*User.findOne({ email: req.body.email })
    .exec(function(err, user) {
      if (!user){
