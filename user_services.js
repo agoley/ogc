@@ -330,7 +330,7 @@ exports.signin2 = function(req, res) {
 				req.session.user = user.id;
 				req.session.username = user.username;
 				console.log("Session user: " + req.session.user);
-				res.render('home',  {username: req.session.username, user: req.session.user, msg:req.session.msg});res.render('home',  {username: req.session.username, user: req.session.user, msg:req.session.msg});
+				res.send(user);
 			}
 		}
    });
