@@ -323,14 +323,12 @@ exports.signin2 = function(req, res) {
 		} else {
 			console.log("Found on sign in: " + user );
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-				req.session.regenerate(function(){
-					req.session.user = user.id;
-					req.session.username = user.username;
-					req.session.msg = 'Authenticated as ' + user.username;
-					console.log("authenticated user id: " + JSON.stringify(user))
-					req.session.save();
-					req.send(user);
-				});
+				req.session.user = user.id;
+				req.session.username = user.username;
+				req.session.msg = 'Authenticated as ' + user.username;
+				console.log("authenticated user id: " + JSON.stringify(user))
+				req.session.save();
+				req.send(user);
 			} 
 			res.end();
 		}
