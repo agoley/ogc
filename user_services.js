@@ -319,13 +319,18 @@ exports.signin2 = function(req, res) {
 	User.findOne({ email: req.body.email })
    .exec(function(err, user) {
 		if(err) {
-			res.send(err);
+			req.session.regenerate(function(){ 
+				req.session.msg = err;
+				//res.send();
+				res.redirect('/login');
+			});
 		} else {
 			console.log("Found on sign in: " + user );
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
 				req.session.user = user.id;
+				req.session.username = user.username;
 				console.log("Session user: " + req.session.user);
-				res.send(user);
+				res.redirect('/');
 			}
 		}
    });

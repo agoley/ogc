@@ -150,7 +150,7 @@ module.exports = function(app) {
 	app.post('/games/update', games.update);
 	
 	// User service routes
-	app.post('/user/signin2', users.signin2);
+	app.post('/signup2', users.signin2);
 	app.post('/signup', users.signup);
 	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);
