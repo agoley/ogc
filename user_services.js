@@ -322,8 +322,7 @@ exports.signin2 = function(req, res) {
 		} else {
 			console.log("Found on sign in: " + user );
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-					console.log("correct credentials were provided.");
-				});
+				console.log("authenticated");
 			} 
 			res.send(200);
 		}
