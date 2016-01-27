@@ -323,9 +323,14 @@ exports.signin2 = function(req, res) {
 		} else {
 			console.log("Found on sign in: " + user );
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-				req.session.user = user.id;
-				console.log("Session user: " + req.session.user);
-				res.send(user);
+				req.session.regenerate(function(){
+					req.session.user = user.id;
+					req.session.username = user.username;
+					req.session.msg = 'Authenticated as ' + user.username;
+					console.log("authenticated user id: " + JSON.stringify(user))
+					req.session.save();
+					req.send(user);
+				});
 			} 
 			res.end();
 		}
@@ -394,6 +399,7 @@ exports.signin2 = function(req, res) {
 };
 
 exports.getUserProfile = function(req, res) {
+	console.log("getting profile: " + req.session.user);
 	User.findOne({ _id: req.session.user })
 	.exec(function(err, user) {
 		if (!user){
