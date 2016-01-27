@@ -326,8 +326,8 @@ exports.signin2 = function(req, res) {
 						req.session.user = user.id;
 						console.log("Session user: " + req.session.user);
 						res.send(user);
-				} 
-			});
+				}); 
+			}
 		}
    });
 	//res.send(200);
