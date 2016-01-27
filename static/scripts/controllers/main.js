@@ -650,7 +650,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signout2 = function() {
 		$http.post('//agile-shelf-4123.herokuapp.com/signin2').
 		success(function(data, status, headers, config) {
-			user = {};
+			$scope.user = {};
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/login");
 		});
