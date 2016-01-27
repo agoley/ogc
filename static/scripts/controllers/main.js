@@ -581,13 +581,13 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	}
 }]);
 
-app.controller('LoginController', ['$scope', '$http', function($scope, $http, loginService ) {
+app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.credentials = {};
 	$scope.credentials.password = '';
 	$scope.credentials.password2 = '';
 	$scope.showSignUp = true;
 	$scope.fail = false;
-	$scope.authenticated;
+	$scope.authenticated = false;;
 	
 	// Check if a user is logged in
 	$scope.isAuthenticated = function() {
@@ -627,20 +627,15 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http, lo
 	
 	// SIGN IN
 	$scope.signin2 = function(){
-		var signin = loginService.signin();
-		signin.then(function(result) {
-			console.log("returned from signin.");
-			$scope.isAuthenticated();
-		});
-		/*console.log("hello, this is signin2");
+		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//agile-shelf-4123.herokuapp.com/signin2', $scope.credentials).success(function(data, status, headers, config) {
-				console.log(data);
-				$scope.isAuthenticated();
+				$scope.user = data;
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
+				return;
 			});
-		}*/
+		}
 	}
 	
 	$scope.signout = function() {

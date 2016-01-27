@@ -324,9 +324,8 @@ exports.signin2 = function(req, res) {
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
 				req.session.user = user.id;
 				console.log("Session user: " + req.session.user);
-				req.session.save();
 			} 
-			res.end();
+			res.send(user);
 		}
    });
 	//res.send(200);
