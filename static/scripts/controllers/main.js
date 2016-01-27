@@ -11,6 +11,19 @@ var app = angular.module('loginApp')
   .controller('MainCtrl', function ($scope) {
   });
   
+app.factory('loginService', function($http) {
+
+    var signin = function() {
+
+		return $http.post('//agile-shelf-4123.herokuapp.com/signin2', $scope.credentials).success(function(data, status, headers, config) {
+				return data;
+			}).error(function(data, status, headers, config) {
+				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
+			});
+    };
+    return { signin: signin };
+});
+  
 /*app.config(function($httpProvider){
     delete $httpProvider.defaults.headers.common['X-Requested-With']; });
  */ 
@@ -568,7 +581,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	}
 }]);
 
-app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
+app.controller('LoginController', ['$scope', '$http', function($scope, $http, loginService ) {
 	$scope.credentials = {};
 	$scope.credentials.password = '';
 	$scope.credentials.password2 = '';
@@ -614,7 +627,12 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	
 	// SIGN IN
 	$scope.signin2 = function(){
-		console.log("hello, this is signin2");
+		var signin = loginService.signin();
+		signin.then(function(result) {
+			console.log("returned from signin.");
+			$scope.isAuthenticated();
+		});
+		/*console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//agile-shelf-4123.herokuapp.com/signin2', $scope.credentials).success(function(data, status, headers, config) {
 				console.log(data);
@@ -622,7 +640,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
 			});
-		}
+		}*/
 	}
 	
 	$scope.signout = function() {
