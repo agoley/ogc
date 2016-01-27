@@ -321,6 +321,10 @@ exports.signin2 = function(req, res) {
 			res.send("Error: user does not exist");
 		} else {
 			console.log("Found on sign in: " + user );
+			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
+					console.log("correct credentials were provided.");
+				});
+			} 
 			res.send(200);
 		}
    });
