@@ -14,7 +14,7 @@ app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
 
-var expressSession = require('express-sessions');
+var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
