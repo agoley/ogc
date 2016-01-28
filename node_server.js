@@ -13,8 +13,6 @@ var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
-var bson = require('bson')
-app.use(bson);
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
@@ -57,21 +55,13 @@ db.once('open', function callback () {
   console.log("h");
 });
 
-/*app.use(expressSession({
+app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
 		mongooseConnection: mongoose.connection,
 		collection: 'sessions'
 	})
-}));*/
-
-app.use(express.session({
-  store: new MongoStore({
-    url: mongooseURI,
-	collection: 'sessions'
-  }),
-  secret: '1234567890QWERTY'
 }));
 
 /* Configure multer for file uploads */
