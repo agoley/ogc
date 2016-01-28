@@ -55,21 +55,13 @@ db.once('open', function callback () {
   console.log("h");
 });
 
-/*app.use(expressSession({
+app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
 		mongooseConnection: mongoose.connection,
 		collection: 'sessions'
 	})
-}));*/
-
-app.use(express.session({
-  store: new MongoStore({
-    url: mongooseURI,
-	collection: 'sessions'
-  }),
-  secret: '1234567890QWERTY'
 }));
 
 /* Configure multer for file uploads */
