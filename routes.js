@@ -41,7 +41,11 @@ module.exports = function(app) {
      }
   });*/
   app.get('/', function(req, res){
-		res.render('home',  {username: session.username, user: session.user, msg:req.session.msg});
+		if(session){
+			res.render('home',  {username: session.username, user: session.user, msg:req.session.msg});
+		} else {
+			res.render('home');
+		}
   });
   
 	app.get('/login',  function(req, res){

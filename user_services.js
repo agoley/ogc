@@ -307,7 +307,7 @@ exports.signup = function(req, res){
 // return true if req.session.user is not null
 exports.isUserLoggedIn = function(req, res) {
 	console.log("LOOK HERE !----------! " + req.session.user);
-	if(session.user != null){
+	if(session){
 		res.send("true");
 	}
 	res.send("false");
