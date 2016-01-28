@@ -21,8 +21,6 @@ function hashPW(pwd){
           digest('base64').toString();
 };
 
-var session;
-
 module.exports = function(app) {
 	var users = require('./user_services');
 	var games = require('./game_services');
@@ -41,11 +39,7 @@ module.exports = function(app) {
      }
   });*/
   app.get('/', function(req, res){
-		if(session){
-			res.render('home',  {username: session.username, user: session.user, msg:req.session.msg});
-		} else {
-			res.render('home');
-		}
+		res.render('home',  {username: req.session.username, user: req.session.user, msg:req.session.msg});
   });
   
 	app.get('/login',  function(req, res){
