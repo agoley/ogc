@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
+
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
@@ -28,10 +29,9 @@ app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     if (req.method === 'OPTIONS'){
-        res.send(200);
-		return next();
+        return res.send(200);
     } else {
-		return next();
+		next();
 	}
 });
 
