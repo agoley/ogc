@@ -13,7 +13,8 @@ var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
-
+var bson = require('bson')
+app.use(bson);
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
