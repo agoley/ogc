@@ -21,6 +21,8 @@ function hashPW(pwd){
           digest('base64').toString();
 };
 
+var session;
+
 module.exports = function(app) {
 	var users = require('./user_services');
 	var games = require('./game_services');
@@ -39,7 +41,7 @@ module.exports = function(app) {
      }
   });*/
   app.get('/', function(req, res){
-		res.render('home',  {username: req.session.username, user: req.session.user, msg:req.session.msg});
+		res.render('home',  {username: session.username, user: session.user, msg:req.session.msg});
   });
   
 	app.get('/login',  function(req, res){
@@ -150,7 +152,7 @@ module.exports = function(app) {
 	app.post('/games/update', games.update);
 	
 	// User service routes
-	app.post('/signin2', users.signin2);
+	app.post('/signin2/', users.signin2);
 	app.post('/signup', users.signup);
 	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);

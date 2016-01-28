@@ -307,7 +307,7 @@ exports.signup = function(req, res){
 // return true if req.session.user is not null
 exports.isUserLoggedIn = function(req, res) {
 	console.log("LOOK HERE !----------! " + req.session.user);
-	if(req.session.user != null){
+	if(session.user != null){
 		res.send("true");
 	}
 	res.send("false");
@@ -329,8 +329,9 @@ exports.signin2 = function(req, res) {
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
 				req.session.user = user.id;
 				req.session.username = user.username;
-				console.log("Session user: " + req.session.user);
-				res.render('home',  {username: req.session.username, user: req.session.user, msg:req.session.msg});
+				session = req.session;
+				console.log("Session user: " + session.user);
+				res.send(user);
 			}
 		}
    });
@@ -399,7 +400,7 @@ exports.signin2 = function(req, res) {
 
 exports.getUserProfile = function(req, res) {
 	console.log("looking for user: " + req.session.user);
-	User.findOne({ _id: req.session.user })
+	User.findOne({ _id: session.user })
 	.exec(function(err, user) {
 		if (!user){
 			res.json(404, {err: 'User Not Found.'});
