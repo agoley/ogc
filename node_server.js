@@ -54,27 +54,6 @@ app.configure(function(){
 	app.use(bodyParser());
 	app.use(cookieParser());
 	app.use(allowCrossDomain);
-	app.use(expressSession({
-		secret: 'SECRET',
-		cookie: {maxAge: 60*60*1000},
-		db: new mongoStore({
-			mongooseConnection: mongoose.connection,
-			collection: 'sessions'
-		})
-	}));
-	app.use(multer({ dest: './static/images/games',
-		rename: function (fieldname, filename) {
-			return filename;
-		},
-		onFileUploadStart: function (file) {
-			console.log(file.originalname + ' is starting ...')
-		},
-		onFileUploadComplete: function (file) {
-			console.log(file.fieldname + ' uploaded to  ' + file.path)
-			done=true;
-		}
-	}));
-	app.use('/', express.static('./static'));
 }
 
 //app.use(bodyParser());
@@ -108,7 +87,7 @@ db.once('open', function callback () {
 
 /* Configure multer for file uploads */
 var done=false;
-/*app.use(multer({ dest: './static/images/games',
+app.use(multer({ dest: './static/images/games',
  rename: function (fieldname, filename) {
     return filename;
   },
@@ -119,7 +98,7 @@ onFileUploadComplete: function (file) {
   console.log(file.fieldname + ' uploaded to  ' + file.path)
   done=true;
 }
-}));*/
+}));
 
 // Picture api
 app.post('/api/photo',function(req,res){
@@ -129,7 +108,7 @@ app.post('/api/photo',function(req,res){
 	}
 });
 
-//app.use('/', express.static('./static'));
+app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
