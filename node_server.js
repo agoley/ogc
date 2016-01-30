@@ -7,7 +7,7 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
-app.options('*', cors());
+app.use(cors());
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
@@ -23,7 +23,7 @@ require('./games_model.js');
 require('./transaction_model.js');
 
 //cors and preflight filtering 
-app.all('*', function(req, res, next) {
+/*app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
@@ -34,7 +34,7 @@ app.all('*', function(req, res, next) {
     } else {
 		return next();
 	}
-});
+});*/
 
 app.use(bodyParser());
 app.use(cookieParser());
