@@ -7,7 +7,7 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
-app.options('*', cors());
+//app.options('*', cors());
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
@@ -30,8 +30,9 @@ app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     if (req.method === 'OPTIONS'){
         return res.send(200);
+		return next()
     } else {
-		next();
+		return next();
 	}
 });
 
