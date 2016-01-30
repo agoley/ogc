@@ -54,7 +54,7 @@ app.configure(function(){
 	app.use(bodyParser());
 	app.use(cookieParser());
 	app.use(allowCrossDomain);
-}
+});
 
 //app.use(bodyParser());
 //app.use(cookieParser());
