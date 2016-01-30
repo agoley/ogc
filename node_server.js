@@ -50,14 +50,9 @@ require('./transaction_model.js');
 	}
 });*/
 
-app.configure(function(){
-	app.use(bodyParser());
-	app.use(cookieParser());
-	app.use(allowCrossDomain);
-});
-
-//app.use(bodyParser());
-//app.use(cookieParser());
+app.use(bodyParser());
+app.use(cookieParser());
+app.use(allowCrossDomain);
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var  uri = process.env.MONGOLAB_URI;
