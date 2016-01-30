@@ -8,17 +8,20 @@ var express = require('express');
 var cors = require('cors');
 var app = express();
 //app.use(cors());
-app.all('*', function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*' );
-	res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    if (req.method === 'OPTIONS'){
-        res.send(200);
-		next();
-    } 
-	next();
-});
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
@@ -47,8 +50,35 @@ require('./transaction_model.js');
 	}
 });*/
 
-app.use(bodyParser());
-app.use(cookieParser());
+app.configure(function(){
+	app.use(bodyParser());
+	app.use(cookieParser());
+	app.use(allowCrossDomain);
+	app.use(expressSession({
+		secret: 'SECRET',
+		cookie: {maxAge: 60*60*1000},
+		db: new mongoStore({
+			mongooseConnection: mongoose.connection,
+			collection: 'sessions'
+		})
+	}));
+	app.use(multer({ dest: './static/images/games',
+		rename: function (fieldname, filename) {
+			return filename;
+		},
+		onFileUploadStart: function (file) {
+			console.log(file.originalname + ' is starting ...')
+		},
+		onFileUploadComplete: function (file) {
+			console.log(file.fieldname + ' uploaded to  ' + file.path)
+			done=true;
+		}
+	}));
+	app.use('/', express.static('./static'));
+}
+
+//app.use(bodyParser());
+//app.use(cookieParser());
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var  uri = process.env.MONGOLAB_URI;
@@ -67,18 +97,18 @@ db.once('open', function callback () {
   console.log("h");
 });
 
-app.use(expressSession({
+/*app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
 		mongooseConnection: mongoose.connection,
 		collection: 'sessions'
 	})
-}));
+}));*/
 
 /* Configure multer for file uploads */
 var done=false;
-app.use(multer({ dest: './static/images/games',
+/*app.use(multer({ dest: './static/images/games',
  rename: function (fieldname, filename) {
     return filename;
   },
@@ -89,7 +119,7 @@ onFileUploadComplete: function (file) {
   console.log(file.fieldname + ' uploaded to  ' + file.path)
   done=true;
 }
-}));
+}));*/
 
 // Picture api
 app.post('/api/photo',function(req,res){
@@ -99,29 +129,7 @@ app.post('/api/photo',function(req,res){
 	}
 });
 
-// attempting to fix preflight req,, but this broke the site
-/*app.use(express.methodOverride());
-
-// ## CORS middleware
-// 
-// see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
-};
-app.use(allowCrossDomain);*/
-
-
-app.use('/', express.static('./static'));
+//app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
