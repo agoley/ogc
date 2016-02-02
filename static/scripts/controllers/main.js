@@ -62,7 +62,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		});
 	}			
 	
-	$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
+	/*$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			$scope.user = data;
@@ -150,7 +150,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			}
 		}
 		return tot;
-	}
+	}*/
 		
 	$scope.addToCart = function(game) {
 		// Filter by transaction type
