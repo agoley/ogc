@@ -107,6 +107,7 @@ exports.getPendingTransForUser = function(req, res) {
 			}
 		});
 	}
+	res.end()
 }
 
 /* 
@@ -315,6 +316,7 @@ exports.isUserLoggedIn = function(req, res) {
 		}
 		res.send("false");
 	}
+	res.end();
 };
 
 // Set the sessions user and return 
@@ -412,7 +414,8 @@ exports.getUserProfile = function(req, res) {
 				res.json(user);
 			}
 		});
-
+	} else {
+		res.end();
 	}
 };
 
