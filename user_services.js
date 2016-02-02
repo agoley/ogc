@@ -96,15 +96,17 @@ exports.clearLastTransaction = function(req, res) {
 	Passed in the request is a user id.
 */
 exports.getPendingTransForUser = function(req, res) {
-	Transaction.find({ user_id: req.session.user, status: 'pending' })
-	.limit(5)
-	.exec(function(err, data) {
-		if (!data){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			res.json(data);
-		}
-	});
+	if(req.session){
+		Transaction.find({ user_id: req.session.user, status: 'pending' })
+		.limit(5)
+		.exec(function(err, data) {
+			if (!data){
+				res.json(404, {err: 'User Not Found.'});
+			} else {
+				res.json(data);
+			}
+		});
+	}
 }
 
 /* 
