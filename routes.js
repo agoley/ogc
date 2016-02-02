@@ -41,8 +41,10 @@ module.exports = function(app) {
   app.get('/', function(req, res){
 		if(req.session) {
 			res.render('home',  {username: req.session.username, user: req.session.user, msg:req.session.msg});
-		} 
-		res.render('home');
+		} else {
+			console.log("rendering home non auth");
+			res.render('home');
+		}
 	});
   
 	app.get('/login',  function(req, res){
