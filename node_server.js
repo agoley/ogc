@@ -71,14 +71,14 @@ db.once('open', function callback () {
   console.log("h");
 });
 
-/*app.use(expressSession({
+app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
 		mongooseConnection: mongoose.connection,
 		collection: 'sessions'
 	})
-}));*/
+}));
 
 /* Configure multer for file uploads */
 var done=false;
