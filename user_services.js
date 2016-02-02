@@ -107,7 +107,7 @@ exports.getPendingTransForUser = function(req, res) {
 			}
 		});
 	}
-	res.end()
+	res.send(200)
 }
 
 /* 
@@ -283,7 +283,7 @@ exports.coinUser = function(req, res) {
 exports.signout = function(req, res) {
 	req.session.destroy(function(){
 		//res.redirect('/');
-		res.end();
+		res.send(200);
     });
 };
 	
@@ -316,7 +316,7 @@ exports.isUserLoggedIn = function(req, res) {
 		}
 		res.send("false");
 	}
-	res.end();
+	res.send(200);
 };
 
 // Set the sessions user and return 
@@ -415,7 +415,7 @@ exports.getUserProfile = function(req, res) {
 			}
 		});
 	} else {
-		res.end();
+		res.send(200);
 	}
 };
 
