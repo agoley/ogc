@@ -308,11 +308,13 @@ exports.signup = function(req, res){
 
 // return true if req.session.user is not null
 exports.isUserLoggedIn = function(req, res) {
-	console.log("LOOK HERE !----------! " + req.session.user);
-	if(req.session.user != null){
-		res.send("true");
+	if(req.session) {
+		console.log("LOOK HERE !----------! " + req.session.user);
+		if(req.session.user != null){
+			res.send("true");
+		}
+		res.send("false");
 	}
-	res.send("false");
 };
 
 // Set the sessions user and return 
@@ -400,15 +402,18 @@ exports.signin2 = function(req, res) {
 };
 
 exports.getUserProfile = function(req, res) {
-	console.log("looking for user: " + req.session.user);
-	User.findOne({ _id: req.session.user })
-	.exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			res.json(user);
-		}
-	});
+	if(req.session) {
+		console.log("looking for user: " + req.session.user);
+		User.findOne({ _id: req.session.user })
+		.exec(function(err, user) {
+			if (!user){
+				res.json(404, {err: 'User Not Found.'});
+			} else {
+				res.json(user);
+			}
+		});
+
+	}
 };
 
 /* Twitter Authorization */
