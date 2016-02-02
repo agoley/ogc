@@ -194,7 +194,9 @@ exports.game = function(req, res){
 }
 
 exports.getGameProfile = function(req, res){
-	res.json(req.session.game)
+	if( req.session) {
+		res.json(req.session.game);
+	}
 }
 
 /*
