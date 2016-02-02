@@ -309,14 +309,11 @@ exports.signup = function(req, res){
 
 // return true if req.session.user is not null
 exports.isUserLoggedIn = function(req, res) {
-	if(req.session.user) {
-		console.log("LOOK HERE !----------! " + req.session.user);
-		if(req.session.user){
-			res.send("true");
-		}
+	if(req.session.user){
+		res.send("true");
+	} else {
 		res.send("false");
 	}
-	res.send(200);
 };
 
 // Set the sessions user and return 
