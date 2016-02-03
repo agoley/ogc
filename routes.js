@@ -39,8 +39,9 @@ module.exports = function(app) {
      }
   });*/
   app.get('/', function(req, res){
-		if(req.session.user) {
-			res.render('home',  {username: req.session.username, user: req.session.user, msg:req.session.msg});
+		var session = req.session;
+		if(session.user) {
+			res.render('home',  {username: session.username, user: session.user, msg:session.msg});
 		} else {
 			console.log("rendering home non auth");
 			res.render('home');
@@ -52,21 +53,23 @@ module.exports = function(app) {
 	});
 	
 	app.get('/gameView', function(req,res) {
-		if (req.session.user) {
+		var session = req.session;
+		if (session.user) {
 			//res.render('game',  {game: req.session.game, msg:req.session.msg});
-			res.json(req.session.game);
+			res.json(session.game);
 		} else {
-			res.redirect('/login');
+			res.redirect('/');
 		}
 	});
 	
 	app.get('/home',  function(req, res){
-		if (req.session.user) {
+		var session = req.session;
+		if (session.user) {
 		//res.render('index', function(err, html) {
 		//res.send(html);
 		//});
 
-			res.render('home',  {username: req.session.username, msg:req.session.msg});
+			res.render('home',  {username: session.username, msg:session.msg});
 		} else {
 			res.redirect('/login');
 		}
@@ -102,7 +105,8 @@ module.exports = function(app) {
 		}
 		
 		// Save the user
-		User.findOne({ _id: req.session.user }).exec(function(err, user) {
+		var session = req.session;
+		User.findOne({ _id: session.user }).exec(function(err, user) {
 			if (!user){
 				res.json(404, {err: 'User Not Found.'});
 			} else {
