@@ -40,7 +40,7 @@ var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
 
 var expressSession = require('express-session');
-//var mongoStore = require('connect-mongo')({session: expressSession});
+var mongoStore = require('connect-mongo')({session: expressSession});
 var Session = require('connect-mongodb');
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
