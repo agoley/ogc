@@ -92,6 +92,7 @@ exports.clearLastTransaction = function(req, res) {
 		});
 	} else {
 		res.end();
+	}
 }
 
 /**
@@ -113,7 +114,7 @@ exports.getPendingTransForUser = function(req, res) {
 	} else {
 		res.end();
 	}
-}
+};
 
 /* 
 	Save a transaction to the database
