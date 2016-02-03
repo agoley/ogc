@@ -1,9 +1,9 @@
 var crypto = require('crypto');
 var express = require('express');
-//var mongoose = require('mongoose');
-//var User = mongoose.model('User');
-//var Game = mongoose.model('Game');
-//var Transaction = mongoose.model('Transaction');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
+var Game = mongoose.model('Game');
+var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
 
 /* Braintree config */
@@ -24,10 +24,7 @@ function hashPW(pwd){
 module.exports = function(app) {
 	var users = require('./user_services');
 	var games = require('./game_services');
-	//app.use('/static', express.static( './static'));
-	var User = app.mongoose.model('User');
-	var Game = app.mongoose.model('Game');
-	var Transaction = mongoose.model('Transaction');
+	app.use('/static', express.static( './static'));
 	
 	/*app.get('/', function(req, res){
      console.log("redirecting");
