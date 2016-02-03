@@ -37,7 +37,7 @@ var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 
 //var expressSession = require('express-session');
 //var mongoStore = require('connect-mongo')({session: expressSession});
@@ -94,7 +94,6 @@ app.use(session({
     secret: "foo",
     store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
 }));
-app.use(cookieParser("foo"));
 
 /*app.use(expressSession({
 	secret: 'SECRET',
