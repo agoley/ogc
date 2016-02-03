@@ -70,16 +70,17 @@ var  uri = process.env.MONGOLAB_URI;
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },  
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };    
 
+console.log("URI: " + uri);
 var mongooseUri = uriUtil.formatMongoose(uri);
-//var conn = mongoose.connect(uri,options);
-mongoose.connect(mongooseUri, options); 
+var conn = mongoose.connect(uri,options);
+//mongoose.connect(mongooseUri, options); 
 var conn = mongoose.connection;  
 
 var https = require('https');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
-  console.log("h");
+  console.log("Mongo successfully connected.");
 });
 
 app.use(expressSession({
