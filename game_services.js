@@ -101,7 +101,7 @@ exports.getActionGames = function(req, res) {
 	.skip(page * paginate)
 	.limit(size)
 	.exec(function(err, games) {
-		if (!games){
+		if (err){
 			res.json(404, {err: 'Data Not Found.'});
 		} else {
 			var json = JSON.stringify(games);
