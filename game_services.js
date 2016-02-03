@@ -94,6 +94,7 @@ exports.actionCount = function(req, res) {
 }
 
 exports.getActionGames = function(req, res) {
+	res.header('Access-Control-Allow-Origin', "*")
 	var paginate = 3;
 	var size = 15;
 	var page = parseInt(req.body.actionNumber);
