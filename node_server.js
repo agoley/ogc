@@ -43,10 +43,6 @@ var mongoose =  require('mongoose');
 //var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
-require('./users_model.js');
-require('./games_model.js');
-require('./transaction_model.js');
-require('./routes')(app);
 
 /* Configure multer for file uploads */
 var done=false;
@@ -122,6 +118,11 @@ app.use(session({
     secret: "foo",
     store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
 }));
+
+require('./users_model.js');
+require('./games_model.js');
+require('./transaction_model.js');
+require('./routes')(app);
 
 /*app.use(expressSession({
 	secret: 'SECRET',
