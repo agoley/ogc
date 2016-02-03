@@ -141,18 +141,6 @@ module.exports = function(app) {
 		res.redirect('/');
 	});
 	
-	// Game service routes
-	app.post('/upload/game', games.upload);
-	app.post('/games/action', games.getActionGames);
-	app.post('/games/shooter', games.getShooterGames);
-	app.post('/games/family', games.getFamilyGames);
-	app.post('/games/racing', games.getRacingGames);
-	app.post('/games/fighting', games.getFightingGames);
-	app.get('/games/titles', games.getAllTitles);
-	app.get('/games/actoincount', games.actionCount);
-	app.get('/games/profile', games.getGameProfile);
-	app.post('/game', games.game);
-	app.post('/games/update', games.update);
 	
 	// User service routes
 	app.post('/signin2/', users.signin2);
@@ -172,6 +160,20 @@ module.exports = function(app) {
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);
 	app.get('/user/clearLastTransaction', users.clearLastTransaction);
+	
+	// Game service routes
+	app.post('/upload/game', games.upload);
+	app.post('/user/action', games.getActionGames);
+	app.post('/games/shooter', games.getShooterGames);
+	app.post('/games/family', games.getFamilyGames);
+	app.post('/games/racing', games.getRacingGames);
+	app.post('/games/fighting', games.getFightingGames);
+	app.get('/games/titles', games.getAllTitles);
+	app.get('/games/actoincount', games.actionCount);
+	app.get('/games/profile', games.getGameProfile);
+	app.post('/game', games.game);
+	app.post('/games/update', games.update);
+	
 
 	
 	// Passport (Social media authentication) staging

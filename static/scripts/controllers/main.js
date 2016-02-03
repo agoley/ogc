@@ -314,7 +314,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.viewConf();
 	}
 	
-	$http.get('//agile-shelf-4123.herokuapp.com/games/profile').
+	/*$http.get('//agile-shelf-4123.herokuapp.com/games/profile').
 		success(function(data, status, headers, config) {
 			//console.log("game: ", data);
 			$scope.game = data;
@@ -328,7 +328,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 			$scope.transForUser = data;
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
-		});
+		});*/
 		
 	/*
 		Submit a transaction.
@@ -375,7 +375,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.getAction = function() {
 		//console.log($scope.page);
 		
-		$http.post('//agile-shelf-4123.herokuapp.com/games/action', $scope.page).
+		$http.post('//agile-shelf-4123.herokuapp.com/user/action', $scope.page).
 		success(function(data, status, headers, config) {
 			//console.log(data);
 			if(data != ""){ 
