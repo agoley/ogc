@@ -47,6 +47,34 @@ require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
 
+/* Configure multer for file uploads */
+var done=false;
+app.use(multer({ dest: './static/images/games',
+ rename: function (fieldname, filename) {
+    return filename;
+  },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}));
+
+// Picture api
+app.post('/api/photo',function(req,res){
+	if(done==true){
+		console.log(req.files);
+		res.redirect('/home');
+	}
+});
+
+app.use('/', express.static('./static'));
+//app.set('views', __dirname + '\\static\\views');
+app.set('views', __dirname + '/static/views');
+app.set('view engine', 'html');
+
 //cors and preflight filtering 
 /*app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*' );
@@ -103,33 +131,7 @@ app.use(session({
 	})
 }));*/
 
-/* Configure multer for file uploads */
-var done=false;
-app.use(multer({ dest: './static/images/games',
- rename: function (fieldname, filename) {
-    return filename;
-  },
-onFileUploadStart: function (file) {
-  console.log(file.originalname + ' is starting ...')
-},
-onFileUploadComplete: function (file) {
-  console.log(file.fieldname + ' uploaded to  ' + file.path)
-  done=true;
-}
-}));
 
-// Picture api
-app.post('/api/photo',function(req,res){
-	if(done==true){
-		console.log(req.files);
-		res.redirect('/home');
-	}
-});
-
-app.use('/', express.static('./static'));
-//app.set('views', __dirname + '\\static\\views');
-app.set('views', __dirname + '/static/views');
-app.set('view engine', 'html');
 
 /*Clean up sessions
 function sessionCleanup() {
