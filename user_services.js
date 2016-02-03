@@ -400,19 +400,15 @@ exports.signin2 = function(req, res) {
 };
 
 exports.getUserProfile = function(req, res) {
-	if(req.session.user) {
-		console.log("----------------looking for user--------------------: " + req.session.user);
-		User.findOne({ _id: req.session.user })
-		.exec(function(err, user) {
-			if (!user){
-				res.json(404, {err: 'User Not Found.'});
-			} else {
-				res.json(user);
-			}
-		});
-	} else {
-		res.end();
-	}
+	console.log("######################################## looking for user ############################################: " + req.session.user);
+	User.findOne({ _id: req.session.user })
+	.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			res.json(user);
+		}
+	});
 };
 
 /* Twitter Authorization */
