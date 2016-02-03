@@ -182,21 +182,23 @@ exports.getFightingGames = function(req, res) {
 
 exports.game = function(req, res){
 	console.log(req.body);
+	var session = req.session;
 	Game.findOne({ title: req.body.title })
 	.exec(function(err,game) {
-		if(!game){
+		if(err){
 			err = 'Game Not Found.';
+			res.end()
 		} else {
-			req.session.game = game;
-			res.json(req.session.game);
+			session.game = game;
+			res.json(session.game);
 		}
-		res.end();
 	});
 }
 
 exports.getGameProfile = function(req, res){
-	if( req.session) {
-		res.json(req.session.game);
+	var session = req.session;
+	if( session) {
+		res.json(session.game);
 	}
 }
 
