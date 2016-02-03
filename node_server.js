@@ -69,7 +69,6 @@ var  uri = process.env.MONGOLAB_URI;
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },  
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };    
 
-console.log("URI: " + uri);
 var mongooseUri = uriUtil.formatMongoose(uri);
 mongoose.connect(mongooseUri);
 //var conn = mongoose.connect(uri,options);

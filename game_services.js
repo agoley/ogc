@@ -1,6 +1,5 @@
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var Game = mongoose.model('Game');
-
 var query = Game.find({}).select('title -_id');
 
 var allGameTitles = [];
