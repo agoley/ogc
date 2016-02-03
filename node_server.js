@@ -39,8 +39,8 @@ app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 var cookieParser = require('cookie-parser');
 
-var expressSession = require('express-session');
-var mongoStore = require('connect-mongo')({session: expressSession});
+//var expressSession = require('express-session');
+//var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 require('./users_model.js');
@@ -84,14 +84,27 @@ db.once('open', function callback () {
   console.log("Mongo successfully connected.");
 });
 
-app.use(expressSession({
+/*app.use(require('express-session')({
+    key: 'session',
+    secret: 'SUPER SECRET SECRET',
+    store: require('mongoose-session')(mongoose)
+}));*/
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+var store = { mongooseConnection: db, collection: 'sessions'};
+app.use(session({
+    secret: 'foo',
+    store: new MongoStore(store)
+}));
+
+/*app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
 		mongooseConnection: db,
 		collection: 'sessions'
 	})
-}));
+}));*/
 
 /* Configure multer for file uploads */
 var done=false;
