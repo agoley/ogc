@@ -167,8 +167,7 @@ module.exports = function(app) {
 	app.post('/user/update', users.updateUser);
 	
 	app.get('/user/isAuth', users.isUserLoggedIn);
-	app.get('/signin2/profile', users.getUserProfile);
-	//app.get('/user/profile', users.getUserProfile);
+	app.get('/user/profile', users.getUserProfile);
 	app.get('/user/transactions', users.getPendingTransForUser);
 	app.get('/auth/twitter', users.twitter);
 	app.get('/auth/twitter/return', users.twitterReturn);
