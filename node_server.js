@@ -88,7 +88,7 @@ app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
-		mongooseConnection: mongoose.connection,
+		mongooseConnection: db,
 		collection: 'sessions'
 	})
 }));
