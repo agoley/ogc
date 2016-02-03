@@ -373,8 +373,6 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	}	*/
 		
 	$scope.getAction = function() {
-		//console.log($scope.page);
-		
 		$http.post('//agile-shelf-4123.herokuapp.com/user/action', $scope.page).
 		success(function(data, status, headers, config) {
 			console.log("data from action: " + data);
