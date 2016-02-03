@@ -46,6 +46,7 @@ var uriUtil = require('mongodb-uri');
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
+require('./routes')(app);
 
 /* Configure multer for file uploads */
 var done=false;
@@ -103,7 +104,7 @@ mongoose.connect(mongooseUri);
 //mongoose.connect(mongooseUri, options); 
 //var conn = mongoose.connection;  
 
-var https = require('https');
+//var https = require('https');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
@@ -115,8 +116,8 @@ db.once('open', function callback () {
     secret: 'SUPER SECRET SECRET',
     store: require('mongoose-session')(mongoose)
 }));*/
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 app.use(session({
     secret: "foo",
     store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
@@ -143,7 +144,6 @@ function sessionCleanup() {
 }
 setInterval(sessionCleanup(), 36000000);*/
 
-require('./routes')(app);
 var port = process.env.PORT || 3000;
 app.listen(port);
 
