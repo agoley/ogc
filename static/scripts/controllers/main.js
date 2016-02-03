@@ -159,15 +159,17 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			$http.post('//agile-shelf-4123.herokuapp.com/user/addGame', game).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
-				$scope.user = data;
-				$scope.addConfirm = true;
-				$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
-				$scope.total = $scope.totalCart();
-				$scope.credit = $scope.totalCredit();
-				$scope.coin = $scope.totalCoin();
-				$scope.sales = $scope.allSalesInCart();
-				$scope.buys = $scope.allBuysInCart();
-				$scope.trades = $scope.allTradesInCart();
+				if(data) {
+					$scope.user = data;
+					/*$scope.addConfirm = true;
+					$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
+					$scope.total = $scope.totalCart();
+					$scope.credit = $scope.totalCredit();
+					$scope.coin = $scope.totalCoin();
+					$scope.sales = $scope.allSalesInCart();
+					$scope.buys = $scope.allBuysInCart();
+					$scope.trades = $scope.allTradesInCart();*/
+				}
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame");
 			});
@@ -176,15 +178,17 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			$http.post('//agile-shelf-4123.herokuapp.com/user/addCredit', game).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
-				$scope.user = data;
-				$timeout(function(){$scope.addConfirm = true; $scope.$apply();}, 100);
-				$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
-				$scope.total = $scope.totalCart();
-				$scope.credit = $scope.totalCredit();
-				$scope.coin = $scope.totalCoin();
-				$scope.sales = $scope.allSalesInCart();
-				$scope.buys = $scope.allBuysInCart();
-				$scope.trades = $scope.allTradesInCart();
+				if(data) {
+					$scope.user = data;
+					/*$timeout(function(){$scope.addConfirm = true; $scope.$apply();}, 100);
+					$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
+					$scope.total = $scope.totalCart();
+					$scope.credit = $scope.totalCredit();
+					$scope.coin = $scope.totalCoin();
+					$scope.sales = $scope.allSalesInCart();
+					$scope.buys = $scope.allBuysInCart();
+					$scope.trades = $scope.allTradesInCart();*/
+				}
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame");
 			});
@@ -193,15 +197,17 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			$http.post('//agile-shelf-4123.herokuapp.com/user/addCoin', game).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
-				$scope.user = data;
-				$timeout(function(){$scope.addConfirm = true; $scope.$apply();}, 100);
-				$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
-				$scope.total = $scope.totalCart();
-				$scope.credit = $scope.totalCredit();
-				$scope.coin = $scope.totalCoin();
-				$scope.sales = $scope.allSalesInCart();
-				$scope.buys = $scope.allBuysInCart();
-				$scope.trades = $scope.allTradesInCart();
+				if(data) {
+					$scope.user = data;
+					/* $timeout(function(){$scope.addConfirm = true; $scope.$apply();}, 100);
+					$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
+					$scope.total = $scope.totalCart();
+					$scope.credit = $scope.totalCredit();
+					$scope.coin = $scope.totalCoin();
+					$scope.sales = $scope.allSalesInCart();
+					$scope.buys = $scope.allBuysInCart();
+					$scope.trades = $scope.allTradesInCart();*/
+				}
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame");
 			});
@@ -213,10 +219,12 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		$http.post('//agile-shelf-4123.herokuapp.com/user/removeGame', game).
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
-			$scope.user = data;
-			$scope.total = $scope.totalCart();
-			$scope.credit = $scope.totalCredit();
-			$scope.coin = $scope.totalCoin();
+			if(data){
+				$scope.user = data;
+				/*$scope.total = $scope.totalCart();
+				$scope.credit = $scope.totalCredit();
+				$scope.coin = $scope.totalCoin();*/
+			}
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame");
 		});
@@ -589,7 +597,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.fail = false;
 	$scope.authenticated = false;
 	
-	$http.get('//agile-shelf-4123.herokuapp.com/signin2/profile').
+	$http.get('//agile-shelf-4123.herokuapp.com/profile').
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			$scope.user = data;
