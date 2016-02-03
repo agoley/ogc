@@ -1,5 +1,5 @@
 /* User Services */
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
