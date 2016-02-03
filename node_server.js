@@ -72,7 +72,7 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 
 console.log("URI: " + uri);
 var mongooseUri = uriUtil.formatMongoose(uri);
-mongoose.connect('mongodb://onlinegamecash:brownfoxbrowndog!@ds061208.mongolab.com:61208/heroku_d17q9k0c');
+mongoose.connect(mongooseUri);
 //var conn = mongoose.connect(uri,options);
 //mongoose.connect(mongooseUri, options); 
 //var conn = mongoose.connection;  
