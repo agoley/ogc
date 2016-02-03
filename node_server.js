@@ -96,14 +96,14 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-app.use(expressSession({
+/*app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
 		mongooseConnection: db,
 		collection: 'sessions'
 	})
-}));
+}));*/
 
 /* Configure multer for file uploads */
 var done=false;
@@ -133,16 +133,16 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
-/*Clean up sessions
+//Clean up sessions
 function sessionCleanup() {
-    expressSession.all(function(err, sessions) {
+    session.all(function(err, sessions) {
         for (var i = 0; i < sessions.length; i++) {
             sessionStore.get(sessions[i], function() {} );
         }
     });
 }
 setInterval(sessionCleanup(), 36000000);
-*/
+
 require('./routes')(app);
 var port = process.env.PORT || 3000;
 app.listen(port);
