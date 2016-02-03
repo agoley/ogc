@@ -40,7 +40,7 @@ module.exports = function(app) {
   });*/
   app.get('/', function(req, res){
 		var session = req.session;
-		if(session.user) {
+		if(session) {
 			res.render('home',  {username: session.username, user: session.user, msg:session.msg});
 		} else {
 			console.log("rendering home non auth");
@@ -54,7 +54,7 @@ module.exports = function(app) {
 	
 	app.get('/gameView', function(req,res) {
 		var session = req.session;
-		if (session.user) {
+		if (session) {
 			//res.render('game',  {game: req.session.game, msg:req.session.msg});
 			res.json(session.game);
 		} else {
@@ -64,7 +64,7 @@ module.exports = function(app) {
 	
 	app.get('/home',  function(req, res){
 		var session = req.session;
-		if (session.user) {
+		if (session) {
 		//res.render('index', function(err, html) {
 		//res.send(html);
 		//});
