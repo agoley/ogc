@@ -4,7 +4,7 @@
   "description": "",
   "main": "games_model.js",
   "dependencies": {
-    "mongoose": "^3.9.7",
+    "mongoose": "^4.0.0",
     "body-parser": "^1.14.1",
     "braintree": "^1.29.0",
     "cookie-parser": "^1.4.0",
