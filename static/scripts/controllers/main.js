@@ -71,6 +71,8 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		});
 	}
 	
+	$scope.getAction();
+	
 	$scope.updateUser = function(){
 		$http.post('//agile-shelf-4123.herokuapp.com/user/update', $scope.user).
 		success(function(data, status, headers, config) {
