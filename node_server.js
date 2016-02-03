@@ -62,7 +62,6 @@ require('./transaction_model.js');
 });*/
 
 app.use(bodyParser());
-app.use(cookieParser('foo'));
 //app.use(allowCrossDomain);
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
@@ -92,9 +91,10 @@ db.once('open', function callback () {
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 app.use(session({
-    secret: 'foo',
+    secret: "foo",
     store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
 }));
+app.use(cookieParser("foo"));
 
 /*app.use(expressSession({
 	secret: 'SECRET',
