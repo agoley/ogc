@@ -315,7 +315,8 @@ exports.signup = function(req, res){
 
 // return true if req.session.user is not null
 exports.isUserLoggedIn = function(req, res) {
-	if(req.session.user){
+	var session = req.session;
+	if(session.user){
 		res.send("true");
 	} else {
 		res.send("false");
@@ -331,7 +332,7 @@ exports.signin2 = function(req, res) {
 			req.session.regenerate(function(){ 
 				req.session.msg = err;
 				//res.send();
-				res.redirect('/login');
+				res.redirect('/');
 			});
 		} else {
 			console.log("Found on sign in: " + user );
@@ -414,8 +415,8 @@ exports.signin2 = function(req, res) {
 };
 
 exports.getUserProfile = function(req, res) {
-	console.log("######################################## looking for user ############################################: " + req.session.user);
-	User.findOne({ _id: req.session.user })
+	var session = req.session;
+	User.findOne({ _id: session.user })
 	.exec(function(err, user) {
 		if (!user){
 			res.json(404, {err: 'User Not Found.'});
