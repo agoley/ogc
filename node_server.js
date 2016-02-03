@@ -62,7 +62,7 @@ require('./transaction_model.js');
 });*/
 
 app.use(bodyParser());
-app.use(cookieParser());
+app.use(cookieParser('foo'));
 //app.use(allowCrossDomain);
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
