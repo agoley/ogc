@@ -597,16 +597,18 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.fail = false;
 	$scope.authenticated = false;
 	
-	$http.get('//agile-shelf-4123.herokuapp.com/profile').
+	$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
+			if(data) {
 			$scope.user = data;
-			$scope.total = $scope.totalCart();
-			$scope.credit = $scope.totalCredit();
-			$scope.coin = $scope.totalCoin();
-			$scope.sales = $scope.allSalesInCart();
-			$scope.buys = $scope.allBuysInCart();
-			$scope.trades = $scope.allTradesInCart();
+				/*$scope.total = $scope.totalCart();
+				$scope.credit = $scope.totalCredit();
+				$scope.coin = $scope.totalCoin();
+				$scope.sales = $scope.allSalesInCart();
+				$scope.buys = $scope.allBuysInCart();
+				$scope.trades = $scope.allTradesInCart();*/
+			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
