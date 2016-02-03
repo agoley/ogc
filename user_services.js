@@ -411,7 +411,7 @@ exports.getUserProfile = function(req, res) {
 			}
 		});
 	} else {
-		res.send(200);
+		res.end();
 	}
 };
 
