@@ -94,7 +94,6 @@ exports.actionCount = function(req, res) {
 }
 
 exports.getActionGames = function(req, res) {
-	res.header('Access-Control-Allow-Origin', "*")
 	var paginate = 3;
 	var size = 15;
 	var page = parseInt(req.body.actionNumber);
@@ -106,7 +105,7 @@ exports.getActionGames = function(req, res) {
 			res.json(404, {err: 'Data Not Found.'});
 		} else {
 			var json = JSON.stringify(games);
-			res.send(json);
+			res.json(games);
 		}
 	});
 };
