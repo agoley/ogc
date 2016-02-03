@@ -33,12 +33,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.transaction = {};
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
-	$scope.page = {};
-	$scope.page.actionNumber = 0;
-	$scope.page.shooterNumber = 0;
-	$scope.page.familyNumber = 0;
-	$scope.page.racingNumber = 0;
-	$scope.page.fightingNumber = 0;
 
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
@@ -57,21 +51,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	}).error(function(data, status, headers, config) {
 		console.log('Error getting user');
 	});
-	
-	$scope.getAction = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/user/action', $scope.page).
-		success(function(data, status, headers, config) {
-			console.log("data from action: " + data);
-			if(data){ 
-				$scope.action = data;
-				$scope.page.actionNumber = $scope.page.actionNumber + 1;
-			}
-		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/action");
-		});
-	}
-	
-	$scope.getAction();
 	
 	$scope.updateUser = function(){
 		$http.post('//agile-shelf-4123.herokuapp.com/user/update', $scope.user).

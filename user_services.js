@@ -73,22 +73,25 @@ exports.updateUser = function(req, res) {
 }
 
 exports.clearLastTransaction = function(req, res) {
-	User.findOne({ _id: req.session.user }).exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			console.log('clearing last transaction.');
-			user.set('last_transaction', null);
-			user.save(function (err) {
-				if (err) { 
-					console.log(err);
-				} else {
-					console.log("Successfully saved user changes");
-					res.json(user)
-				}
-			});	
-		}
-	})
+	if(req.session.user) {
+		User.findOne({ _id: req.session.user }).exec(function(err, user) {
+			if (!user){
+				res.json(404, {err: 'User Not Found.'});
+			} else {
+				console.log('clearing last transaction.');
+				user.set('last_transaction', null);
+				user.save(function (err) {
+					if (err) { 
+						console.log(err);
+					} else {
+						console.log("Successfully saved user changes");
+						res.json(user)
+					}
+				});	
+			}
+		});
+	} else {
+		res.end();
 }
 
 /**
@@ -96,16 +99,19 @@ exports.clearLastTransaction = function(req, res) {
 	Passed in the request is a user id.
 */
 exports.getPendingTransForUser = function(req, res) {
-	if(req.session){
-		Transaction.find({ user_id: req.session.user, status: 'pending' })
+	var sess = req.session;
+	if(session.user){
+		Transaction.find({ user_id: session.user, status: 'pending' })
 		.limit(5)
 		.exec(function(err, data) {
-			if (!data){
+			if (err){
 				res.json(404, {err: 'User Not Found.'});
 			} else {
 				res.json(data);
 			}
 		});
+	} else {
+		res.end();
 	}
 }
 
