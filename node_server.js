@@ -34,7 +34,7 @@ app.all('*', function(req, res, next) {
 };*/
 
 var multer  = require('multer');
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
 //var cookieParser = require('cookie-parser');
@@ -61,7 +61,7 @@ require('./transaction_model.js');
 	}
 });*/
 
-//app.use(bodyParser());
+app.use(bodyParser());
 //app.use(allowCrossDomain);
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
