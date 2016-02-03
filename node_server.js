@@ -91,10 +91,9 @@ db.once('open', function callback () {
 }));*/
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-var store = { mongooseConnection: db, collection: 'sessions'};
 app.use(session({
     secret: 'foo',
-    store: new MongoStore(store)
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 /*app.use(expressSession({
