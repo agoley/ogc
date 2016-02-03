@@ -93,7 +93,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 app.use(session({
     secret: 'foo',
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
 }));
 
 /*app.use(expressSession({
