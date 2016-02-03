@@ -599,9 +599,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	
 	$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
 		success(function(data, status, headers, config) {
-			//console.log("user: ", data);
+			console.log("user: ", data);
 			if(data) {
-			$scope.user = data;
+				$scope.user = data;
 				/*$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
 				$scope.coin = $scope.totalCoin();
