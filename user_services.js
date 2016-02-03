@@ -329,11 +329,17 @@ exports.signin2 = function(req, res) {
 		} else {
 			console.log("Found on sign in: " + user );
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-				req.session.user = user.id;
-				req.session.username = user.username;
-				req.session.save();
-				console.log("Session user: " + req.session.user);
-				res.send(user);
+				req.session.regenerate(function(err) {
+					if(err) {
+						console.log("error generating session: " + err);
+						res.send(err);
+					}
+					req.session.user = user.id;
+					req.session.username = user.username;
+					req.session.save();
+					console.log("Session user: " + req.session.user);
+					res.send(user);
+				}
 			}
 		}
    });
