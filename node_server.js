@@ -96,9 +96,6 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-// Use the session middleware 
-app.use(session({ secret: 'foo', cookie: { maxAge: 60000 }}))
-
 /*app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
