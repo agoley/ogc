@@ -377,8 +377,8 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		
 		$http.post('//agile-shelf-4123.herokuapp.com/user/action', $scope.page).
 		success(function(data, status, headers, config) {
-			//console.log(data);
-			if(data != ""){ 
+			console.log("data from action: " + data);
+			if(data){ 
 				$scope.action = data;
 				$scope.page.actionNumber = $scope.page.actionNumber + 1;
 			}
