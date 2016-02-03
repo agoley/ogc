@@ -339,7 +339,7 @@ exports.signin2 = function(req, res) {
 					req.session.save();
 					console.log("Session user: " + req.session.user);
 					res.send(user);
-				}
+				});
 			}
 		}
    });
