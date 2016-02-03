@@ -96,14 +96,14 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-/*app.use(expressSession({
+app.use(expressSession({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new mongoStore({
 		mongooseConnection: db,
 		collection: 'sessions'
 	})
-}));*/
+}));
 
 /* Configure multer for file uploads */
 var done=false;
