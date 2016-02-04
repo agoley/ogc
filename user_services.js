@@ -329,28 +329,20 @@ exports.signin2 = function(req, res) {
 	User.findOne({ email: req.body.email })
    .exec(function(err, user) {
 		if(err) {
-			req.session.regenerate(function(){ 
-				req.session.msg = err;
-				//res.send();
-				res.redirect('/');
-			});
+			req.session.msg = err;
+			//res.send();
+			res.redirect('/');
 		} else {
 			console.log("Found on sign in: " + user );
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-				req.session.regenerate(function(err) {
-					if(err) {
-						console.log("error generating session: " + err);
-						res.send(err);
-					}
-					req.session.user = user.id;
-					req.session.username = user.username;
-					req.session.save();
-					console.log("Session user: " + req.session.user);
-					res.send(user);
-				});
+				req.session.user = user.id;
+				req.session.username = user.username;
+				req.session.save();
+				console.log("Session user: " + req.session.user);
+				res.send(user);
 			}
 		}
-   });
+	});
 	//res.send(200);
 	/*User.findOne({ email: req.body.email })
    .exec(function(err, user) {
