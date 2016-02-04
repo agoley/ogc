@@ -43,6 +43,9 @@ require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
 
+app.use(bodyParser());
+app.use(cookieParser('keyboard cat'));
+
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
@@ -72,8 +75,7 @@ app.use(session({
 	})
 }));*/
 
-app.use(bodyParser());
-app.use(cookieParser('keyboard cat'));
+
 app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
