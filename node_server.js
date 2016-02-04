@@ -3,20 +3,55 @@
 /* Define dependencies */
 var express = require('express');
 var app = express();
+//var cors = require('cors');
+//app.use(cors());
+/*var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};*/
+
 var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
+//var cookieParser = require('cookie-parser');
+
+//var expressSession = require('express-session');
+//var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/static/images/logo-icon.ico'));
+
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
+//cors and preflight filtering 
+/*app.all('*', function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*' );
+	res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    if (req.method === 'OPTIONS'){
+        return res.send(200);
+		return next()
+    } else {
+		return next();
+	}
+});*/
+//app.use(allowCrossDomain);
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var  uri = process.env.MONGOLAB_URI;
@@ -29,12 +64,18 @@ mongoose.connect(mongooseUri);
 //mongoose.connect(mongooseUri, options); 
 //var conn = mongoose.connection;  
 
+//var https = require('https');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
   console.log("Mongo successfully connected.");
 });
 
+/*app.use(require('express-session')({
+    key: 'session',
+    secret: 'SUPER SECRET SECRET',
+    store: require('mongoose-session')(mongoose)
+}));*/
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
@@ -55,6 +96,9 @@ app.all('*', function(req, res, next) {
 	}
 });
 
+require('./users_model.js');
+require('./games_model.js');
+require('./transaction_model.js');
 require('./routes')(app);
 
 
