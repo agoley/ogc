@@ -80,6 +80,8 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
     secret: "foo",
+	resave: true,
+    cookie: { secure: false, httpOnly: false },
     store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
 }));
 
