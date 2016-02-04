@@ -10,8 +10,9 @@ var mongoose =  require('mongoose');
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 
-avar favicon = require('serve-favicon');
+var favicon = require('serve-favicon');
 app.use(favicon());
+app.use(express.favicon());
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');
