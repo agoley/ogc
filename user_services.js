@@ -101,7 +101,7 @@ exports.clearLastTransaction = function(req, res) {
 */
 exports.getPendingTransForUser = function(req, res) {
 	var sess = req.session;
-	if(session.user){
+	if(session){
 		Transaction.find({ user_id: session.user, status: 'pending' })
 		.limit(5)
 		.exec(function(err, data) {
