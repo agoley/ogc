@@ -50,7 +50,7 @@ var MongoStore = require('connect-mongo')(session);
     store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
 }));*/
 
-app.use(expressSession({
+app.use(session({
 	secret: 'SECRET',
 	cookie: {maxAge: 60*60*1000},
 	db: new MongoStore({
