@@ -54,7 +54,7 @@ app.use(session({
 	secret: 'SECRET',
 	cookie: { secure: false },
 	cookie: {maxAge: 60*60*1000},
-	db: new MongoStore({
+	store: new MongoStore({
 		mongooseConnection: mongoose.connection,
 		collection: 'sessions'
 	})
