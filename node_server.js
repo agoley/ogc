@@ -18,18 +18,6 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
-app.all('*', function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*' );
-	res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    if (req.method === 'OPTIONS'){
-        res.send(200);
-    } else {
-		next();
-	}
-});
-
 //var uri = "mongodb://user:user@localhost:27017/testDB";
 //var options = { db: { w: 1, native_parser: false }, server: { poolSize: 5, socketOptions: { connectTimeoutMS: 9500 }, auto_reconnect: true }, replSet: {}, mongos: {} };
 var  uri = process.env.MONGOLAB_URI;
@@ -79,6 +67,19 @@ app.use(session({
 		collection: 'sessions'
 	})
 }));*/
+
+
+app.all('*', function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*' );
+	res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    if (req.method === 'OPTIONS'){
+        res.send(200);
+    } else {
+		next();
+	}
+});
 
 require('./routes')(app);
 
