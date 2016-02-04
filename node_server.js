@@ -23,7 +23,8 @@ var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/static/images/logo-icon.ico'));
-
+var bodyParser = require('body-parser');
+app.use(bodyParser);
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
 app.set('views', __dirname + '/static/views');
@@ -51,6 +52,7 @@ db.once('open', function callback () {
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
+
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
