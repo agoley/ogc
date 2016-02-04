@@ -47,7 +47,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'keyboard cat',
-	cookie: {maxAge: 3600000*24*14},
+	cookie: { secure: false, maxAge: 3600000*24*14},
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     store: new MongoStore({ 
