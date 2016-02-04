@@ -100,7 +100,7 @@ exports.clearLastTransaction = function(req, res) {
 	Passed in the request is a user id.
 */
 exports.getPendingTransForUser = function(req, res) {
-	var sess = req.session;
+	var session = req.session;
 	if(session){
 		Transaction.find({ user_id: session.user, status: 'pending' })
 		.limit(5)
