@@ -7,7 +7,7 @@ var multer  = require('multer');
 var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
-//var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 //var expressSession = require('express-session');
 //var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
@@ -60,6 +60,7 @@ app.use(session({
 }));
 
 app.use(bodyParser());
+app.use(cookieParser('SECRET'));
 app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
