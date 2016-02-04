@@ -57,7 +57,7 @@ app.use(session({
 		mongooseConnection: mongoose.connection,
 		ttl: 24 * 60 * 60 
 	})
-));
+}));
 /*app.use(session({
     secret: "foo",
 	resave: true,
