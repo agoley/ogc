@@ -44,8 +44,24 @@ require('./transaction_model.js');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
-    store: new MongoStore({ db: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+/*app.use(session({
+    secret: "foo",
+	resave: true,
+    cookie: { secure: false, httpOnly: false },
+    store: new MongoStore({ mongooseConnection: mongoose.connection, collection: 'sessions' })
+}));*/
+
+/*app.use(session({
+	secret: 'SECRET',
+	cookie: { secure: false },
+	cookie: {maxAge: 60*60*1000},
+	store: new MongoStore({
+		mongooseConnection: mongoose.connection,
+		collection: 'sessions'
+	})
+}));*/
 
 app.use(bodyParser());
 app.use(cookieParser('SECRET'));
