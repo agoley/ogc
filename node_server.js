@@ -11,7 +11,6 @@ var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
 
 var favicon = require('serve-favicon');
-app.use(express.favicon());
 app.use('/', express.static('./static'));
 app.use(favicon('/images/logo-icon.ico'));
 //app.set('views', __dirname + '\\static\\views');
