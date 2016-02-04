@@ -4,10 +4,8 @@
 var express = require('express');
 var app = express();
 var multer  = require('multer');
-var bodyParser = require('body-parser');
 app.engine('.html', require('ejs').__express);
 var mongoose =  require('mongoose');
-var cookieParser = require('cookie-parser');
 //var expressSession = require('express-session');
 //var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
@@ -42,10 +40,6 @@ db.once('open', function callback () {
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
-
-app.use(bodyParser());
-app.use(cookieParser('keyboard cat'));
-
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
