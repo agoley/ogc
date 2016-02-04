@@ -337,7 +337,7 @@ exports.signin2 = function(req, res) {
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
 				req.session.user = user.id;
 				req.session.username = user.username;
-				console.log("Session user: " + req.session.user);
+				console.log("Session user: " + req.session.user + ", and session id: " + req.session.id);
 				res.send(user);
 			}
 		}
@@ -406,7 +406,7 @@ exports.signin2 = function(req, res) {
 };
 
 exports.getUserProfile = function(req, res) {
-	var session = req.session;
+	console.log("Getting profile - session id: " + req.session.id + ", user: " + req.session.user);
 	User.findOne({ _id: session.user })
 	.exec(function(err, user) {
 		if (!user){
