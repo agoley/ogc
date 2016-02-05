@@ -57,6 +57,7 @@ require('./transaction_model.js');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
+	secret: 'SECRET',
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     store: new MongoStore({ 
