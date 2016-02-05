@@ -3,7 +3,6 @@
 /* Define dependencies */
 var express = require('express');
 var app = express();
-app.set('trust proxy', 1);
 app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*' );
 	res.header('Access-Control-Allow-Credentials', true);
@@ -58,8 +57,6 @@ require('./transaction_model.js');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
-	proxy: true,
-	secret: 'SECRET',
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     store: new MongoStore({ 
