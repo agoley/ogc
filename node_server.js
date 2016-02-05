@@ -63,7 +63,7 @@ app.use(session({
     name: "connect.sid",
     cookie: {
         secure: false
-    }
+    },
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     store: new MongoStore({ 
