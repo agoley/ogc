@@ -411,7 +411,11 @@ exports.getUserProfile = function(req, res) {
 		if (err){
 			res.json(404, {err: 'User Not Found.'});
 		} else {
-			res.json(user);
+			if(user) {
+				res.json(user);
+			} else {
+				res.end();
+			}
 		}
 	});
 };

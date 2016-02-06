@@ -597,7 +597,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	
 	$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
 		success(function(data, status, headers, config) {
-			console.log("user: ", data);
+			console.log("user on get profile: ", data);
 			if(data) {
 				$scope.user = data;
 				/*$scope.total = $scope.totalCart();
@@ -653,6 +653,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//agile-shelf-4123.herokuapp.com/signin2/', $scope.credentials).success(function(data, status, headers, config) {
 				$scope.user = data;
+				console.log("user after sign in: " + $scope.user)
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
 				return;
