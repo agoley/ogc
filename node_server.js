@@ -61,7 +61,7 @@ var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'foo',
     key:    'express.sessionID',
-    cookie: {domain: 'the-domain', path: '/', httpOnly: true, secure: false, maxAge: null },
+    cookie: {domain: 'onlinegamecash.com', path: '/*', httpOnly: true, secure: false, maxAge: null },
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     store: new MongoStore({ 
