@@ -24,8 +24,8 @@ var uriUtil = require('mongodb-uri');
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/static/images/logo-icon.ico'));
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-app.use(cookieParser('foo'));
+//var cookieParser = require('cookie-parser');
+//app.use(cookieParser('foo'));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use('/', express.static('./static'));
@@ -60,7 +60,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'foo',
-    cookie: {domain: 'onlinegamecash.com', httpOnly: false, secure: false, maxAge: null },
+    cookie: {domain: 'onlinegamecash.com:3000', httpOnly: false, secure: false, maxAge: null },
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     store: new MongoStore({ 
