@@ -336,7 +336,7 @@ exports.signin2 = function(req, res) {
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
 				req.session.user = user.id;
 				req.session.username = user.username;
-				res.cookie(req.session.id);
+				//res.cookie(req.session.id);
 				console.log("Session user: " + req.session.user + ", and session id: " + req.session.id);
 				res.send(user);
 			}
@@ -413,7 +413,7 @@ exports.getUserProfile = function(req, res) {
 			res.json(404, {err: 'User Not Found.'});
 		} else {
 			if(user) {
-				res.cookie(req.session.id);
+				//res.cookie(req.session.id);
 				res.json(user);
 			} else {
 				res.end();
