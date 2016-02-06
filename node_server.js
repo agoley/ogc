@@ -60,8 +60,8 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'foo',
-    name: "connect.sid",
     cookie: {
+		name: "connect.sid",
         secure: false
     },
     saveUninitialized: false, // don't create session until something stored
