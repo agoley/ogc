@@ -59,7 +59,7 @@ require('./transaction_model.js');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
-	  secret: "foo",
+	secret: 'foo',
     name: "connect.sid",
     cookie: {
         secure: false
