@@ -182,6 +182,9 @@ module.exports = function(app) {
 	
 	// Passport (Social media authentication) staging
 	var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;		
+	// use passport session
+app.use(passport.initialize());
+app.use(passport.session());
 	passport.use(new FacebookStrategy({
 		clientID: '1610215232526663',
 		clientSecret: 'ddc4a674462c056226bd1717e3b8f73f',
