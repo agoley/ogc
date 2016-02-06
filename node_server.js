@@ -60,7 +60,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'foo',
-    cookie: {domain: 'onlinegamecash.com:3000', httpOnly: false, secure: false, maxAge: null },
+    cookie: {domain: 'onlinegamecash.com', httpOnly: false, secure: false, maxAge: null },
     saveUninitialized: false, // don't create session until something stored
     resave: false, //don't save session if unmodified
     store: new MongoStore({ 
@@ -68,6 +68,8 @@ app.use(session({
 		ttl: 24 * 60 * 60 
 	})
 }));
+
+$http request (angular): useCredentials: true;
 /*app.use(session({
     secret: "foo",
 	resave: true,
