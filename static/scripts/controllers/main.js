@@ -595,7 +595,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.fail = false;
 	$scope.authenticated = false;
 	
-	$http.get('//agile-shelf-4123.herokuapp.com/user/profile', {withCredentials: true}).
+	$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
 		success(function(data, status, headers, config) {
 			console.log("user on get profile: ", data);
 			if(data) {

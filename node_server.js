@@ -57,15 +57,7 @@ require('./games_model.js');
 require('./transaction_model.js');
 
 var session = require('express-session');
-
-var cookieSession = require('cookie-session')
-app.set('trust proxy', 1) // trust first proxy
-
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2']
-}))
-/*var MongoStore = require('connect-mongo')(session);
+var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'foo',
     cookie: {httpOnly: false, secure: false, maxAge: null },
@@ -75,7 +67,7 @@ app.use(session({
 		mongooseConnection: mongoose.connection,
 		ttl: 5 *24 * 60 * 60 
 	})
-}));*/
+}));
 
 /*app.use(session({
     secret: "foo",
