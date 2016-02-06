@@ -595,10 +595,11 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.fail = false;
 	$scope.authenticated = false;
 	
-	$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
+	$http.get('//agile-shelf-4123.herokuapp.com/user/profile', {withCredentials: true}).
 		success(function(data, status, headers, config) {
 			console.log("user on get profile: ", data);
 			if(data) {
+				console.log("setting user");
 				$scope.user = data;
 				/*$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();

@@ -69,7 +69,6 @@ app.use(session({
 	})
 }));
 
-$http request (angular): useCredentials: true;
 /*app.use(session({
     secret: "foo",
 	resave: true,
