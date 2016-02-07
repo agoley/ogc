@@ -124,8 +124,8 @@ var MongoStore = require('connect-mongo')(session);
 app.use(session({
 	secret: 'foo',
     cookie: {httpOnly: false, secure: false, maxAge: null },
-	saveUninitialized: false, // don't create session until something stored
-    resave: false, //don't save session if unmodified
+	//saveUninitialized: false, // don't create session until something stored
+    //resave: false, //don't save session if unmodified
     store: new MongoStore({ 
 		mongooseConnection: mongoose.connection,
 		ttl: 5 *24 * 60 * 60 
