@@ -28,18 +28,6 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser('foo'));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-app.use(session({
-	secret: 'foo',
-    cookie: {httpOnly: false, secure: false, maxAge: null },
-	saveUninitialized: false, // don't create session until something stored
-    resave: false, //don't save session if unmodified
-    store: new MongoStore({ 
-		mongooseConnection: mongoose.connection,
-		ttl: 5 *24 * 60 * 60 
-	})
-}));
 
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
@@ -87,8 +75,6 @@ require('./transaction_model.js');
 	})
 }));*/
 
-require('./routes')(app);
-
 /* Configure multer for file uploads */
 var done=false;
 app.use(multer({ dest: './static/images/games',
@@ -133,6 +119,19 @@ function sessionCleanup() {
 }
 setInterval(sessionCleanup(), 36000000);*/
 
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+app.use(session({
+	secret: 'foo',
+    cookie: {httpOnly: false, secure: false, maxAge: null },
+	saveUninitialized: false, // don't create session until something stored
+    resave: false, //don't save session if unmodified
+    store: new MongoStore({ 
+		mongooseConnection: mongoose.connection,
+		ttl: 5 *24 * 60 * 60 
+	})
+}));
+require('./routes')(app);
 var port = process.env.PORT || 3000;
 app.listen(port);
 
