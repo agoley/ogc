@@ -24,7 +24,7 @@ function hashPW(pwd){
 module.exports = function(app) {
 	var users = require('./user_services');
 	var games = require('./game_services');
-	app.use('/static', express.static( './static'));
+	//app.use('/static', express.static( './static')); comment out
 	
 	/*app.get('/', function(req, res){
      console.log("redirecting");
