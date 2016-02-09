@@ -181,8 +181,10 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
+app.set('trust proxy', 1)
 app.use(session({
     secret: "keyboardcat",
+	proxy: true,
     resave: true,
     saveUninitialized: false,
     cookie: { 
