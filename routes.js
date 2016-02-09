@@ -5,6 +5,8 @@ var User = mongoose.model('User');
 var Game = mongoose.model('Game');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
+var bodyParser = require('body-parser');
+app.use(bodyParser());
 
 /* Braintree config */
 var braintree = require("braintree");
