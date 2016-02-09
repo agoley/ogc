@@ -178,6 +178,10 @@ db.once('open', function callback () {
   console.log("Mongo successfully connected.");
 });
 
+require('./users_model.js');
+require('./games_model.js');
+require('./transaction_model.js');
+
 app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
