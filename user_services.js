@@ -287,7 +287,8 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-    res.clearCookie('connect.sid', { path: '/' }); // see comments above                res.send('removed session', 200); // tell the client everything went well
+    res.clearCookie('connect.sid', { path: '/' }); 
+    res.send('removed session', 200); // tell the client everything went well
 };
 	
 //sign up	
