@@ -288,6 +288,11 @@ exports.coinUser = function(req, res) {
 
 exports.signout = function(req, res) {
 	req.session.user = null;
+	req.session.destroy(function(err) {
+		if(err) {
+			console.log("destroy error: " + err);
+		}
+	});
 	res.send(200);
 };
 	
