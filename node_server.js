@@ -144,7 +144,9 @@ var sessionOpts = {
 }
 //app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.bodyParser());
+app.configure(function(){
+  app.use(express.bodyParser());
+});
 app.use(cookieParser('foo'));
 app.use(session(sessionOpts));
 require('./routes')(app);
