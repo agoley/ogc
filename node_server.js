@@ -1,7 +1,7 @@
 /* Server Config */
 
 /* Define dependencies */
-var express = require('express');
+/*var express = require('express');
 var app = express();
 var multer  = require('multer');
 app.engine('.html', require('ejs').__express);
@@ -63,7 +63,7 @@ require('./transaction_model.js');
 	})
 }));*/
 
-/* Configure multer for file uploads */
+/* Configure multer for file uploads 
 var done=false;
 app.use(multer({ dest: './static/images/games',
  rename: function (fieldname, filename) {
@@ -105,7 +105,7 @@ function sessionCleanup() {
         }
     });
 }
-setInterval(sessionCleanup(), 36000000);*/
+setInterval(sessionCleanup(), 36000000);
 
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -122,7 +122,7 @@ var sessionStore = new MongoStore({
 		mongooseConnection: mongoose.connection,
 		ttl: 5 *24 * 60 * 60 
 	})
-}));*/
+}));
 
 var sessionOpts = {
 	store: sessionStore,
@@ -162,3 +162,44 @@ https.createServer(options, function (req, res) {
   res.writeHead(200);
   res.end("hello world\n");
 }).listen(8000); */
+
+
+var app   = require('express')();
+var http = require('http').Server(app);
+var session = require('express-session');
+var express   = require('express');
+var mongoose =  require('mongoose');
+var  uri = process.env.MONGOLAB_URI;
+
+mongoose.connect(uri);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("Mongo successfully connected.");
+});
+
+app.use('/', express.static('./static'));
+app.set('views', __dirname + '/static/views');
+app.set('view engine', 'html');
+
+app.use(session({
+    secret: 'test session',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.all('*', function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', 'http://www.onlinegamecash.com' );
+	res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    if (req.method === 'OPTIONS'){
+        res.send(200);
+    } else {
+		next();
+	}
+});
+
+require('./routes')(app);
+var port = process.env.PORT || 3000;
+app.listen(port);
