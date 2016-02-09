@@ -213,8 +213,6 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: { 
-		path: '/',
-        domain: 'onlinegamecash.com',
         secure: false,
         maxAge: null
     }
