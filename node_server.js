@@ -127,7 +127,7 @@ var sessionStore = new MongoStore({
 var sessionOpts = {
 	store: sessionStore,
 	secret: 'foo',
-	cookie: { httpOnly: true, maxAge: 2419200000 }
+	cookie: { httpOnly: false, maxAge: 2419200000 }
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
