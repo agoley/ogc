@@ -171,6 +171,10 @@ var express   = require('express');
 var mongoose =  require('mongoose');
 var  uri = process.env.MONGOLAB_URI;
 
+app.use('/', express.static('./static'));
+app.set('views', __dirname + '/static/views');
+app.set('view engine', 'html');
+
 mongoose.connect(uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -181,10 +185,6 @@ db.once('open', function callback () {
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
-
-app.use('/', express.static('./static'));
-app.set('views', __dirname + '/static/views');
-app.set('view engine', 'html');
 
 app.use(session({
     secret: 'test session',
