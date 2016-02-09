@@ -287,7 +287,7 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	req.session.regenerate({});
+	req.session.destroy();
 	res.send(200);
 };
 	
