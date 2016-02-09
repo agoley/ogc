@@ -175,12 +175,11 @@ var app = express();
 
 app.use(session({
     secret: "keyboardcat",
-    name: "mycookie",
     resave: true,
     saveUninitialized: true,
     cookie: { 
         secure: false,
-        maxAge: 6000000
+        maxAge: null
     }
 }));
 
