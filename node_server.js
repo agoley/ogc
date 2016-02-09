@@ -125,8 +125,6 @@ var sessionStore = new MongoStore({
 }));*/
 
 var sessionOpts = {
-	saveUninitialized: false,
-	resave: false,
 	store: sessionStore,
 	secret: 'foo',
 	cookie: { httpOnly: true, maxAge: 2419200000 }
