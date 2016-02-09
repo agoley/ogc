@@ -208,6 +208,7 @@ app.all('*', function(req, res, next) {
 	}
 });
 
+var MongoStore = require('connect-mongo')(session);
 var sessionStore = new MongoStore({ 
 		mongooseConnection: mongoose.connection,
 		ttl: 5 *24 * 60 * 60 
