@@ -166,17 +166,23 @@ https.createServer(options, function (req, res) {
 
 var express   = require('express');
 var parseurl = require('parseurl');
-var session = require('express-session');
+var http = require("http");
+var session = require("express-session");
 var mongoose =  require('mongoose');
 var bodyParser = require('body-parser');
 
 var app = express();
 
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}))
+    secret: "keyboardcat",
+    name: "mycookie",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { 
+        secure: false,
+        maxAge: 6000000
+    }
+}));
 
 var  uri = process.env.MONGOLAB_URI;
 app.engine('.html', require('ejs').__express);
