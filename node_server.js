@@ -208,6 +208,10 @@ app.all('*', function(req, res, next) {
 	}
 });
 
+var sessionStore = new MongoStore({ 
+		mongooseConnection: mongoose.connection,
+		ttl: 5 *24 * 60 * 60 
+	});
 app.use(session({
     secret: "keyboardcat",
     resave: true,
@@ -215,7 +219,8 @@ app.use(session({
     cookie: { 
         secure: false,
         maxAge: null
-    }
+    },
+	store: sessionStore
 }));
 
 require('./routes')(app);
