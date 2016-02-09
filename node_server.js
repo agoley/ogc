@@ -136,14 +136,15 @@ var sessionStore = new MongoStore({
 }));*/
 
 var sessionOpts = {
-	saveUninitialized: true,
+	saveUninitialized: false,
 	resave: false,
 	store: sessionStore,
 	secret: 'foo',
 	cookie: { httpOnly: true, maxAge: 2419200000 }
 }
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.bodyParser());
 app.use(cookieParser('foo'));
 app.use(session(sessionOpts));
 require('./routes')(app);
