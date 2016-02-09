@@ -287,9 +287,8 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	req.session.regenerate(function() {
-		res.send('cleared session', 200); // tell the client everything went well
-	})
+	req.session.regenerate({});
+	res.send(200);
 };
 	
 //sign up	
