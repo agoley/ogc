@@ -192,10 +192,11 @@ require('./games_model.js');
 require('./transaction_model.js');
 
 app.use(session({
-    secret: 'test session',
-    resave: false,
-    saveUninitialized: true
-}));
+  genid: function(req) {
+    return genuuid() // use UUIDs for session IDs
+  },
+  secret: 'keyboard cat'
+}))
 
 app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', 'http://www.onlinegamecash.com' );
