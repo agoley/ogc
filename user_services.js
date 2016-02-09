@@ -287,10 +287,8 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	req.session.user = null;
-	console.log("user on signout: " + req.session.user);
-	req.session.save();
-	res.send();
+	req.logout();
+	res.send(401);
 };
 	
 //sign up	
