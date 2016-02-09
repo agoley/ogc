@@ -1,5 +1,4 @@
 var crypto = require('crypto');
-var express = require('express');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Game = mongoose.model('Game');
