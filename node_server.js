@@ -185,19 +185,6 @@ app.use(cookieParser("keyboardcat"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.use(session({
-    secret: "keyboardcat",
-	rolling: true,
-    resave: true,
-    saveUninitialized: false,
-    cookie: { 
-		path: '/',
-        domain: 'onlinegamecash.com',
-        secure: false,
-        maxAge: null
-    }
-}));
-
 mongoose.connect(uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -220,6 +207,18 @@ app.all('*', function(req, res, next) {
 		next();
 	}
 });
+
+app.use(session({
+    secret: "keyboardcat",
+    resave: true,
+    saveUninitialized: false,
+    cookie: { 
+		path: '/',
+        domain: 'onlinegamecash.com',
+        secure: false,
+        maxAge: null
+    }
+}));
 
 require('./routes')(app);
 var port = process.env.PORT || 3000;
