@@ -221,6 +221,7 @@ app.use(session({
         secure: false,
         maxAge: null
     },
+	unset: 'destroy',
 	store: sessionStore
 }));
 
