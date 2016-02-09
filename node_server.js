@@ -169,12 +169,16 @@ var http = require('http').Server(app);
 var session = require('express-session');
 var express   = require('express');
 var mongoose =  require('mongoose');
+var bodyParser = require('body-parser');
 
 var  uri = process.env.MONGOLAB_URI;
 app.engine('.html', require('ejs').__express);
 app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 mongoose.connect(uri);
 var db = mongoose.connection;
