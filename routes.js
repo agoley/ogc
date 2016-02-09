@@ -5,7 +5,6 @@ var User = mongoose.model('User');
 var Game = mongoose.model('Game');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
-var bodyParser = require('body-parser');
 
 
 /* Braintree config */
@@ -24,7 +23,6 @@ function hashPW(pwd){
 };
 
 module.exports = function(app) {
-	app.use(bodyParser());
 	var users = require('./user_services');
 	var games = require('./game_services');
 	//app.use('/static', express.static( './static')); comment out

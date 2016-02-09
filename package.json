@@ -5,19 +5,19 @@
   "main": "games_model.js",
   "dependencies": {
     "body-parser": "^1.14.2",
-    "connect-mongo": "^0.8.2",
     "braintree": "^1.29.0",
-    "cors": "^2.7.1",
+    "connect-mongo": "^0.8.2",
     "cookie-parser": "^1.4.1",
-    "express": "^3.7.0",
     "cookie-session": "^2.0.0-alpha.1",
+    "cors": "^2.7.1",
     "ejs": "^2.3.4",
+    "express": "^3.21.2",
     "express-session": "^1.7.6",
     "mongodb": "^2.1.4",
     "mongodb-uri": "^0.9.7",
     "mongoose": "^4.0.0",
-    "multer": "^0.1.8",
     "mongoose-session": "^0.0.4",
+    "multer": "^0.1.8",
     "node-twitter-api": "^1.6.1",
     "passport": "^0.3.0",
     "passport-facebook": "^2.0.0",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node node_server.js"
+     "start": "node node_server.js"
   },
   "repository": {
     "type": "git",

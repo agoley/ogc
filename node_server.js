@@ -142,9 +142,8 @@ var sessionOpts = {
 	secret: 'foo',
 	cookie: { httpOnly: true, maxAge: 2419200000 }
 }
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser('foo'));
 app.use(session(sessionOpts));
 require('./routes')(app);
