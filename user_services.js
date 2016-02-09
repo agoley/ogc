@@ -287,9 +287,9 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	console.log("##########Calling signout#############");
-	req.session = {};
-	res.redirect('/');
+	req.session.regenerate(function(err) {
+		res.redirect('/');
+	});
 };
 	
 //sign up	
