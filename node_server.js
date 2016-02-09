@@ -145,7 +145,7 @@ var sessionOpts = {
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(cookieParser('foo');
+app.use(cookieParser('foo'));
 app.use(sessionOpts);
 
 var port = process.env.PORT || 3000;
