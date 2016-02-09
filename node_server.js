@@ -181,7 +181,7 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
-app.use(cookieParser('foo'));
+app.use(cookieParser("keyboardcat"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
