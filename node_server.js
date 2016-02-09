@@ -56,7 +56,6 @@ db.once('open', function callback () {
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
-require('./routes')(app);
 
 /*app.use(session({
     secret: "foo",
@@ -147,7 +146,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser('foo'));
 app.use(session(sessionOpts));
-
+require('./routes')(app);
 var port = process.env.PORT || 3000;
 app.listen(port);
 
