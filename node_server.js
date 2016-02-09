@@ -164,14 +164,13 @@ https.createServer(options, function (req, res) {
 }).listen(8000); */
 
 
-var app   = require('express')();
-var http = require('http').Server(app);
-
 var express   = require('express');
 var parseurl = require('parseurl');
 var session = require('express-session');
 var mongoose =  require('mongoose');
 var bodyParser = require('body-parser');
+
+var app = express();
 
 app.use(session({
   secret: 'keyboard cat',
