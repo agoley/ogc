@@ -287,10 +287,14 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	console.log("store: " + req.session.store);
-	sessionStore.destroy(req.session.id, {});
-	res.send(200);
-};
+	req.session.destroy(function(err){
+		if(err){
+			console.log(err);
+		} else {
+			res.redirect('/');
+		}
+	})
+}
 	
 //sign up	
 exports.signup = function(req, res){
