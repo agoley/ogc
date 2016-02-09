@@ -176,7 +176,7 @@ var app = express();
 app.use(session({
     secret: "keyboardcat",
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { 
 		path: '/',
         domain: 'onlinegamecash.com',
