@@ -166,10 +166,18 @@ https.createServer(options, function (req, res) {
 
 var app   = require('express')();
 var http = require('http').Server(app);
-var session = require('express-session');
+
 var express   = require('express');
+var parseurl = require('parseurl');
+var session = require('express-session');
 var mongoose =  require('mongoose');
 var bodyParser = require('body-parser');
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
 var  uri = process.env.MONGOLAB_URI;
 app.engine('.html', require('ejs').__express);
@@ -190,8 +198,6 @@ db.once('open', function callback () {
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
-
-app.use(session({secret: 'foo'}));
 
 app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', 'http://www.onlinegamecash.com' );
