@@ -181,10 +181,13 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
-app.set('trust proxy', 1)
+app.use(cookieParser("keyboardcat"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+
 app.use(session({
     secret: "keyboardcat",
-	proxy: true,
+	rolling: true,
     resave: true,
     saveUninitialized: false,
     cookie: { 
@@ -194,10 +197,6 @@ app.use(session({
         maxAge: null
     }
 }));
-
-app.use(cookieParser("keyboardcat"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 
 mongoose.connect(uri);
 var db = mongoose.connection;
