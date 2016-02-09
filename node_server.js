@@ -178,7 +178,7 @@ app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded());
 
 mongoose.connect(uri);
 var db = mongoose.connection;
