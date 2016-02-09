@@ -287,8 +287,11 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	req.logout();
-	res.send(401);
+	req.session.destroy(function() {
+        delete req.session.user;  // remove credentials
+        req.session.authenticated = false; // set flag
+        res.clearCookie('connect.sid', { path: '/' }); // see comments above                res.send('removed session', 200); // tell the client everything went well
+    });
 };
 	
 //sign up	
