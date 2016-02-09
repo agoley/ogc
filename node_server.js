@@ -170,20 +170,10 @@ var http = require("http");
 var session = require("express-session");
 var mongoose =  require('mongoose');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var app = express();
 
-app.use(session({
-    secret: "keyboardcat",
-    resave: true,
-    saveUninitialized: false,
-    cookie: { 
-		path: '/',
-        domain: 'onlinegamecash.com',
-        secure: false,
-        maxAge: null
-    }
-}));
 
 var  uri = process.env.MONGOLAB_URI;
 app.engine('.html', require('ejs').__express);
@@ -191,6 +181,7 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
+app.use(cookieParser('foo'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
@@ -216,6 +207,18 @@ app.all('*', function(req, res, next) {
 		next();
 	}
 });
+
+app.use(session({
+    secret: "keyboardcat",
+    resave: true,
+    saveUninitialized: false,
+    cookie: { 
+		path: '/',
+        domain: 'onlinegamecash.com',
+        secure: false,
+        maxAge: null
+    }
+}));
 
 require('./routes')(app);
 var port = process.env.PORT || 3000;
