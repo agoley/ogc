@@ -21,13 +21,13 @@ var mongoose =  require('mongoose');
 //var mongoStore = require('connect-mongo')({session: expressSession});
 var mongoose = require('mongoose');
 var uriUtil = require('mongodb-uri');
-var favicon = require('serve-favicon');
-app.use(favicon(__dirname + '/static/images/logo-icon.ico'));
+//var favicon = require('serve-favicon');
+//app.use(favicon(__dirname + '/static/images/logo-icon.ico'));
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-app.use(cookieParser('foo'));
-app.use(bodyParser.urlencoded());
-app.use(bodyParser.json());
+//app.use(cookieParser('foo'));
+//app.use(bodyParser.urlencoded());
+//app.use(bodyParser.json());
 
 app.use('/', express.static('./static'));
 //app.set('views', __dirname + '\\static\\views');
@@ -56,7 +56,7 @@ db.once('open', function callback () {
 require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
-
+require('./routes')(app);
 
 /*app.use(session({
     secret: "foo",
@@ -121,7 +121,11 @@ setInterval(sessionCleanup(), 36000000);*/
 
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-app.use(session({
+var sessionStore = new MongoStore({ 
+		mongooseConnection: mongoose.connection,
+		ttl: 5 *24 * 60 * 60 
+	});
+/*app.use(session({
 	secret: 'foo',
     cookie: {httpOnly: false, secure: false, maxAge: null },
 	//saveUninitialized: false, // don't create session until something stored
@@ -130,8 +134,20 @@ app.use(session({
 		mongooseConnection: mongoose.connection,
 		ttl: 5 *24 * 60 * 60 
 	})
-}));
-require('./routes')(app);
+}));*/
+
+var sessionOpts = {
+	saveUninitialized: true,
+	resave: false,
+	store: sessionStore,
+	secret: 'foo',
+	cookie: { httpOnly: true, maxAge: 2419200000 }
+}
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(cookieParser('foo');
+app.use(sessionOpts);
+
 var port = process.env.PORT || 3000;
 app.listen(port);
 
