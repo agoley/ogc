@@ -198,18 +198,6 @@ require('./users_model.js');
 require('./games_model.js');
 require('./transaction_model.js');
 
-app.all('*', function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', 'http://www.onlinegamecash.com' );
-	res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    if (req.method === 'OPTIONS'){
-        res.send(200);
-    } else {
-		next();
-	}
-});
-
 var MongoStore = require('connect-mongo')(session);
 var sessionStore = new MongoStore({ 
 		mongooseConnection: mongoose.connection,
@@ -224,8 +212,8 @@ var sessionStore = new MongoStore({
 	unset: 'destroy'
 }));*/
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 24} ,
-	secret: "keyboardcat" ,
+	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false} ,
+	secret: "keyboardcat",
 	store:new MongoStore({
           db: 'heroku_d17q9k0c',
           mongooseConnection:mongoose.connection, 
@@ -239,6 +227,18 @@ app.use(session({
 	},function(err){
 		console.log(err || 'connect-mongodb setup ok');
 }));
+
+app.all('*', function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', 'http://www.onlinegamecash.com' );
+	res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    if (req.method === 'OPTIONS'){
+        res.send(200);
+    } else {
+		next();
+	}
+});
 
 require('./routes')(app);
 var port = process.env.PORT || 3000;
