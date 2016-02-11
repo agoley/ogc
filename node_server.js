@@ -220,7 +220,8 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: { 
-        secure: false
+        secure: false,
+		maxAge: 1000
     },
 	store: sessionStore,
 	unset: 'destroy'
