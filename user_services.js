@@ -293,7 +293,7 @@ exports.signout = function(req, res) {
 		res.redirect('/');
 	})*/
 	req.session.user = 0;
-	res.redirect('/');
+	res.send(200);
 }
 	
 //sign up	
