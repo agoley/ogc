@@ -217,8 +217,8 @@ app.use(session({
     secret: "keyboardcat",
     resave: true,
     saveUninitialized: false,
-	key:'xxxxx',
     cookie: { 
+		key:'xxxxx',
         secure: false
     },
 	store: sessionStore,
