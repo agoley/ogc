@@ -288,14 +288,15 @@ exports.coinUser = function(req, res) {
 
 exports.signout = function(req, res) {
 	req.logout();
-	req.session.destroy(function(err) {
+	/*req.session.destroy(function(err) {
 		if(err) {
 			console.log(err);
 		}
 		res.clearCookie('connect.sid');
-		res.redirect('/');
-	});
-	res.redirect('/');
+		res.end();
+	});*/
+	req.session = null;
+	res.end();
 }
 	
 //sign up	
