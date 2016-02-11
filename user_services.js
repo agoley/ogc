@@ -289,6 +289,7 @@ exports.coinUser = function(req, res) {
 exports.signout = function(req, res) {
 	req.logOut();
 	req.session.destroy();
+	res.clearCookie('connect.sid');
     res.redirect('/');
 }
 	
