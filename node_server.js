@@ -215,13 +215,29 @@ var sessionStore = new MongoStore({
 		mongooseConnection: mongoose.connection,
 		ttl: 5 *24 * 60 * 60 
 	});
-app.use(session({
+/*app.use(session({
     secret: "keyboardcat", 
     cookie: { maxAge: 1000 * 60 * 60 * 24, path : '/', secure: false},
 	store: sessionStore,
 	saveUninitialized:false,
 	resave: false, 
 	unset: 'destroy'
+}));*/
+app.use(session({
+	cookie: { maxAge: 1000 * 60 * 60 * 24, path : '/userprofile/user_Profile'} ,
+	secret: "keyboardcat" ,
+	store:new MongoStore({
+          db: config.db.name,
+          mongooseConnection:mongoose.connection, 
+          collection: 'session', 
+          stringify:false,
+          autoReconnect:true,
+          touchAfter: 24 * 3600 // time period in seconds
+	}),
+	saveUninitialized: false,
+	resave: false
+	},function(err){
+		console.log(err || 'connect-mongodb setup ok');
 }));
 
 require('./routes')(app);
