@@ -224,7 +224,7 @@ var sessionStore = new MongoStore({
 	unset: 'destroy'
 }));*/
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 24, path : '/userprofile/user_Profile'} ,
+	cookie: { maxAge: 1000 * 60 * 60 * 24} ,
 	secret: "keyboardcat" ,
 	store:new MongoStore({
           db: config.db.name,
