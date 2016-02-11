@@ -292,8 +292,7 @@ exports.signout = function(req, res) {
 		req.session.cookie.expires = new Date(Date.now());
 		res.redirect('/');
 	})*/
-	req.session.user = 'guest';
-	req.session.save();
+	req.session.user = null;
 	res.redirect('/');
 }
 	
