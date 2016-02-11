@@ -217,7 +217,7 @@ var sessionStore = new MongoStore({
 	});
 app.use(session({
     secret: "keyboardcat",
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     cookie: { 
         secure: false,
