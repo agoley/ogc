@@ -221,7 +221,6 @@ app.use(session({
     saveUninitialized: false,
     cookie: { 
         secure: false,
-		maxAge: 1000
     },
 	store: sessionStore,
 	unset: 'destroy'
