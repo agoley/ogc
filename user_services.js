@@ -290,8 +290,8 @@ exports.signout = function(req, res) {
 	req.session.regenerate(function onComplete(err) {
 		// req.session is clean
 		res.clearCookie('connect.sid')
+		res.redirect('/');
 	})
-	res.clearCookie('connect.sid')
 }
 	
 //sign up	
