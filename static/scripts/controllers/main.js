@@ -663,7 +663,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	}
 	
 	$scope.signout = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/signout').
+		$http.post('//agile-shelf-4123.herokuapp.com/signout', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			console.log("logged out");
 		}).error(function(data, status, headers, config) {
