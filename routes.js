@@ -39,7 +39,8 @@ module.exports = function(app) {
      }
   });*/
   app.get('/', function(req, res){
-		res.render('home');
+		console.log("on redirect: " + req.session.user)
+		res.render('home')
 	});
   
 	app.get('/login',  function(req, res){
