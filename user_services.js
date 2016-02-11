@@ -289,6 +289,7 @@ exports.coinUser = function(req, res) {
 exports.signout = function(req, res) {
 	req.session.regenerate(function onComplete(err) {
 		// req.session is clean
+		res.clearCookie('connect.sid', { path: '/' });
 		res.end()
 	})
 }
