@@ -216,13 +216,13 @@ var sessionStore = new MongoStore({
 app.use(session({
     secret: "keyboardcat",
     resave: true,
-	unset: 'destroy',
     saveUninitialized: false,
     cookie: { 
         secure: false,
         maxAge: null
     },
-	store: sessionStore
+	store: sessionStore,
+	unset: 'destroy'
 }));
 
 require('./routes')(app);
