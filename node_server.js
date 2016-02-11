@@ -227,7 +227,7 @@ app.use(session({
 	cookie: { maxAge: 1000 * 60 * 60 * 24} ,
 	secret: "keyboardcat" ,
 	store:new MongoStore({
-          db: config.db.name,
+          db: 'heroku_d17q9k0c',
           mongooseConnection:mongoose.connection, 
           collection: 'session', 
           stringify:false,
