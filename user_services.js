@@ -287,10 +287,15 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	req.session.destroy(function() {
+	req.logout();
+	req.session.destroy(function(err) {
+		if(err) {
+			console.log(err);
+		}
 		res.clearCookie('connect.sid');
 		res.redirect('/');
 	});
+	res.redirect('/');
 }
 	
 //sign up	
