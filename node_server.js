@@ -216,13 +216,11 @@ var sessionStore = new MongoStore({
 		ttl: 5 *24 * 60 * 60 
 	});
 app.use(session({
-    secret: "keyboardcat",
-    saveUninitialized:false,
-	resave: false,  
-    cookie: { 
-        secure: false,
-    },
+    secret: "keyboardcat", 
+    cookie: { maxAge: 1000 * 60 * 60 * 24, path : '/', secure: false},
 	store: sessionStore,
+	saveUninitialized:false,
+	resave: false, 
 	unset: 'destroy'
 }));
 
