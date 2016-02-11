@@ -183,10 +183,6 @@ app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
 app.set('view engine', 'html');
 
-app.use(cookieParser("keyboardcat"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-
 mongoose.connect(uri);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -212,12 +208,12 @@ var sessionStore = new MongoStore({
 	unset: 'destroy'
 }));*/
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false} ,
+	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false},
 	secret: "keyboardcat",
 	store:new MongoStore({
           db: 'heroku_d17q9k0c',
           mongooseConnection:mongoose.connection, 
-          collection: 'session', 
+          collection: 'sessions', 
           stringify:false,
           autoReconnect:true,
           touchAfter: 24 * 3600 // time period in seconds
@@ -227,6 +223,10 @@ app.use(session({
 	},function(err){
 		console.log(err || 'connect-mongodb setup ok');
 }));
+
+app.use(cookieParser("keyboardcat"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 app.all('*', function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', 'http://www.onlinegamecash.com' );
