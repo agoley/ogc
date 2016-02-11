@@ -287,14 +287,11 @@ exports.coinUser = function(req, res) {
 }
 
 exports.signout = function(req, res) {
-	var newSession;
 	req.session.regenerate(function onComplete(err) {
 		// req.session is clean
-		//req.session.cookie.expires = new Date(Date.now())
-		newSession = req.session;
-	})
-	req.session = newSession;
-	res.redirect('/');
+		req.session.cookie.expires = new Date(Date.now());
+		res.redirect('/');
+	})	
 }
 	
 //sign up	
