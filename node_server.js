@@ -174,6 +174,8 @@ var cookieParser = require('cookie-parser');
 
 var app = express();
 
+var favicon = require('serve-favicon');
+app.use(favicon(__dirname + '/static/images/logo-icon.ico'));
 
 var  uri = process.env.MONGOLAB_URI;
 app.engine('.html', require('ejs').__express);
@@ -218,7 +220,6 @@ app.use(session({
     resave: true,
     saveUninitialized: false,
     cookie: { 
-		key:'xxxxx',
         secure: false
     },
 	store: sessionStore,
