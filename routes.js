@@ -39,13 +39,7 @@ module.exports = function(app) {
      }
   });*/
   app.get('/', function(req, res){
-		var session = req.session;
-		if(session) {
-			res.render('home',  {username: session.username, user: session.user, msg:session.msg});
-		} else {
-			console.log("rendering home non auth");
-			res.render('home');
-		}
+		res.render('home');
 	});
   
 	app.get('/login',  function(req, res){
