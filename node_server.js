@@ -218,8 +218,8 @@ app.use(session({
           autoReconnect:true,
           touchAfter: 24 * 3600 // time period in seconds
 	}),
-	saveUninitialized: true,
-	resave: true
+	saveUninitialized: false,
+	resave: false
 	},function(err){
 		console.log(err || 'connect-mongodb setup ok');
 }));
