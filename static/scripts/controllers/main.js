@@ -652,7 +652,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signin2 = function(){
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//agile-shelf-4123.herokuapp.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			$http.post('//www.onlinegamecash.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				$scope.user = data;
 				console.log("user after sign in: " + $scope.user)
 			}).error(function(data, status, headers, config) {
