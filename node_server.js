@@ -240,6 +240,11 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+app.all('*', function(req, res, next) {
+	console.log(req.session.cookie);
+	next();
+});
+
 
 require('./routes')(app);
 var port = process.env.PORT || 3000;
