@@ -170,7 +170,6 @@ var http = require("http");
 var session = require("express-session");
 var mongoose =  require('mongoose');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
 
 var app = express();
 
@@ -208,7 +207,7 @@ var sessionStore = new MongoStore({
 	unset: 'destroy'
 }));*/
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false},
+	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: true},
 	secret: "keyboardcat",
 	store:new MongoStore({
           db: 'heroku_d17q9k0c',
@@ -224,7 +223,6 @@ app.use(session({
 		console.log(err || 'connect-mongodb setup ok');
 }));
 
-app.use(cookieParser("keyboardcat"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
