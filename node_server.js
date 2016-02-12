@@ -208,7 +208,7 @@ var sessionStore = new MongoStore({
 }));*/
 app.enable("trust proxy");
 app.use(session({
-	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: true},
+	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: false},
 	secret: "keyboardcat",
 	store:new MongoStore({
           db: 'heroku_d17q9k0c',
