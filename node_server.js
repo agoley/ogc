@@ -220,7 +220,7 @@ var sessionStore = new MongoStore({
 	unset: 'destroy'
 }));*/
 
-app.use(cookieParser("keyboardcat");
+app.use(cookieParser("keyboardcat"));
 app.use(session({
 	secret: "keyboardcat",
 	store:new MongoStore({
