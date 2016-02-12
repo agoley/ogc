@@ -206,7 +206,8 @@ var sessionStore = new MongoStore({
 	resave: false, 
 	unset: 'destroy'
 }));*/
-app.enable('trust proxy');
+app.use("trust proxy");
+app.set("trust proxy", 1);
 app.use(session({
 	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: true},
 	secret: "keyboardcat",
