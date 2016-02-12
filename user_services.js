@@ -340,7 +340,7 @@ exports.signin2 = function(req, res) {
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
 				req.session.user = user.id;
 				req.session.username = user.username;
-				res.cookie('cookiename', 'cookievalue', { maxAge: 900000, httpOnly: false });
+				res.cookie('cookiename', 'cookievalue', { maxAge: 9000000, httpOnly: true });
 				console.log("Session user: " + req.session.user + ", and session id: " + req.session.id);
 				res.send(user);
 			}
