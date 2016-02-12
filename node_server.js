@@ -170,6 +170,7 @@ var http = require("http");
 var session = require("express-session");
 var mongoose =  require('mongoose');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 var app = express();
 
@@ -219,6 +220,7 @@ var sessionStore = new MongoStore({
 	unset: 'destroy'
 }));*/
 
+app.use(cookieParser("keyboardcat");
 app.use(session({
 	secret: "keyboardcat",
 	store:new MongoStore({
@@ -239,12 +241,6 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-
-app.all('*', function(req, res, next) {
-	console.log(req.session.cookie);
-	next();
-});
-
 
 require('./routes')(app);
 var port = process.env.PORT || 3000;
