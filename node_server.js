@@ -218,7 +218,8 @@ app.use(session({
           touchAfter: 24 * 3600 // time period in seconds
 	}),
 	saveUninitialized: false,
-	resave: false
+	resave: false,
+	unset: 'destroy'
 	},function(err){
 		console.log(err || 'connect-mongodb setup ok');
 }));
