@@ -220,7 +220,7 @@ var sessionStore = new MongoStore({
 }));*/
 app.enable("trust proxy");
 app.use(session({
-	key: 'foo';
+	key: 'foo',
 	cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: false},
 	secret: "keyboardcat",
 	store:new MongoStore({
@@ -231,6 +231,7 @@ app.use(session({
           autoReconnect:true,
           touchAfter: 24 * 3600 // time period in seconds
 	}),
+	domain: 'onlinegamecash.com',
 	saveUninitialized: false,
 	resave: false,
 	unset: 'destroy'
