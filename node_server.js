@@ -231,7 +231,7 @@ app.use(session({
           autoReconnect:true,
           touchAfter: 24 * 3600 // time period in seconds
 	}),
-    cookie: { name: 'connect.sid', maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: false},
+    cookie: { key: 'myKey', name: 'connect.sid', maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: false},
 	saveUninitialized: false,
 	resave: false,
 	unset: 'destroy'
