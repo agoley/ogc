@@ -222,6 +222,7 @@ var sessionStore = new MongoStore({
 
 app.use(cookieParser("keyboardcat"));
 app.use(session({
+	proxy: true,
 	secret: "keyboardcat",
 	store:new MongoStore({
           db: 'heroku_d17q9k0c',
