@@ -220,7 +220,7 @@ var sessionStore = new MongoStore({
 	unset: 'destroy'
 }));*/
 
-app.use(cookieParser("keyboardcat"));
+//app.use(cookieParser("keyboardcat"));
 app.use(session({
 	proxy: true,
 	secret: "keyboardcat",
@@ -232,7 +232,7 @@ app.use(session({
           autoReconnect:true,
           touchAfter: 24 * 3600 // time period in seconds
 	}),
-    cookie: { key: 'myKey', name: 'connect.sid', maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: false},
+    cookie: { name: 'connect.sid', maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: false},
 	saveUninitialized: false,
 	resave: false,
 	unset: 'destroy'
