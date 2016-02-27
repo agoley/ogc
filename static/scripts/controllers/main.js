@@ -607,7 +607,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$scope.sales = $scope.allSalesInCart();
 				$scope.buys = $scope.allBuysInCart();
 				$scope.trades = $scope.allTradesInCart();*/
-			})
+			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
