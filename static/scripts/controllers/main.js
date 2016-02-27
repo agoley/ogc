@@ -595,8 +595,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.fail = false;
 	$scope.authenticated = false;
 	
-	$http.get('//agile-shelf-4123.herokuapp.com/user/profile', { withCredentials: true }).
-		success(function(data, status, headers, config) {
+	var setUser = function() {
+		$http.get('//agile-shelf-4123.herokuapp.com/user/profile', { withCredentials: true }).
+			success(function(data, status, headers, config) {
 			console.log("user on get profile: ", data);
 			if(data) {
 				console.log("setting user");
@@ -611,7 +612,8 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
-	
+	}
+	setUser();
 	// Check if a user is logged in
 	$scope.isAuthenticated = function() {
 	$http.get('//agile-shelf-4123.herokuapp.com/user/isAuth', { withCredentials: true }).
@@ -674,7 +676,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signout2 = function() {
 		$http.post('//agile-shelf-4123.herokuapp.com/signin2').
 		success(function(data, status, headers, config) {
-			$scope.user = {};
+			setUser();
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/login");
 		});
