@@ -597,7 +597,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	
 	var setUser = function() {
 		$http.get('//52.87.191.188/user/profile', { withCredentials: true }).
-			success(function(data, status, headers, config) {
+			success(function(data, status, headers, config)) {
 			if(data) {
 				console.log("setting user: " data);
 				$scope.user = data;
