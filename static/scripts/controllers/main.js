@@ -15,10 +15,10 @@ app.factory('loginService', function($http) {
 
     var signin = function() {
 
-		return $http.post('//agile-shelf-4123.herokuapp.com/signin2', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+		return $http.post('//52.87.191.188/signin2', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				return data;
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
+				console.log("App failed to post to //52.87.191.188/signup");
 			});
     };
     return { signin: signin };
@@ -36,16 +36,16 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
-		$http.get('//agile-shelf-4123.herokuapp.com/user/clearLastTransaction', { withCredentials: true }).
+		$http.get('//52.87.191.188/user/clearLastTransaction', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			console.log("cleared the last transaction.");
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/clearLastTransaction");
+			console.log("App failed to post to //52.87.191.188/clearLastTransaction");
 		});
 	}
 	
 	// Get pending transactions for the user. Displayed in the profile page.
-	$http.get('//agile-shelf-4123.herokuapp.com/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
+	$http.get('//52.87.191.188/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
 		console.log("transactions: ", data);
 		$scope.transForUser = data;
 	}).error(function(data, status, headers, config) {
@@ -53,16 +53,16 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	});
 	
 	$scope.updateUser = function(){
-		$http.post('//agile-shelf-4123.herokuapp.com/user/update', $scope.user).
+		$http.post('//52.87.191.188/user/update', $scope.user).
 		success(function(data, status, headers, config) {
 			console.log("user: ", data);
 			$scope.user = data;
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/update");
+			console.log("App failed to post to //52.87.191.188/user/update");
 		});
 	}			
 	
-	/*$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
+	/*$http.get('//52.87.191.188/user/profile').
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			$scope.user = data;
@@ -76,7 +76,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			console.log('Error getting user');
 		});
 	$scope.refreshUser = function() {
-		$http.get('//agile-shelf-4123.herokuapp.com/user/profile').
+		$http.get('//52.87.191.188/user/profile').
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			$scope.user = data;
@@ -156,7 +156,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		// Filter by transaction type
 		if($scope.transaction.type == "sale") {
 			console.log("adding game: " + game);
-			$http.post('//agile-shelf-4123.herokuapp.com/user/addGame', game, { withCredentials: true }).
+			$http.post('//52.87.191.188/user/addGame', game, { withCredentials: true }).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
 				if(data) {
@@ -171,11 +171,11 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.trades = $scope.allTradesInCart();*/
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame");
+				console.log("App failed to post to //52.87.191.188/user/addGame");
 			});
 		} else if($scope.transaction.type == "ingest") {
 			// Add credit to the users account.
-			$http.post('//agile-shelf-4123.herokuapp.com/user/addCredit', game,{ withCredentials: true }).
+			$http.post('//52.87.191.188/user/addCredit', game,{ withCredentials: true }).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
 				if(data) {
@@ -190,11 +190,11 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.trades = $scope.allTradesInCart();*/
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame", { withCredentials: true });
+				console.log("App failed to post to //52.87.191.188/user/addGame", { withCredentials: true });
 			});
 		} else if($scope.transaction.type == "trade") {
 			// Add coin to the users account.
-			$http.post('//agile-shelf-4123.herokuapp.com/user/addCoin', game, { withCredentials: true }).
+			$http.post('//52.87.191.188/user/addCoin', game, { withCredentials: true }).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
 				if(data) {
@@ -209,14 +209,14 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.trades = $scope.allTradesInCart();*/
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame", { withCredentials: true });
+				console.log("App failed to post to //52.87.191.188/user/addGame", { withCredentials: true });
 			});
 		}
 		
 	}
 		
 	$scope.removeFromCart = function(game) {
-		$http.post('//agile-shelf-4123.herokuapp.com/user/removeGame', game, { withCredentials: true }).
+		$http.post('//52.87.191.188/user/removeGame', game, { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			if(data){
@@ -226,7 +226,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				$scope.coin = $scope.totalCoin();*/
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/addGame");
+			console.log("App failed to post to //52.87.191.188/user/addGame");
 		});
 	} 	
 }]);
@@ -257,7 +257,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	
 	// Request the token here.
 	$scope.getClientToken = function() {
-		$http.get('//agile-shelf-4123.herokuapp.com/client_token', { withCredentials: true })
+		$http.get('//52.87.191.188/client_token', { withCredentials: true })
 			.success(function(data, status, headers, config) {
 			var client_token = data;
 			console.log("token: " + client_token);
@@ -314,7 +314,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.viewConf();
 	}
 	
-	/*$http.get('//agile-shelf-4123.herokuapp.com/games/profile').
+	/*$http.get('//52.87.191.188/games/profile').
 		success(function(data, status, headers, config) {
 			//console.log("game: ", data);
 			$scope.game = data;
@@ -323,7 +323,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		});
 		
 		// Get pending transactions for the user. Displayed in the profile page.
-		$http.get('//agile-shelf-4123.herokuapp.com/user/transactions').success(function(data, status, headers, config) {
+		$http.get('//52.87.191.188/user/transactions').success(function(data, status, headers, config) {
 			console.log("transactions: ", data);
 			$scope.transForUser = data;
 		}).error(function(data, status, headers, config) {
@@ -346,34 +346,34 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.checkout.charge = $scope.total;
 		$scope.checkout.coin = $scope.coin;
 		
-		$http.post('//agile-shelf-4123.herokuapp.com/submitTransaction', $scope.checkout, { withCredentials: true }).success(function(data, status, headers, config) {
+		$http.post('//52.87.191.188/submitTransaction', $scope.checkout, { withCredentials: true }).success(function(data, status, headers, config) {
 			console.log("transaction:  " + JSON.stringify(data));
 			$scope.viewConf();
 			$scope.trans = data;
 			user.cart = [];
-			$http.get('//agile-shelf-4123.herokuapp.com/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
+			$http.get('//52.87.191.188/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
 				console.log("transactions: ", data);
 				$scope.transForUser = data;
 			}).error(function(data, status, headers, config) {
 				console.log('Error getting user');
 			});
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/submitTransaction");
+			console.log("App failed to post to //52.87.191.188/submitTransaction");
 		});
 	}
 	
 	/* $scope.clearLastTransaction = function(){
 		console.log("clearing.");
-		$http.get('//agile-shelf-4123.herokuapp.com/user/clearLastTransaction').
+		$http.get('//52.87.191.188/user/clearLastTransaction').
 		success(function(data, status, headers, config) {
 			console.log("cleared the last transaction.");
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/clearLastTransaction");
+			console.log("App failed to post to //52.87.191.188/clearLastTransaction");
 		});
 	}	*/
 		
 	$scope.getAction = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/user/action', $scope.page).
+		$http.post('//52.87.191.188/user/action', $scope.page).
 		success(function(data, status, headers, config) {
 			console.log("data from action: " + data);
 			if(data){ 
@@ -381,67 +381,67 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 				$scope.page.actionNumber = $scope.page.actionNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/action");
+			console.log("App failed to post to //52.87.191.188/game/action");
 		});
 	}
 		
 	$scope.getShooter = function() {
 		//console.log($scope.page);
-		$http.post('//agile-shelf-4123.herokuapp.com/games/shooter', $scope.page).
+		$http.post('//52.87.191.188/games/shooter', $scope.page).
 		success(function(data, status, headers, config) {
-			//console.log("App posted to //agile-shelf-4123.herokuapp.com/game/shooter,response: ", data[0].image_path);
+			//console.log("App posted to //52.87.191.188/game/shooter,response: ", data[0].image_path);
 			if(data != ""){ 
 				$scope.shooter = data;
 				$scope.page.shooterNumber = $scope.page.shooterNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/shooter");
+			console.log("App failed to post to //52.87.191.188/game/shooter");
 		});
 	}
 	
 	$scope.getFamily = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/games/family', $scope.page).
+		$http.post('//52.87.191.188/games/family', $scope.page).
 		success(function(data, status, headers, config) {
 			if(data != ""){ 
 				$scope.family = data;
 				$scope.page.familyNumber = $scope.page.familyNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/family");
+			console.log("App failed to post to //52.87.191.188/game/family");
 		});
 	}
 		
 	$scope.getRacing = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/games/racing', $scope.page).
+		$http.post('//52.87.191.188/games/racing', $scope.page).
 		success(function(data, status, headers, config) {
 			if(data != ""){ 
 				$scope.racing = data;
 				$scope.page.racingNumber = $scope.page.racingNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/racing");
+			console.log("App failed to post to //52.87.191.188/game/racing");
 		});
 	}
 		
 	$scope.getFighting = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/games/fighting', $scope.page).
+		$http.post('//52.87.191.188/games/fighting', $scope.page).
 		success(function(data, status, headers, config) {
 			if(data != ""){ 
 				$scope.fighting = data;
 				$scope.page.fightingNumber = $scope.page.fightingNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/fighting");
+			console.log("App failed to post to //52.87.191.188/game/fighting");
 		});
 	}
 		
 	$scope.getTitles = function() {
-		$http.get('//agile-shelf-4123.herokuapp.com/games/titles', { withCredentials: true }).
+		$http.get('//52.87.191.188/games/titles', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			$scope.titles = data;
 			console.log("titles: " + $scope.titles + ", data:" + data);
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/games/titles");
+			console.log("App failed to post to //52.87.191.188/games/titles");
 		});
 	}
 		
@@ -513,13 +513,13 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	
 	// Post to node server to upload a game
 	$scope.gameUpload = function(game) {
-		$http.post('//agile-shelf-4123.herokuapp.com/upload/game', game).
+		$http.post('//52.87.191.188/upload/game', game).
 		success(function(data, status, headers, config) {
-			//console.log("App posted to //agile-shelf-4123.herokuapp.com/upload/game,response: " + data);
+			//console.log("App posted to //52.87.191.188/upload/game,response: " + data);
 			$scope.game = {}; // Reset the game inputs
 			$scope.uploadGame = false;
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/upload/game, { withCredentials: true }");
+			console.log("App failed to post to //52.87.191.188/upload/game, { withCredentials: true }");
 		});
 	};
 	
@@ -539,9 +539,9 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	};
 	
 	$scope.updateGame = function(game) {
-		$http.post('//agile-shelf-4123.herokuapp.com/games/update', JSON.stringify(game), { withCredentials: true }).
+		$http.post('//52.87.191.188/games/update', JSON.stringify(game), { withCredentials: true }).
 			success(function(data, status, headers, config) {
-			//	console.log("App posted to //agile-shelf-4123.herokuapp.com/game/update, resonse: " + data);
+			//	console.log("App posted to //52.87.191.188/game/update, resonse: " + data);
 				if(data){
 					//$scope.getGame(game.title);
 					$scope.editGame = false;
@@ -550,16 +550,16 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 					$scope.fail = true;
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game/update");
+				console.log("App failed to post to //52.87.191.188/game/update");
 		});
 	}
 	
 	$scope.getGame = function(gameTitle) {
 		var param = {};
 		param.title = gameTitle;
-		$http.post('//agile-shelf-4123.herokuapp.com/game', JSON.stringify(param)).
+		$http.post('//52.87.191.188/game', JSON.stringify(param)).
 			success(function(data, status, headers, config) {
-				//console.log("App posted to //agile-shelf-4123.herokuapp.com/game, resonse: " + data);
+				//console.log("App posted to //52.87.191.188/game, resonse: " + data);
 				if(data){
 					$scope.game = data;
 					console.log($scope.game.genre);
@@ -574,7 +574,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 					$scope.fail = true;
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/game");
+				console.log("App failed to post to //52.87.191.188/game");
 		});
 	}
 	
@@ -596,11 +596,10 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.authenticated = false;
 	
 	var setUser = function() {
-		$http.get('//agile-shelf-4123.herokuapp.com/user/profile', { withCredentials: true }).
+		$http.get('//52.87.191.188/user/profile', { withCredentials: true }).
 			success(function(data, status, headers, config) {
-			console.log("user on get profile: ", data);
 			if(data) {
-				console.log("setting user");
+				console.log("setting user: " data);
 				$scope.user = data;
 				/*$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
@@ -616,7 +615,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	setUser();
 	// Check if a user is logged in
 	$scope.isAuthenticated = function() {
-	$http.get('//agile-shelf-4123.herokuapp.com/user/isAuth', { withCredentials: true }).
+	$http.get('//52.87.191.188/user/isAuth', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			if(data == "true"){
 				$scope.authenticated = true;
@@ -625,7 +624,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			}
 			console.log("isAuth: " + data);
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/user/isAuth");
+			console.log("App failed to post to //52.87.191.188/user/isAuth");
 		});
 	}
 	$scope.isAuthenticated()
@@ -654,32 +653,32 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signin2 = function(){
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//agile-shelf-4123.herokuapp.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			$http.post('//52.87.191.188/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				$scope.user = data;
 				console.log("user after sign in: " + $scope.user)
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
+				console.log("App failed to post to //52.87.191.188/signup");
 				return;
 			});
 		}
 	}
 	
 	$scope.signout = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/signout', { withCredentials: true }).
+		$http.post('//52.87.191.188/signout', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			console.log("logged out");
 			setUser();
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/login");
+			console.log("App failed to post to //52.87.191.188/login");
 		});
 	};
 	
 	$scope.signout2 = function() {
-		$http.post('//agile-shelf-4123.herokuapp.com/signin2').
+		$http.post('//52.87.191.188/signin2').
 		success(function(data, status, headers, config) {
 			setUser();
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //agile-shelf-4123.herokuapp.com/login");
+			console.log("App failed to post to //52.87.191.188/login");
 		});
 	};
 	
@@ -691,11 +690,11 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		};
 		var POSTDATA= JSON.stringify($scope.credentials);
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//agile-shelf-4123.herokuapp.com/signup',  $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-			//	console.log("App posted to //agile-shelf-4123.herokuapp.com/signup,response: " + data);
-				window.location = '//agile-shelf-4123.herokuapp.com/home';
+			$http.post('//52.87.191.188/signup',  $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			//	console.log("App posted to //52.87.191.188/signup,response: " + data);
+				window.location = '//52.87.191.188/home';
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signup");
+				console.log("App failed to post to //52.87.191.188/signup");
 			});
 		}
 	};
@@ -708,16 +707,16 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		};
 		var POSTDATA= JSON.stringify($scope.credentials);
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//agile-shelf-4123.herokuapp.com/signin', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-			//	console.log("App posted to //agile-shelf-4123.herokuapp.com/signin, resonse: " + data);
+			$http.post('//52.87.191.188/signin', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			//	console.log("App posted to //52.87.191.188/signin, resonse: " + data);
 				if(data){
-					//window.location = '//agile-shelf-4123.herokuapp.com/home';
+					//window.location = '//52.87.191.188/home';
 				} else {
 					console.log("handle error");
 					$scope.fail = true;
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //agile-shelf-4123.herokuapp.com/signin");
+				console.log("App failed to post to //52.87.191.188/signin");
 			});
 		}
 	};
