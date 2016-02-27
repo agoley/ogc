@@ -211,17 +211,17 @@ var sessionStore = new MongoStore({
 		mongooseConnection: mongoose.connection,
 		ttl: 5 *24 * 60 * 60 
 	});
-/*app.use(session({
+app.use(session({
     secret: "keyboardcat", 
     cookie: { maxAge: 1000 * 60 * 60 * 24, path : '/', secure: false},
 	store: sessionStore,
 	saveUninitialized:false,
 	resave: false, 
 	unset: 'destroy'
-}));*/
+}));
 
-//app.use(cookieParser("keyboardcat"));
-app.use(session({
+app.use(cookieParser("keyboardcat"));
+/*app.use(session({
 	secret: "keyboardcat",
 	store:new MongoStore({
           db: 'heroku_d17q9k0c',
@@ -237,7 +237,7 @@ app.use(session({
 	unset: 'destroy'
 	},function(err){
 		console.log(err || 'connect-mongodb setup ok');
-}));
+}));*/
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
