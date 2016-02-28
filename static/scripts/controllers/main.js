@@ -15,10 +15,10 @@ app.factory('loginService', function($http) {
 
     var signin = function() {
 
-		return $http.post('//52.87.191.188/signin2', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+		return $http.post('//onlinegamecash.com/signin2', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				return data;
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/signup");
+				console.log("App failed to post to //onlinegamecash.com/signup");
 			});
     };
     return { signin: signin };
@@ -36,16 +36,16 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
-		$http.get('//52.87.191.188/user/clearLastTransaction', { withCredentials: true }).
+		$http.get('//onlinegamecash.com/user/clearLastTransaction', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			console.log("cleared the last transaction.");
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/clearLastTransaction");
+			console.log("App failed to post to //onlinegamecash.com/clearLastTransaction");
 		});
 	}
 	
 	// Get pending transactions for the user. Displayed in the profile page.
-	$http.get('//52.87.191.188/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
+	$http.get('//onlinegamecash.com/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
 		console.log("transactions: ", data);
 		$scope.transForUser = data;
 	}).error(function(data, status, headers, config) {
@@ -53,16 +53,16 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	});
 	
 	$scope.updateUser = function(){
-		$http.post('//52.87.191.188/user/update', $scope.user).
+		$http.post('//onlinegamecash.com/user/update', $scope.user).
 		success(function(data, status, headers, config) {
 			console.log("user: ", data);
 			$scope.user = data;
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/user/update");
+			console.log("App failed to post to //onlinegamecash.com/user/update");
 		});
 	}			
 	
-	/*$http.get('//52.87.191.188/user/profile').
+	/*$http.get('//onlinegamecash.com/user/profile').
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			$scope.user = data;
@@ -76,7 +76,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			console.log('Error getting user');
 		});
 	$scope.refreshUser = function() {
-		$http.get('//52.87.191.188/user/profile').
+		$http.get('//onlinegamecash.com/user/profile').
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			$scope.user = data;
@@ -156,7 +156,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		// Filter by transaction type
 		if($scope.transaction.type == "sale") {
 			console.log("adding game: " + game);
-			$http.post('//52.87.191.188/user/addGame', game, { withCredentials: true }).
+			$http.post('//onlinegamecash.com/user/addGame', game, { withCredentials: true }).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
 				if(data) {
@@ -171,11 +171,11 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.trades = $scope.allTradesInCart();*/
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/user/addGame");
+				console.log("App failed to post to //onlinegamecash.com/user/addGame");
 			});
 		} else if($scope.transaction.type == "ingest") {
 			// Add credit to the users account.
-			$http.post('//52.87.191.188/user/addCredit', game,{ withCredentials: true }).
+			$http.post('//onlinegamecash.com/user/addCredit', game,{ withCredentials: true }).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
 				if(data) {
@@ -190,11 +190,11 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.trades = $scope.allTradesInCart();*/
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/user/addGame", { withCredentials: true });
+				console.log("App failed to post to //onlinegamecash.com/user/addGame", { withCredentials: true });
 			});
 		} else if($scope.transaction.type == "trade") {
 			// Add coin to the users account.
-			$http.post('//52.87.191.188/user/addCoin', game, { withCredentials: true }).
+			$http.post('//onlinegamecash.com/user/addCoin', game, { withCredentials: true }).
 			success(function(data, status, headers, config) {
 				//console.log("user: ", data);
 				if(data) {
@@ -209,14 +209,14 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.trades = $scope.allTradesInCart();*/
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/user/addGame", { withCredentials: true });
+				console.log("App failed to post to //onlinegamecash.com/user/addGame", { withCredentials: true });
 			});
 		}
 		
 	}
 		
 	$scope.removeFromCart = function(game) {
-		$http.post('//52.87.191.188/user/removeGame', game, { withCredentials: true }).
+		$http.post('//onlinegamecash.com/user/removeGame', game, { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			//console.log("user: ", data);
 			if(data){
@@ -226,7 +226,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				$scope.coin = $scope.totalCoin();*/
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/user/addGame");
+			console.log("App failed to post to //onlinegamecash.com/user/addGame");
 		});
 	} 	
 }]);
@@ -257,7 +257,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	
 	// Request the token here.
 	$scope.getClientToken = function() {
-		$http.get('//52.87.191.188/client_token', { withCredentials: true })
+		$http.get('//onlinegamecash.com/client_token', { withCredentials: true })
 			.success(function(data, status, headers, config) {
 			var client_token = data;
 			console.log("token: " + client_token);
@@ -314,7 +314,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.viewConf();
 	}
 	
-	/*$http.get('//52.87.191.188/games/profile').
+	/*$http.get('//onlinegamecash.com/games/profile').
 		success(function(data, status, headers, config) {
 			//console.log("game: ", data);
 			$scope.game = data;
@@ -323,7 +323,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		});
 		
 		// Get pending transactions for the user. Displayed in the profile page.
-		$http.get('//52.87.191.188/user/transactions').success(function(data, status, headers, config) {
+		$http.get('//onlinegamecash.com/user/transactions').success(function(data, status, headers, config) {
 			console.log("transactions: ", data);
 			$scope.transForUser = data;
 		}).error(function(data, status, headers, config) {
@@ -346,34 +346,34 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.checkout.charge = $scope.total;
 		$scope.checkout.coin = $scope.coin;
 		
-		$http.post('//52.87.191.188/submitTransaction', $scope.checkout, { withCredentials: true }).success(function(data, status, headers, config) {
+		$http.post('//onlinegamecash.com/submitTransaction', $scope.checkout, { withCredentials: true }).success(function(data, status, headers, config) {
 			console.log("transaction:  " + JSON.stringify(data));
 			$scope.viewConf();
 			$scope.trans = data;
 			user.cart = [];
-			$http.get('//52.87.191.188/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
+			$http.get('//onlinegamecash.com/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
 				console.log("transactions: ", data);
 				$scope.transForUser = data;
 			}).error(function(data, status, headers, config) {
 				console.log('Error getting user');
 			});
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/submitTransaction");
+			console.log("App failed to post to //onlinegamecash.com/submitTransaction");
 		});
 	}
 	
 	/* $scope.clearLastTransaction = function(){
 		console.log("clearing.");
-		$http.get('//52.87.191.188/user/clearLastTransaction').
+		$http.get('//onlinegamecash.com/user/clearLastTransaction').
 		success(function(data, status, headers, config) {
 			console.log("cleared the last transaction.");
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/clearLastTransaction");
+			console.log("App failed to post to //onlinegamecash.com/clearLastTransaction");
 		});
 	}	*/
 		
 	$scope.getAction = function() {
-		$http.post('//52.87.191.188/user/action', $scope.page).
+		$http.post('//onlinegamecash.com/user/action', $scope.page).
 		success(function(data, status, headers, config) {
 			console.log("data from action: " + data);
 			if(data){ 
@@ -381,67 +381,67 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 				$scope.page.actionNumber = $scope.page.actionNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/game/action");
+			console.log("App failed to post to //onlinegamecash.com/game/action");
 		});
 	}
 		
 	$scope.getShooter = function() {
 		//console.log($scope.page);
-		$http.post('//52.87.191.188/games/shooter', $scope.page).
+		$http.post('//onlinegamecash.com/games/shooter', $scope.page).
 		success(function(data, status, headers, config) {
-			//console.log("App posted to //52.87.191.188/game/shooter,response: ", data[0].image_path);
+			//console.log("App posted to //onlinegamecash.com/game/shooter,response: ", data[0].image_path);
 			if(data != ""){ 
 				$scope.shooter = data;
 				$scope.page.shooterNumber = $scope.page.shooterNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/game/shooter");
+			console.log("App failed to post to //onlinegamecash.com/game/shooter");
 		});
 	}
 	
 	$scope.getFamily = function() {
-		$http.post('//52.87.191.188/games/family', $scope.page).
+		$http.post('//onlinegamecash.com/games/family', $scope.page).
 		success(function(data, status, headers, config) {
 			if(data != ""){ 
 				$scope.family = data;
 				$scope.page.familyNumber = $scope.page.familyNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/game/family");
+			console.log("App failed to post to //onlinegamecash.com/game/family");
 		});
 	}
 		
 	$scope.getRacing = function() {
-		$http.post('//52.87.191.188/games/racing', $scope.page).
+		$http.post('//onlinegamecash.com/games/racing', $scope.page).
 		success(function(data, status, headers, config) {
 			if(data != ""){ 
 				$scope.racing = data;
 				$scope.page.racingNumber = $scope.page.racingNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/game/racing");
+			console.log("App failed to post to //onlinegamecash.com/game/racing");
 		});
 	}
 		
 	$scope.getFighting = function() {
-		$http.post('//52.87.191.188/games/fighting', $scope.page).
+		$http.post('//onlinegamecash.com/games/fighting', $scope.page).
 		success(function(data, status, headers, config) {
 			if(data != ""){ 
 				$scope.fighting = data;
 				$scope.page.fightingNumber = $scope.page.fightingNumber + 1;
 			}
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/game/fighting");
+			console.log("App failed to post to //onlinegamecash.com/game/fighting");
 		});
 	}
 		
 	$scope.getTitles = function() {
-		$http.get('//52.87.191.188/games/titles', { withCredentials: true }).
+		$http.get('//onlinegamecash.com/games/titles', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			$scope.titles = data;
 			console.log("titles: " + $scope.titles + ", data:" + data);
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/games/titles");
+			console.log("App failed to post to //onlinegamecash.com/games/titles");
 		});
 	}
 		
@@ -513,13 +513,13 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	
 	// Post to node server to upload a game
 	$scope.gameUpload = function(game) {
-		$http.post('//52.87.191.188/upload/game', game).
+		$http.post('//onlinegamecash.com/upload/game', game).
 		success(function(data, status, headers, config) {
-			//console.log("App posted to //52.87.191.188/upload/game,response: " + data);
+			//console.log("App posted to //onlinegamecash.com/upload/game,response: " + data);
 			$scope.game = {}; // Reset the game inputs
 			$scope.uploadGame = false;
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/upload/game, { withCredentials: true }");
+			console.log("App failed to post to //onlinegamecash.com/upload/game, { withCredentials: true }");
 		});
 	};
 	
@@ -539,9 +539,9 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	};
 	
 	$scope.updateGame = function(game) {
-		$http.post('//52.87.191.188/games/update', JSON.stringify(game), { withCredentials: true }).
+		$http.post('//onlinegamecash.com/games/update', JSON.stringify(game), { withCredentials: true }).
 			success(function(data, status, headers, config) {
-			//	console.log("App posted to //52.87.191.188/game/update, resonse: " + data);
+			//	console.log("App posted to //onlinegamecash.com/game/update, resonse: " + data);
 				if(data){
 					//$scope.getGame(game.title);
 					$scope.editGame = false;
@@ -550,16 +550,16 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 					$scope.fail = true;
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/game/update");
+				console.log("App failed to post to //onlinegamecash.com/game/update");
 		});
 	}
 	
 	$scope.getGame = function(gameTitle) {
 		var param = {};
 		param.title = gameTitle;
-		$http.post('//52.87.191.188/game', JSON.stringify(param)).
+		$http.post('//onlinegamecash.com/game', JSON.stringify(param)).
 			success(function(data, status, headers, config) {
-				//console.log("App posted to //52.87.191.188/game, resonse: " + data);
+				//console.log("App posted to //onlinegamecash.com/game, resonse: " + data);
 				if(data){
 					$scope.game = data;
 					console.log($scope.game.genre);
@@ -574,7 +574,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 					$scope.fail = true;
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/game");
+				console.log("App failed to post to //onlinegamecash.com/game");
 		});
 	}
 	
@@ -596,7 +596,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.authenticated = false;
 	
 	var setUser = function() {
-		$http.get('//52.87.191.188/user/profile', { withCredentials: true }).
+		$http.get('//onlinegamecash.com/user/profile', { withCredentials: true }).
 			success(function(data, status, headers, config) {
 			if(data) {
 				console.log("setting user: " + data);
@@ -615,7 +615,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	setUser();
 	// Check if a user is logged in
 	$scope.isAuthenticated = function() {
-	$http.get('//52.87.191.188/user/isAuth', { withCredentials: true }).
+	$http.get('//onlinegamecash.com/user/isAuth', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			if(data == "true"){
 				$scope.authenticated = true;
@@ -624,7 +624,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			}
 			console.log("isAuth: " + data);
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/user/isAuth");
+			console.log("App failed to post to //onlinegamecash.com/user/isAuth");
 		});
 	}
 	$scope.isAuthenticated()
@@ -653,32 +653,32 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signin2 = function(){
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//52.87.191.188/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			$http.post('//onlinegamecash.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				$scope.user = data;
 				console.log("user after sign in: " + $scope.user)
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/signup");
+				console.log("App failed to post to //onlinegamecash.com/signup");
 				return;
 			});
 		}
 	}
 	
 	$scope.signout = function() {
-		$http.post('//52.87.191.188/signout', { withCredentials: true }).
+		$http.post('//onlinegamecash.com/signout', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			console.log("logged out");
 			setUser();
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/login");
+			console.log("App failed to post to //onlinegamecash.com/login");
 		});
 	};
 	
 	$scope.signout2 = function() {
-		$http.post('//52.87.191.188/signin2').
+		$http.post('//onlinegamecash.com/signin2').
 		success(function(data, status, headers, config) {
 			setUser();
 		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //52.87.191.188/login");
+			console.log("App failed to post to //onlinegamecash.com/login");
 		});
 	};
 	
@@ -690,11 +690,11 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		};
 		var POSTDATA= JSON.stringify($scope.credentials);
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//52.87.191.188/signup',  $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-			//	console.log("App posted to //52.87.191.188/signup,response: " + data);
-				window.location = '//52.87.191.188/home';
+			$http.post('//onlinegamecash.com/signup',  $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			//	console.log("App posted to //onlinegamecash.com/signup,response: " + data);
+				window.location = '//onlinegamecash.com/home';
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/signup");
+				console.log("App failed to post to //onlinegamecash.com/signup");
 			});
 		}
 	};
@@ -707,16 +707,16 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		};
 		var POSTDATA= JSON.stringify($scope.credentials);
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//52.87.191.188/signin', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-			//	console.log("App posted to //52.87.191.188/signin, resonse: " + data);
+			$http.post('//onlinegamecash.com/signin', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			//	console.log("App posted to //onlinegamecash.com/signin, resonse: " + data);
 				if(data){
-					//window.location = '//52.87.191.188/home';
+					//window.location = '//onlinegamecash.com/home';
 				} else {
 					console.log("handle error");
 					$scope.fail = true;
 				}
 			}).error(function(data, status, headers, config) {
-				console.log("App failed to post to //52.87.191.188/signin");
+				console.log("App failed to post to //onlinegamecash.com/signin");
 			});
 		}
 	};
