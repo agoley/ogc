@@ -658,7 +658,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			$http.post('//www.onlinegamecash.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				var animationName = 'animated slideOutUp';
 				var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-				$('#welcome').addClass(animationName).one(animationEnd, function() {
+				$('#intro').addClass(animationName).one(animationEnd, function() {
 					$(this).removeClass(animationName);
 				});
 				$scope.user = data;
