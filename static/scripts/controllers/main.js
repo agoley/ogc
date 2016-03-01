@@ -649,7 +649,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		console.log("auth: " + $scope.authenticated)
 	}
 	
-	// SIGN IN
+	/**
+		Sign in with credentials
+	**/
 	$scope.signin2 = function(){
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
@@ -663,11 +665,14 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		}
 	}
 	
+	/**
+		Sign out user
+	**/
 	$scope.signout = function() {
 		$http.post('//www.onlinegamecash.com/signout', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			console.log("logged out");
-			setUser();
+			$scope.user = {};
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //www.onlinegamecash.com/login");
 		});

@@ -21,13 +21,13 @@
 			<div class="pull-right signinup">
 				<form>
 					<button class="btn navbar-btn neat outset" ng-click="viewCart()" >Shopping Cart <span class="badge">{{user.cart.length}}</span></button>
-					<button ng-show="user" class="btn navbar-btn neat outset" ng-click="viewProf()" ><text class="text-glow-hover">{{user.email}}</text></button>
-					<button ng-show="user" class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text></button>
-					<button  class="a" ng-hide="user"
+					<button ng-show="user.email" class="btn navbar-btn neat outset" ng-click="viewProf()" ><text class="text-glow-hover">{{user.email}}</text></button>
+					<button ng-show="user.email" class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text></button>
+					<button  class="a" ng-hide="user.email"
 						ng-class="showSignUp? 'btn navbar-btn neat outset no-border' : 'btn  navbar-btn neat inset no-border' "
 						ng-click="setSignIn()" > Sign In 
 					</button>
-					<button class="a" ng-hide="user"
+					<button class="a" ng-hide="user.email"
 						ng-class="!showSignUp? 'btn navbar-btn neat outset no-border' : 'btn navbar-btn neat inset no-border' "
 						ng-click="setSignUp()" > Sign Up 
 					</button>
