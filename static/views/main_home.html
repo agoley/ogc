@@ -1,7 +1,7 @@
 <div ng-controller="GameController">
 	<div ng-controller="LoginController" ng-class="user.email? '' : 'login-body'">
 		<authorized-header></authorized-header>
-		<div ng-hide="use.emailr"><new-member ></new-member></div>
+		<div ng-hide="use.email"><new-member ></new-member></div>
 	</div>
 	<user-profile ng-show="displayProf"></user-profile>
 	<confirmation ng-show="displayConf"></confirmation>
