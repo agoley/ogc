@@ -286,18 +286,18 @@ exports.coinUser = function(req, res) {
 	});
 }
 
+/**
+	Clear the sessions user and return to home.
+**/
 exports.signout = function(req, res) {
-	/*req.session.regenerate(function onComplete(err) {
-		// req.session is clean
-		req.session.cookie.expires = new Date(Date.now());
-		res.redirect('/');
-	})*/
 	console.log("cookies on signout: " + JSON.stringify(req.cookies));
-	req.session.user = 0;
-	res.send(200);
+	req.session.user = null;
+	res.redirect('/');
 }
 	
-//sign up	
+/**
+	Save the new user and return to home logged in.
+**/	
 exports.signup = function(req, res){
    console.log("body:" + JSON.stringify(req.body));
    console.log(req.body.password);
@@ -307,17 +307,18 @@ exports.signup = function(req, res){
    user.save(function(err) {
      if (err){
 		console.log(err);
-		res.redirect('/login');
+		res.redirect('/');
      } else {
        req.session.user = user.id;
        req.session.username = user.username;
-       req.session.msg = 'Authenticated as ' + user.username;
        res.redirect('/');
      }
    });
 };
 
-// return true if req.session.user is not null
+/**
+	Return true if req.session.user is not null
+ **/
 exports.isUserLoggedIn = function(req, res) {
 	if(req.session.user){
 		res.send("true");
@@ -326,7 +327,9 @@ exports.isUserLoggedIn = function(req, res) {
 	}
 };
 
-// Set the sessions user and return 
+/**
+ Verify credentials, set the session user and return. 
+ **/
 exports.signin2 = function(req, res) {
 	console.log("req body on sign in:" + req.body.email);
 	User.findOne({ email: req.body.email })
@@ -345,34 +348,6 @@ exports.signin2 = function(req, res) {
 			}
 		}
 	});
-	//res.send(200);
-	/*User.findOne({ email: req.body.email })
-   .exec(function(err, user) {
-     if (!user){
-       err = 'User Not Found.';
-	   console.log("no user found");
-     } else { 
-		if(err){
-			req.session.regenerate(function(){ 
-				req.session.msg = err;
-				//res.send();
-				res.redirect('/');
-			});
-		} else {
-			console.log("user: " + user);
-			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-				req.session.regenerate(function(){
-					req.session.user = user.id;
-					req.session.username = user.username;
-					req.session.msg = 'Authenticated as ' + user.username;
-					console.log("authenticated user id: " + JSON.stringify(user))
-					req.session.save();
-					req.send(user);
-				});
-			} 
-		}
-	} 
-   });*/
 }
 
 
