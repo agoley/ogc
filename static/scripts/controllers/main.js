@@ -604,6 +604,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 					$scope.user = data;
 				} else {
 					$('#intro').removeClasee('login-body');
+					$('#welcome').hide();
 				}
 				
 				/*$scope.total = $scope.totalCart();
@@ -666,6 +667,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$('#intro').addClass(animationName).one(animationEnd, function() {
 					$(this).removeClass(animationName);
 					$(this).removeClass('login-body');
+					$('#welcome').hide();
 					animationName = 'animated fadeIn';
 					animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 					$('#intro').addClass(animationName).one(animationEnd, function() {
