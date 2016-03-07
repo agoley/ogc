@@ -687,12 +687,12 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		$http.post('//www.onlinegamecash.com/signout', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			console.log("logged out");
-			var animationName = 'animated slideInDown';
+			var animationName = 'animated fadeIn';
 			var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 			$('#welcome').show();
+			$(this).addClass('login-body');
 			$('#intro').addClass(animationName).one(animationEnd, function() {
 				$(this).removeClass(animationName);
-				$(this).addClass('login-body');
 			});
 			$scope.user = {};
 		}).error(function(data, status, headers, config) {
