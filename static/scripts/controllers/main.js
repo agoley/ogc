@@ -656,7 +656,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-				var animationName = 'animated slideOutUp';
+				var animationName = 'animated fadeout';
 				var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 				$('#intro').addClass(animationName).one(animationEnd, function() {
 					$(this).removeClass(animationName);
