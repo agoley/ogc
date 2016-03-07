@@ -659,19 +659,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-				var animationName = 'animated fadeOut';
-				var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-				$('#intro').addClass(animationName).one(animationEnd, function() {
-					$(this).removeClass(animationName);
-					$(this).removeClass('login-body');
-					$('#welcome').hide();
-					animationName = 'animated fadeIn';
-					animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-					$('#intro').addClass(animationName).one(animationEnd, function() {
-						$(this).removeClass(animationName);
-					});
-				});
 				$scope.user = data;
+				$('#welcome').hide();
+				$('#intro').removeClass('login-body');
 				console.log("user after sign in: " + $scope.user)
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");
