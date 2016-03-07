@@ -3,6 +3,9 @@
 		<authorized-header></authorized-header>
 		<div ng-hide="user.email"><new-member ></new-member></div>
 	</div>
+	<div id="auth-head" ng-hide="user.email" ng-controller="LoginController">
+		<authorized-header></authorized-header>
+	</div>
 	<user-profile ng-show="displayProf"></user-profile>
 	<confirmation ng-show="displayConf"></confirmation>
 	<cart-display ng-show="displayCart"></cart-display>
