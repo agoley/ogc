@@ -661,8 +661,8 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$('#intro').addClass(animationName).one(animationEnd, function() {
 					$(this).removeClass(animationName);
 					$(this).removeClass('login-body');
-					animationName = 'animated slideOutUp';
-						animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+					animationName = 'animated fadeIn';
+					animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 					$('#intro').addClass(animationName).one(animationEnd, function() {
 						$(this).removeClass(animationName);
 					});
