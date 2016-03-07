@@ -15,7 +15,6 @@
 					<div class="row">
 						<h2 class="pull-left"> Sign In </h2>
 					</div>
-					<!--<form name="loginForm" ng-submit="">-->
 						<div class="row">
 							<div class="error" ng-show="fail">The email or password you entered was incorrect.</div>
 						</div>
@@ -43,58 +42,55 @@
 								<i class="fa fa-facebook"></i> Sign in with Facebook
 							</a>	
 						</div> -->
-					<!--</form>-->
 				</div>
 				<div class="a container" id="signup"  ng-show="showSignUp">
 					<div class="row">
 						<h2 class="pull-left"> Sign Up </h2>
 					</div>
-					<form name="signUpForm" ng-submit="signup()" >
-						<div class="row low-div">
-							<input type="email" name="email" ng-model="credentials.email" class="form-control pull-left neat-input" placeholder="Email..."
-								 ng-minlength="5" ng-maxlength="45">
-							<div class="info" ng-show="signUpForm.email.$error.minlength">Email must be at least 5 characters long.</div>
-							<div class="info" ng-show="signUpForm.email.$error.maxlength">Email must be at most 45 characters long.</div>
-						</div>
-						<div class="row low-div">
-							<input type="password" name="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..."
-								 ng-minlength="6" ng-maxlength="45">
-							<div class="info" ng-show="signUpForm.password.$error.minlength">Password must be at least 5 characters long.</div>
-							<div class="info" ng-show="signUpForm.password.$error.maxlength">Password must be at most 45 characters long.</div>
-						</div>
-						<div class="row low-div">
-							<input type="password" name="password2" ng-model="credentials.password2" class="form-control pull-left neat-input" placeholder="Enter password again..."
-								 ng-match="signUpFrom.password">
-							<div class="error" ng-show="
-							credentials.password2 != credentials.password && 
-							signUpForm.password2.$dirty &&
-							!signUpForm.password.$error.maxlength &&
-							!signUpForm.password.$error.minlength &&
-							credentials.password2 != null"> Passwords don't match.</div>
-							<div class="success" ng-show="
-							credentials.password2 == credentials.password && 
-							signUpForm.password2.$dirty &&
-							!signUpForm.password.$error.maxlength &&
-							!signUpForm.password.$error.minlength &&
-							credentials.password2 != null"> Passwords match.</div>
-						</div>
-						<div class="row low-div">
-							<input type="submit" class="btn btn-attention neat" value="Submit">
-						</div>
-						<div class="row low-div">
-							Already a member? <button class="a btn btn-default neat no-border" ng-click="flipSignUp()">Sign In</button>
-						</div>
-						<div class="row low-div">	
-							<a href="/auth/twitter" class="btn btn-block btn-social btn-twitter neat no-decoration">
-								<i class="fa fa-twitter"></i> Sign in with Twitter
-							</a>
-						</div>
-						<!--<div class="row low-div">
-							<a href="/auth/facebook" class="btn btn-block btn-social btn-facebook neat no-decoration">
-								<i class="fa fa-facebook"></i> Sign in with Facebook
+					<div class="row low-div">
+						<input type="email" name="email" ng-model="credentials.email" class="form-control pull-left neat-input" placeholder="Email..."
+							 ng-minlength="5" ng-maxlength="45">
+						<div class="info" ng-show="signUpForm.email.$error.minlength">Email must be at least 5 characters long.</div>
+						<div class="info" ng-show="signUpForm.email.$error.maxlength">Email must be at most 45 characters long.</div>
+					</div>
+					<div class="row low-div">
+						<input type="password" name="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..."
+							 ng-minlength="6" ng-maxlength="45">
+						<div class="info" ng-show="signUpForm.password.$error.minlength">Password must be at least 5 characters long.</div>
+						<div class="info" ng-show="signUpForm.password.$error.maxlength">Password must be at most 45 characters long.</div>
+					</div>
+					<div class="row low-div">
+						<input type="password" name="password2" ng-model="credentials.password2" class="form-control pull-left neat-input" placeholder="Enter password again..."
+							 ng-match="signUpFrom.password">
+					<div class="error" ng-show="
+						credentials.password2 != credentials.password && 
+						signUpForm.password2.$dirty &&
+						!signUpForm.password.$error.maxlength &&
+						!signUpForm.password.$error.minlength &&
+						credentials.password2 != null"> Passwords don't match.</div>
+					<div class="success" ng-show="
+						credentials.password2 == credentials.password && 
+						signUpForm.password2.$dirty &&
+						!signUpForm.password.$error.maxlength &&
+						!signUpForm.password.$error.minlength &&
+						credentials.password2 != null"> Passwords match.</div>
+					</div>
+					<div class="row low-div">
+						<input type="submit" class="btn btn-attention neat" value="Submit">
+					</div>
+					<div class="row low-div">
+						Already a member? <button class="a btn btn-default neat no-border" ng-click="flipSignUp()">Sign In</button>
+					</div>
+					<div class="row low-div">	
+						<a href="/auth/twitter" class="btn btn-block btn-social btn-twitter neat no-decoration">
+							<i class="fa fa-twitter"></i> Sign in with Twitter
+						</a>
+					</div>
+					<!--<div class="row low-div">
+						<a href="/auth/facebook" class="btn btn-block btn-social btn-facebook neat no-decoration">
+							<i class="fa fa-facebook"></i> Sign in with Facebook
 							</a>	
-						</div>-->
-					</form>
+					</div>-->
 				</div>
 			</div>
 		</div>
