@@ -688,11 +688,12 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		success(function(data, status, headers, config) {
 			console.log("logged out");
 			var animationName = 'animated slideInDown';
-				var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-				$('#intro').addClass(animationName).one(animationEnd, function() {
-					$(this).removeClass(animationName);
-					$(this).addClass('login-body');
-				});
+			var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+			$('#welcome').show();
+			$('#intro').addClass(animationName).one(animationEnd, function() {
+				$(this).removeClass(animationName);
+				$(this).addClass('login-body');
+			});
 			$scope.user = {};
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //www.onlinegamecash.com/login");
