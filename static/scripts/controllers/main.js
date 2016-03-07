@@ -600,12 +600,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			success(function(data, status, headers, config) {
 			if(data) {
 				console.log("setting user: " + data);
-				if(data.email) {
-					$scope.user = data;
-				} else {
-					$('#intro').removeClasee('login-body');
-					$('#welcome').hide();
-				}
+				$scope.user = data;
 				
 				/*$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
@@ -627,6 +622,8 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$scope.authenticated = true;
 			} else {
 				$scope.authenticated = false;
+				$(this).removeClass('login-body');
+				$('#welcome').hide();
 			}
 			console.log("isAuth: " + data);
 		}).error(function(data, status, headers, config) {
@@ -662,13 +659,13 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signin2/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-				var animationName = 'animated fadeOut';
+				var animationName = 'animated slideOutUp';
 				var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 				$('#intro').addClass(animationName).one(animationEnd, function() {
 					$(this).removeClass(animationName);
 					$(this).removeClass('login-body');
 					$('#welcome').hide();
-					animationName = 'animated fadeIn';
+					animationName = 'animated slideInDown';
 					animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 					$('#intro').addClass(animationName).one(animationEnd, function() {
 						$(this).removeClass(animationName);
