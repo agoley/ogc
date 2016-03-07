@@ -690,7 +690,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			var animationName = 'animated fadeIn';
 			var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 			$('#welcome').show();
-			$(this).addClass('login-body');
+			$('#intro').addClass('login-body');
 			$('#intro').addClass(animationName).one(animationEnd, function() {
 				$(this).removeClass(animationName);
 			});
