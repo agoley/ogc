@@ -660,14 +660,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 				$('#intro').addClass(animationName).one(animationEnd, function() {
 					$(this).removeClass(animationName);
+					$(this).removeClass('login-body');
+					
 				});
-				
-				animationName = 'animated fadeIn';
-				animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-				$('#auth-head').addClass(animationName).one(animationEnd, function() {
-					$(this).removeClass(animationName);
-				});
-				
 				$scope.user = data;
 				console.log("user after sign in: " + $scope.user)
 			}).error(function(data, status, headers, config) {
