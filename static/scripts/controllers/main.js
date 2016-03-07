@@ -608,9 +608,6 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$scope.sales = $scope.allSalesInCart();
 				$scope.buys = $scope.allBuysInCart();
 				$scope.trades = $scope.allTradesInCart();*/
-			} else {
-				$(this).removeClass('login-body');
-				$('#welcome').hide();
 			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
@@ -623,6 +620,8 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		success(function(data, status, headers, config) {
 			if(data == "true"){
 				$scope.authenticated = true;
+				$('#intro').removeClass('login-body');
+				$('#welcome').hide();
 			} else {
 				$scope.authenticated = false;
 			}
