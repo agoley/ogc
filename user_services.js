@@ -391,7 +391,6 @@ exports.getUserProfile = function(req, res) {
 			res.json(404, {err: 'User Not Found.'});
 		} else {
 			if(user) {
-				//res.cookie(req.session.id);
 				res.json(user);
 			} else {
 				res.end();

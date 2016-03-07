@@ -600,7 +600,12 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			success(function(data, status, headers, config) {
 			if(data) {
 				console.log("setting user: " + data);
-				$scope.user = data;
+				if(data.email) {
+					$scope.user = data;
+				} else {
+					$('#intro').removeClasee('login-body');
+				}
+				
 				/*$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
 				$scope.coin = $scope.totalCoin();
