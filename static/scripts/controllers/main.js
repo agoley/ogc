@@ -608,6 +608,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$scope.sales = $scope.allSalesInCart();
 				$scope.buys = $scope.allBuysInCart();
 				$scope.trades = $scope.allTradesInCart();*/
+			} else {
+				$(this).removeClass('login-body');
+				$('#welcome').hide();
 			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
@@ -622,8 +625,6 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$scope.authenticated = true;
 			} else {
 				$scope.authenticated = false;
-				$(this).removeClass('login-body');
-				$('#welcome').hide();
 			}
 			console.log("isAuth: " + data);
 		}).error(function(data, status, headers, config) {
