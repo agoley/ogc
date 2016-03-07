@@ -3,7 +3,7 @@
 		<authorized-header></authorized-header>
 		<div ><new-member ></new-member></div>
 	</div>
-	<div id="auth-head" ng-show="user.email" ng-controller="LoginController">
+	<div id="auth-head" ng-hide="!user.email" ng-controller="LoginController">
 		<authorized-header></authorized-header>
 	</div>
 	<user-profile ng-show="displayProf"></user-profile>
