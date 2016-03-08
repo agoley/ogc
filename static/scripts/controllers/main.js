@@ -580,12 +580,15 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		$http.get('//www.onlinegamecash.com/user/profile', { withCredentials: true }).
 			success(function(data, status, headers, config) {
 			if(data) {
-				$scope.user = data;$scope.total = $scope.totalCart();
+				$scope.user = data;
+				$scope.total = $scope.totalCart();
 				$scope.credit = $scope.totalCredit();
 				$scope.coin = $scope.totalCoin();
 				$scope.sales = $scope.allSalesInCart();
 				$scope.buys = $scope.allBuysInCart();
 				$scope.trades = $scope.allTradesInCart();
+			} else {
+				$scope.user = {};
 			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
@@ -673,7 +676,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.signup = function() {
 		console.log("signing up: " + $scope.credentials.email);
 		if($scope.credentials.email && $scope.credentials.password){
-			$http.post('//www.onlinegamecash.com/signup',  $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
+			$http.post('//www.onlinegamecash.com/signup',  $scope.credentials, { withCredentials: true })
+			.success(function(data, status, headers, config) {
+				setUser();
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");
 			});
