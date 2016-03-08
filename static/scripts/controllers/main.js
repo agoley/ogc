@@ -637,11 +637,13 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		Sign in with credentials
 	**/
 	$scope.signin = function(){
+		document.body.style.cursor = 'progress';
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signin/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				$scope.user = data;
 				$('#welcome').hide();
 				$('#intro').removeClass('login-body');
+				document.body.style.cursor = '';
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");
 				return;
