@@ -25,7 +25,6 @@
 							<input type="password" id="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..." >
 						</div>
 						<div class="row low-div">
-							<!--<input type="submit" class="btn btn-attention pull-left neat" value="Sign In" >-->
 							<button class="btn btn-attention pull-left neat" ng-click="signin()">Sign In</button>
 						</div>
 						<div class="row low-div">
@@ -44,6 +43,7 @@
 						</div> -->
 				</div>
 				<div class="a container" id="signup"  ng-show="showSignUp">
+					<form id="signUpForm">
 					<div class="row">
 						<h2 class="pull-left"> Sign Up </h2>
 					</div>
@@ -91,6 +91,7 @@
 							<i class="fa fa-facebook"></i> Sign in with Facebook
 							</a>	
 					</div>-->
+					</form>
 				</div>
 			</div>
 		</div>
