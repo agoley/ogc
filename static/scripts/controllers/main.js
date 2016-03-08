@@ -634,7 +634,6 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		Sign in with credentials
 	**/
 	$scope.signin = function(){
-		console.log("hello, this is signin2");
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signin/', $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
 				$scope.user = data;
