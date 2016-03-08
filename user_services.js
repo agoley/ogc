@@ -307,7 +307,7 @@ exports.signup = function(req, res){
    user.save(function(err) {
      if (err){
 		console.log(err);
-		res.redirect('/');
+		res.end();
      } else {
        req.session.user = user.id;
        req.session.username = user.username;
