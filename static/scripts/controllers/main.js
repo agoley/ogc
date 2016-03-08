@@ -668,12 +668,12 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	};
 	
 	/**
-	Register ne user
+	Register new user
 	**/
 	$scope.signup = function() {
+		console.log("signing up: " + $scope.credentials.email);
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signup',  $scope.credentials, { withCredentials: true }).success(function(data, status, headers, config) {
-				window.location = '//www.onlinegamecash.com/home';
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");
 			});
