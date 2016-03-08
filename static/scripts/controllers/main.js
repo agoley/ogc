@@ -642,7 +642,6 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 				$scope.user = data;
 				$('#welcome').hide();
 				$('#intro').removeClass('login-body');
-				console.log("user after sign in: " + $scope.user)
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");
 				return;
@@ -678,7 +677,9 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signup',  $scope.credentials, { withCredentials: true })
 			.success(function(data, status, headers, config) {
-				setUser();
+				$scope.user = data;
+				$('#welcome').hide();
+				$('#intro').removeClass('login-body');
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");
 			});
