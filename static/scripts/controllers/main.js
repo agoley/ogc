@@ -15,6 +15,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.transaction = {};
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
+	$scope.user = {};
 
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
@@ -27,17 +28,17 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	}
 	
 	// Get pending transactions for the user. Displayed in the profile page.
-	$http.get('//www.onlinegamecash.com/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
-		console.log("transactions: ", data);
-		$scope.transForUser = data;
-	}).error(function(data, status, headers, config) {
-		console.log('Error getting user');
-	});
+	var getTransactions = function() {
+		$http.get('//www.onlinegamecash.com/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
+			$scope.transForUser = data;
+		}).error(function(data, status, headers, config) {
+			console.log('Error getting user');
+		});
+	};
 	
 	$scope.updateUser = function(){
 		$http.post('//www.onlinegamecash.com/user/update', $scope.user).
 		success(function(data, status, headers, config) {
-			console.log("user: ", data);
 			$scope.user = data;
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //www.onlinegamecash.com/user/update");
@@ -47,26 +48,29 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$http.get('//www.onlinegamecash.com/user/profile').
 		success(function(data, status, headers, config) {
 			$scope.user = data;
-			$scope.total = $scope.totalCart();
-			$scope.credit = $scope.totalCredit();
-			$scope.coin = $scope.totalCoin();
-			$scope.sales = $scope.allSalesInCart();
-			$scope.buys = $scope.allBuysInCart();
-			$scope.trades = $scope.allTradesInCart();
+			if($scope.user.email){
+				$scope.total = $scope.totalCart();
+				$scope.credit = $scope.totalCredit();
+				$scope.coin = $scope.totalCoin();
+				$scope.sales = $scope.allSalesInCart();
+				$scope.buys = $scope.allBuysInCart();
+				$scope.trades = $scope.allTradesInCart();
+			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
 	$scope.refreshUser = function() {
 		$http.get('//www.onlinegamecash.com/user/profile').
-		success(function(data, status, headers, config) {
-			//console.log("user: ", data);
+			success(function(data, status, headers, config) {
 			$scope.user = data;
-			$scope.total = $scope.totalCart();
-			$scope.credit = $scope.totalCredit();
-			$scope.coin = $scope.totalCoin();
-			$scope.sales = $scope.allSalesInCart();
-			$scope.buys = $scope.allBuysInCart();
-			$scope.trades = $scope.allTradesInCart();
+			if($scope.user.email){			
+				$scope.total = $scope.totalCart();
+				$scope.credit = $scope.totalCredit();
+				$scope.coin = $scope.totalCoin();
+				$scope.sales = $scope.allSalesInCart();
+				$scope.buys = $scope.allBuysInCart();
+				$scope.trades = $scope.allTradesInCart();
+			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
@@ -139,7 +143,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			console.log("adding game: " + game);
 			$http.post('//www.onlinegamecash.com/user/addGame', game, { withCredentials: true }).
 			success(function(data, status, headers, config) {
-				//console.log("user: ", data);
 				if(data) {
 					$scope.user = data;
 					$scope.addConfirm = true;
