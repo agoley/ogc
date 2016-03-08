@@ -141,9 +141,8 @@ module.exports = function(app) {
 	
 	
 	// User service routes
-	app.post('/signin2/', users.signin2);
+	app.post('/signin/', users.signin);
 	app.post('/signup', users.signup);
-	app.post('/signin', users.signin);
 	app.post('/signout', users.signout);
 	app.post('/user/addGame', users.addToCart);
 	app.post('/user/addCredit', users.creditUser);

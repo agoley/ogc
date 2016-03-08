@@ -330,13 +330,11 @@ exports.isUserLoggedIn = function(req, res) {
 /**
  Verify credentials, set the session user and return. 
  **/
-exports.signin2 = function(req, res) {
-	console.log("req body on sign in:" + req.body.email);
+exports.signin = function(req, res) {
 	User.findOne({ email: req.body.email })
    .exec(function(err, user) {
 		if(err) {
 			req.session.msg = err;
-			//res.send();
 			res.redirect('/');
 		} else {
 			console.log("Found on sign in: " + user );
@@ -349,39 +347,6 @@ exports.signin2 = function(req, res) {
 		}
 	});
 }
-
-
- exports.signin = function(req, res){
-	//console.log("req body: " +  Object.values(req));
-	//var postReq = JSON.parse(Object.keys(req.body));
-	//console.log(postReq);
-   User.findOne({ email: req.body.email })
-   .exec(function(err, user) {
-     if (!user){
-       err = 'User Not Found.';
-	   console.log("no user found");
-     } else { 
-		if(err){
-			req.session.regenerate(function(){ 
-				req.session.msg = err;
-				//res.send();
-				res.redirect('/login');
-			});
-		} else {
-			console.log("user: " + user);
-			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-				req.session.regenerate(function(){
-					req.session.user = user.id;
-					req.session.username = user.username;
-					req.session.msg = 'Authenticated as ' + user.username;
-					console.log("authenticated user id: " + JSON.stringify(user))
-					res.redirect('/');
-				});
-			} 
-		}
-	} 
-   });
-};
 
 exports.getUserProfile = function(req, res) {
 	console.log("Getting profile - session id: " + req.session.id + ", user: " + req.session.user);
