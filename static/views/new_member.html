@@ -54,6 +54,7 @@
 							 ng-minlength="5" ng-maxlength="45">
 						<div class="info" ng-show="signUpForm.email.$error.minlength">Email must be at least 5 characters long.</div>
 						<div class="info" ng-show="signUpForm.email.$error.maxlength">Email must be at most 45 characters long.</div>
+						<div class="error" ng-show="userAlreadyexists"> Please choose another email </div>
 					</div>
 					<div class="row low-div">
 						<input type="password" name="password" ng-model="credentials.password" class="form-control pull-left neat-input" placeholder="Password..."
@@ -70,7 +71,6 @@
 						!signUpForm.password.$error.maxlength &&
 						!signUpForm.password.$error.minlength &&
 						credentials.password2 != null"> Passwords don't match.</div>
-					<div class"error" ng-show="userAlreadyexists"> Please choose another email </div>
 					<div class="success" ng-show="
 						credentials.password2 == credentials.password && 
 						signUpForm.password2.$dirty &&
