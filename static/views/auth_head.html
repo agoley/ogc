@@ -7,11 +7,11 @@
 	<div class="col col-md-4">
 		<div class="input-group browse">
 			<span class="input-group-addon neat" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
-			<input type="text" class="form-control neat" ng-model="query" ng-change="getMatches()"  placeholder="Browse" aria-describedby="basic-addon1">
+			<input type="text" class="form-control neat" ng-model="query" ng-change="$parent.getMatches()"  placeholder="Browse" aria-describedby="basic-addon1">
 		</div>
 		<div class="games-matched">
 			<ul class="list-group matches neat">
-				<a href="" ng-click="getGame(match)" ng-repeat="match in matches track by $index" class="list-group-item">{{match}} </a>
+				<a href="" ng-click="$parent.getGame(match)" ng-repeat="match in matches track by $index" class="list-group-item">{{match}} </a>
 			</ul>
 		</div>
 		THIS IS A BETA. PLEASE BROWSE AND SEND ANY COMMENTS TO @OnlineGameCache ON TWITTER. NO SALES ARE BEING PROCESSED. THANKS FOR VISITING!
