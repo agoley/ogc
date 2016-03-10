@@ -513,7 +513,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 				}
 			}
 		}
-		//console.log("matches: " + $scope.matches);
+		console.log("matches: " + $scope.matches);
 	};
 	
 	$scope.updateGame = function(game) {
@@ -521,7 +521,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 			success(function(data, status, headers, config) {
 			//	console.log("App posted to //www.onlinegamecash.com/game/update, resonse: " + data);
 				if(data){
-					//$scope.getGame(game.title);
+					$scope.getGame(game.title);
 					$scope.editGame = false;
 				} else {
 					console.log("handle error");
@@ -537,7 +537,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		param.title = gameTitle;
 		$http.post('//www.onlinegamecash.com/game', JSON.stringify(param)).
 			success(function(data, status, headers, config) {
-				//console.log("App posted to //www.onlinegamecash.com/game, resonse: " + data);
+				console.log("App posted to //www.onlinegamecash.com/game, response: " + data);
 				if(data){
 					$scope.game = data;
 					console.log($scope.game.genre);
