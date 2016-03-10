@@ -300,8 +300,7 @@ exports.signout = function(req, res) {
 **/	
 exports.signup = function(req, res){
    // Check if a user with this email exists
-   User.findOne({ email: req.body.email })
-   .exec(function(err, user) {
+   User.findOne({ email: req.body.email }).exec(function(err, user) {
 		if(err) {
 			req.session.msg = err;
 			console.log(err);
@@ -316,15 +315,16 @@ exports.signup = function(req, res){
 				user.set('password', hashPW(req.body.password));
 				user.set('email', req.body.email);
 				user.save(function(err) {
-				if (err){
-					console.log(err);
-					res.end();
-				} else {
-					req.session.user = user.id;
-					req.session.username = user.username;
-					res.json(user);
-				}
-			});
+					if (err){
+						console.log(err);
+						res.end();
+					} else {
+						req.session.user = user.id;
+						req.session.username = user.username;
+						res.json(user);
+					}
+				});
+			}
 		}
 	});
 };
