@@ -572,6 +572,7 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.showSignUp = true;
 	$scope.fail = false;
 	$scope.authenticated = false;
+	$scope.userAlreadyexists = false;
 	
 	/**
 	Set the user from server data
@@ -681,10 +682,12 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			.success(function(data, status, headers, config) {
 				if(data.localeCompare("exists") == 0){
 					console.log("email already exists");
+					$scope.userAlreadyexists = true;
 				} else {
 					$scope.user = data;
 					$('#welcome').hide();
 					$('#intro').removeClass('login-body');
+					$scope.userAlreadyexists = false;
 				}
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");

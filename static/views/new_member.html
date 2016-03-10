@@ -70,6 +70,7 @@
 						!signUpForm.password.$error.maxlength &&
 						!signUpForm.password.$error.minlength &&
 						credentials.password2 != null"> Passwords don't match.</div>
+					<div class"error" ng-show="userAlreadyexists"> Please choose another email </div>
 					<div class="success" ng-show="
 						credentials.password2 == credentials.password && 
 						signUpForm.password2.$dirty &&
