@@ -679,9 +679,13 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 		if($scope.credentials.email && $scope.credentials.password){
 			$http.post('//www.onlinegamecash.com/signup',  $scope.credentials, { withCredentials: true })
 			.success(function(data, status, headers, config) {
-				$scope.user = data;
-				$('#welcome').hide();
-				$('#intro').removeClass('login-body');
+				if(data.localeCompare("exists") == 0){
+					console.log("email already exists");
+				} else {
+					$scope.user = data;
+					$('#welcome').hide();
+					$('#intro').removeClass('login-body');
+				}
 			}).error(function(data, status, headers, config) {
 				console.log("App failed to post to //www.onlinegamecash.com/signup");
 			});

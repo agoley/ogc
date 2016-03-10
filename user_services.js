@@ -299,21 +299,34 @@ exports.signout = function(req, res) {
 	Save the new user and return to home logged in.
 **/	
 exports.signup = function(req, res){
-   console.log("body:" + JSON.stringify(req.body));
-   console.log(req.body.password);
-   var user = new User({username:req.body.username});
-   user.set('password', hashPW(req.body.password));
-   user.set('email', req.body.email);
-   user.save(function(err) {
-     if (err){
-		console.log(err);
-		res.end();
-     } else {
-       req.session.user = user.id;
-       req.session.username = user.username;
-       res.json(user);
-     }
-   });
+   // Check if a user with this email exists
+   User.findOne({ email: req.body.email })
+   .exec(function(err, user) {
+		if(err) {
+			req.session.msg = err;
+			console.log(err);
+			res.redirect('/');
+		} else {
+			if(user){
+				// User exists
+				res.send("exists");
+			} else {
+				// Create the user
+				var user = new User({username:req.body.username});
+				user.set('password', hashPW(req.body.password));
+				user.set('email', req.body.email);
+				user.save(function(err) {
+				if (err){
+					console.log(err);
+					res.end();
+				} else {
+					req.session.user = user.id;
+					req.session.username = user.username;
+					res.json(user);
+				}
+			});
+		}
+	});
 };
 
 /**
