@@ -681,7 +681,6 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 			$http.post('//www.onlinegamecash.com/signup',  $scope.credentials, { withCredentials: true })
 			.success(function(data, status, headers, config) {
 				if(data.localeCompare("exists") == 0){
-					console.log("email already exists");
 					$scope.userAlreadyexists = true;
 				} else {
 					$scope.user = data;
