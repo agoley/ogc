@@ -417,7 +417,7 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$http.get('//www.onlinegamecash.com/games/titles', { withCredentials: true }).
 		success(function(data, status, headers, config) {
 			$scope.titles = data;
-			console.log("titles: " + $scope.titles + ", data:" + data);
+			//console.log("titles: " + $scope.titles + ", data:" + data);
 		}).error(function(data, status, headers, config) {
 			console.log("App failed to post to //www.onlinegamecash.com/games/titles");
 		});
