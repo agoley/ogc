@@ -513,7 +513,6 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 				}
 			}
 		}
-		console.log("matches: " + $scope.matches);
 	};
 	
 	$scope.updateGame = function(game) {
