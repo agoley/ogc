@@ -210,9 +210,9 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			console.log("App failed to post to //www.onlinegamecash.com/user/addGame");
 		});
 	} 	
-}]);
+//}]);
 
-app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
+//app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.game = {};
 	$scope.consoles = ["PS4", "Xbox One", "Wii U", "PS3", "Xbox 360", "Wii", "3DS", "DS" ];
 	$scope.genres = ["Action", "Adventure", "FPS", "RPG", "TPS", "Shooter", "Fighting", "Racing", "Family", "Strategy", "MMO" ];
