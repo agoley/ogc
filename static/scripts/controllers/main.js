@@ -15,7 +15,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.transaction = {};
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
-	$scope.user = {};
 
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
@@ -144,6 +143,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			$http.post('//www.onlinegamecash.com/user/addGame', game, { withCredentials: true }).
 			success(function(data, status, headers, config) {
 				if(data) {
+					console.log("cart after add: " data.cart);
 					$scope.user = data;
 					$scope.addConfirm = true;
 					$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
@@ -200,7 +200,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	$scope.removeFromCart = function(game) {
 		$http.post('//www.onlinegamecash.com/user/removeGame', game, { withCredentials: true }).
 		success(function(data, status, headers, config) {
-			//console.log("user: ", data);
 			if(data){
 				$scope.user = data;
 				$scope.total = $scope.totalCart();
