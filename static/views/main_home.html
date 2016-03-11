@@ -1,13 +1,15 @@
-<div ng-controller="GameController as gameController">
-	<div id="intro" class="login-body">
-		<authorized-header></authorized-header>
-		<div id="welcome"><new-member ></new-member></div>
+<div ng-controller="GameController">
+	<div ng-controller="LoginController">
+		<div id="intro" class="login-body">
+			<authorized-header></authorized-header>
+			<div id="welcome"><new-member ></new-member></div>
+		</div>
+		<user-profile ng-show="displayProf"></user-profile>
+		<confirmation ng-show="displayConf"></confirmation>
+		<cart-display ng-show="displayCart"></cart-display>
+		<game-display ng-show="displayGame && !displayCart"></game-display>
+		<games ng-hide="displayGame || displayCart || displayCheckout || displayConf || displayProf" ></games>
+		<checkout ng-show="displayCheckout"></checkout>
+		</div>
 	</div>
-	<user-profile ng-show="displayProf"></user-profile>
-	<confirmation ng-show="displayConf"></confirmation>
-	<cart-display ng-show="displayCart"></cart-display>
-	<game-display ng-show="displayGame && !displayCart"></game-display>
-	<games ng-hide="displayGame || displayCart || displayCheckout || displayConf || displayProf" ></games>
-	<checkout ng-show="displayCheckout"></checkout>
-</div>
 <ogc-footer></ogc-footer>
