@@ -564,9 +564,9 @@ app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 		$scope.displayConf = false;
 		$scope.displayProf = false;
 	}
-}]);
+//}]);
 
-app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
+//app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.credentials = {};
 	$scope.credentials.password = '';
 	$scope.credentials.password2 = '';
