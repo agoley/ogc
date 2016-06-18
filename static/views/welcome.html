@@ -1,0 +1,30 @@
+<!-- ogc welcome -->
+<!-- TODO: use negitive margins to show and hide this on login/out -->
+<div id="intro" class="login-body">
+	<div id="welcome-body" class="container">
+		<div class="row">
+			<div class="col-lg-6 col-xs-12 marketing-col container">
+				<div class="row">
+					<h1>
+						<small class="white regular-bold">THE ONLY PLACE TO</small>	
+						<strong class=" bold white">BUY, SELL, & TRADE</strong>
+						<small class="white regular-bold">
+							VIDEO GAMES IN ONE PLACE FOR FREE.
+						</small>
+					</h1>
+				</div>	
+			</div>
+			<div class="col-lg-6 col-xs-12">
+				<div class="a jumbotron low-div" id="signin-jumbo" >
+					<login-form user="user" show-sign-up="showSignUp" 
+						ng-hide="showSignUp">
+					</login-form>
+					<signup-form user="user" show-sign-up="showSignUp"
+						ng-show="showSignUp">
+					</signup-form>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+<script src="../scripts/bounce.js"></script>

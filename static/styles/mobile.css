@@ -3,10 +3,6 @@ html {
 	min-height: 100%;
 }
 
-.extent {
-	min-width: 1200px;
-}
-
 animated.ng-enter {
   animation: bounce 1s;
 }
@@ -69,34 +65,27 @@ animated.ng-enter {
     src: url('../fonts/OpenSans-Bold.ttf'); /*URL to font*/
 }
 
-#header{
-	position: absolute;
-	top: 0px;
-}
-
 .login-body {
  background-image: url("../images/me6.jpg");
  background-size: cover;                      
  background-repeat: no-repeat;
  width: 100%;
  z-index: 0;
- 
 }
 
 #welcome-body {
-	padding-top: 100px;
+	padding-top: 200px;
 }
 .header-bar {
 	background-color: #00FF00;
 }
 
-.main-body{
-	margin-bottom: 75px;
+.header {
+	 min-width: 250px;
 }
 
-.header {
-	min-width: 1200px;
-	overflow: hidden;
+.main-body{
+	margin-bottom: 75px;
 }
 
 body {

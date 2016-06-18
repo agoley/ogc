@@ -27,6 +27,23 @@ app.directive("authorizedHeader", function() {
     };
 });
 
+// angular 1.5 upgrade
+app.directive("ogcWelcome", function() {
+	return {
+		restrict: 'E',
+		templateUrl: "views/welcome.html"
+	};
+});
+
+
+// angular 1.5 upgrade
+app.directive("ogcHeader", function() {
+	return {
+		restrict: 'E',
+		templateUrl: "views/header.html"
+	};
+});
+
 app.directive("ogcFooter", function() {
   return {
     restrict: 'E',

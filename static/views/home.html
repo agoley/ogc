@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html ng-app="loginApp">
   <head>
     <meta charset="utf-8">
     <title>OnlineGameCash - Home</title>
@@ -11,8 +11,11 @@
 	<link rel="stylesheet" href="styles/bootstrap-social.css">
 	<link rel="stylesheet" href="styles/font-awesome.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel='stylesheet' media='screen and (max-device-width: 1200px)'
+    	href='styles/mobile.css'>
+
   </head>
-  <body ng-app="loginApp" class="main-body">
+  <body class="main-body">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -25,6 +28,8 @@
 	<script src="scripts/app.js"></script>
 	<script src="scripts/braintree.js"></script>
     <script src="scripts/directives/file.js"></script>
+    <script src="scripts/modules/header.js"></script>
+    <script src="scripts/modules/welcome.js"></script>
     <script src="scripts/controllers/main.js"></script>
 	<script src="scripts/directives/games.js"></script>
 	<script type="text/javascript" language="javascript">

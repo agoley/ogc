@@ -25,8 +25,8 @@ app.all('*', function(req, res, next) {
 var favicon = require('serve-favicon');
 app.use(favicon(__dirname + '/static/images/logo-icon.ico'));
 
-//var  uri = process.env.MONGOLAB_URI;
-var uri = "mongodb://user:user@localhost:27017/testDB"; // local connection
+//var  uri = process.env.MONGOLAB_URI;  // remote location
+var uri = "mongodb://local:password@localhost:27017/ogc"; // local connection
 app.engine('.html', require('ejs').__express);
 app.use('/', express.static('./static'));
 app.set('views', __dirname + '/static/views');
@@ -55,30 +55,14 @@ app.use(session({
 	saveUninitialized:false,
 	resave: false, 
 	unset: 'destroy'
+},function(err){
+		console.log(err || 'connect-mongodb setup ok');
 }));
 
 app.use(cookieParser("keyboardcat"));
-/*app.use(session({
-	secret: "keyboardcat",
-	store:new MongoStore({
-          db: 'heroku_d17q9k0c',
-          mongooseConnection:mongoose.connection, 
-          collection: 'sessions', 
-          stringify:false,
-          autoReconnect:true,
-          touchAfter: 24 * 3600 // time period in seconds
-	}),
-    cookie: { name: 'connect.sid', maxAge: 1000 * 60 * 60 * 24, secure: false, httpOnly: false},
-	saveUninitialized: false,
-	resave: false,
-	unset: 'destroy'
-	},function(err){
-		console.log(err || 'connect-mongodb setup ok');
-}));*/
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 require('./routes')(app);
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8080; // 80 for production
 app.listen(port);
