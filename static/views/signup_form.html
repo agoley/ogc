@@ -16,7 +16,7 @@
 				ng-show="signUpForm.email.$error.maxlength">
 				Email must be at most 45 characters long.
 			</div>
-			<div class="error" ng-show="userAlreadyexists"> 
+			<div class="error" ng-show="ctrl.userAlreadyexists"> 
 				Please choose another email 
 			</div>
 		</div>
@@ -57,7 +57,8 @@
 			</div>
 		</div>
 		<div class="row low-div">
-			<button class="btn btn-attention neat" ng-click="signup()">Submit</button>
+			<button class="btn btn-attention neat"
+			 	ng-click="$ctrl.signup()">Submit</button>
 		</div>
 		<div class="row low-div">
 			Already a member? 

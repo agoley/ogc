@@ -14,6 +14,13 @@
 	</div>
 	<div class="col col-md-6 col-xs-12">
 		<div class="pull-right signinup">
+			<button ng-show="user.email" 
+				class="btn navbar-btn neat outset" 
+				ng-click="viewProf()" >
+				<text class="text-glow-hover">
+					{{user.email}}
+				</text>
+			</button>
 			<shopping-cart-btn view-cart="viewCart()" user="user"></shopping-cart-btn>
 			<show-login-btn 
 				user="user" 

@@ -4,12 +4,24 @@ var welcome = angular.module('welcome', []);
 // Provides user services
 welcome.factory('UserFactory', function($http) {
 	var userFactory = {};
+	// login request
 	userFactory.login = function(credentials) {
-		return $http
-			.post('//localhost:8080/signin/',
-				credentials,
-				{withCredentials: true});
+		if(credentials.email && credentials.password){
+			return $http
+				.post('//localhost:8080/signin/',
+					credentials,
+					{withCredentials: true});
+		}
 	};	
+	// signup request
+	userFactory.signup = function(credentials) {
+		if(credentials.email && credentials.password){
+			return $http
+				.post('//localhost:8080/signup',
+					credentials,
+					{ withCredentials: true });
+		} 
+	}
 	return userFactory;
 });
 
@@ -19,12 +31,28 @@ welcome.component('signupForm', {
 		user: '=',
 		showSignUp: '='
 	},
-	controller: function(){
+	controller: function(UserFactory){
 		var ctrl = this;
 		ctrl.credentials = {};
+		ctrl.userAlreadyexists = false;
 		
 		ctrl.flipSignUp = function(){
 			ctrl.showSignUp = !ctrl.showSignUp;
+		};
+		
+		ctrl.signup = function(){
+			console.log("logging in from welcome component signup...");
+			UserFactory.signup(ctrl.credentials).then(function(response) {
+				var data = response.data;
+				if(data == "exists"){
+					ctrl.userAlreadyexists = true;
+				} else {
+					ctrl.user = data;
+					$("#intro").slideUp();
+					$("#core").css("padding-top", "125px");
+					ctrl.userAlreadyexists = false;
+				}
+			})
 		};
 	},
 	templateUrl: 'views/signup_form.html'
@@ -47,13 +75,11 @@ welcome.component('loginForm', {
 		}
 			
 		ctrl.login = function(){
-			if(ctrl.credentials.email && ctrl.credentials.password){
-				UserFactory.login(ctrl.credentials).then(function(response) {
-					ctrl.user = response.data;
-					$("#intro").hide("slide");
-					$("#core").css("padding-top", "125px");
-				});
-			}
+			UserFactory.login(ctrl.credentials).then(function(response) {
+				ctrl.user = response.data;
+				$("#intro").slideUp();
+				$("#core").css("padding-top", "125px");
+			});
 		};
 		
 		ctrl.flipSignUp = function(){

@@ -658,7 +658,8 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			//var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 // 			$('#welcome').show();
  			$('#intro').addClass('login-body');
-			$("#intro").show("slide");
+// 			$("#intro").show("slide");
+			$('#intro').slideDown();
 			$("#core").css("padding-top", "0px");
 			//$('#intro').addClass(animationName).one(animationEnd, function() {
 			//	$(this).removeClass(animationName);
