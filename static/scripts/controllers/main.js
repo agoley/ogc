@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('loginApp', ["header", "welcome"])
+var app = angular.module('loginApp', ["header", "welcome", "gamesView"])
 	.controller('MainCtrl', function ($scope) {});
   
 app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {

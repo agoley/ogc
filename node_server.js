@@ -1,6 +1,7 @@
 /* Server Config */
 
 var express   = require('express');
+var multer  = require('multer');
 var parseurl = require('parseurl');
 var http = require("http");
 var session = require("express-session");
@@ -37,6 +38,27 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
   console.log("Mongo successfully connected.");
+});
+
+/* Configure multer for file uploads */
+var done=false;
+app.use(multer({ dest: './static/images/games',
+ rename: function (fieldname, filename) {
+    return filename;
+  },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}));
+app.post('/api/photo',function(req,res){
+	if(done==true){
+		console.log(req.files);
+		res.redirect('/');
+	}
 });
 
 require('./users_model.js');

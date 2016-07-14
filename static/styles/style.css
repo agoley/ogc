@@ -95,7 +95,6 @@ animated.ng-enter {
 }
 
 .header {
-	min-width: 1200px;
 	overflow: hidden;
 }
 
@@ -261,7 +260,6 @@ div.a {
     box-shadow:none;
 }
 
-
 .text-glow-hover {
 	color: black;
 }
@@ -322,21 +320,19 @@ footer a:focus {
 }
 
 .game-image {
-	width: 175px;
-	height: 215px;
+	width: 205px;
+	height: 245px;
 }
 
 
 .game-profile-image {
 	width: 275px;
 	height: 315px;
-
 }
 
 .game-cart-image {
 	width: 100px;
 	height: 120px;
-
 }
 
 .add-success {
@@ -356,8 +352,7 @@ footer a:focus {
 }
 
 .game-container {
-	max-width: 100%;
-	margin; 0 auto;
+	position: relative;
 	overflow: hidden;
 }
 
@@ -377,11 +372,32 @@ img.center {
 	padding-left: 10px !important;
 }
 
+#action-carousel {
+	position: absolute;
+	z-index: 0;
+	left: 0px;
+/*	z-index: 0;
+	left: 0px;
+	overflow: hidden;
+	display:inline-block;
+	width: 100%;
+ */
+}
+
+#action-carousel-1 {
+	position: absolute;
+	z-index: 0;
+}
+
+#action-carousel li {
+	/* padding-right: 0px; */
+}
+
 .reverse-game-btn {
 	position: absolute:
 	left: 0px;
 	width: 60px;
-	height: 215px;
+	height: 245px;
 	opacity: 0.5;
 	z-index: 1;
 }
@@ -390,7 +406,7 @@ img.center {
 	position: absolute;
 	right: 0px;
 	width: 60px;
-	height: 215px;
+	height: 245px;
 	opacity: 0.5;
 	z-index: 1;
 }

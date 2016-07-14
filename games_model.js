@@ -11,6 +11,8 @@ var GameSchema = new Schema({
 	buy_price: Number,
 	sell_price: Number,
 	image_path: String,
-	quantity: Number
+	quantity: Number,
+	clicksThisMonth: Number,
+	clicksLastMonth: Number
 });
 mongoose.model('Game', GameSchema);

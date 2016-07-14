@@ -1,0 +1,29 @@
+<div class="game-container" padding-top="10px">
+	<div class="minwidth">
+	<h4 class="genre-header regular-bold">Action</h4>
+	<ul id='action-carousel' class="list-inline">
+		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames">
+			<a href="" ng-click="getGame(game.title)">
+				<img style='height: {{$ctrl.gameImageHeight}}px; 
+					width: {{$ctrl.gameImageWidth}}px' ng-src="{{game.image_path}}"/>
+			</a>
+		</li>
+	</ul>
+	<ul id='action-carousel-1' style="margin-left: {{$ctrl.width + 10}}px" class="list-inline">
+		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames2">
+			<a href="" ng-click="getGame(game.title)">
+				<img style='height: {{$ctrl.gameImageHeight}}px; 
+					width: {{$ctrl.gameImageWidth}}px' ng-src="{{game.image_path}}"/>
+			</a>
+		</li>
+	</ul>
+	<button ng-click="$ctrl.scrollLeft()" 
+		class="scroll-btn reverse-game-btn btn neat outset-arrow black">
+		<span class="glyphicon glyphicon-menu-left"></span>
+	</button>
+	<button ng-click="$ctrl.scrollRight()" 
+		class="scroll-btn fwd-game-btn btn neat outset-arrow black">
+			<span class="glyphicon glyphicon-menu-right"></span>
+	</button>
+	</div>
+</div>

@@ -61,8 +61,8 @@ exports.upload = function(req, res){
 			game.set('genre', req.body.genre);
 			game.set('buy_price', req.body.buyPrice);
 			game.set('sell_price', req.body.sellPrice);
-			//var imgPath = "http://localhost/images/games/".concat(req.body.title.toLowerCase().concat("_").concat(req.body.console.toLowerCase()).replace(/[^\w\s]/gi, '').concat('.jpg'));
-			var imgPath = "https://agile-shelf-4123.herokuapp.com/images/games/".concat(req.body.title.toLowerCase().concat("_").concat(req.body.console.toLowerCase()).replace(/[^\w\s]/gi, '').concat('.jpg'));
+			var imgPath = "http://localhost:8080/images/games/".concat(req.body.title.toLowerCase().concat("_").concat(req.body.console.toLowerCase()).replace(/[^\w\s]/gi, '').concat('.jpg'));
+			//var imgPath = "https://agile-shelf-4123.herokuapp.com/images/games/".concat(req.body.title.toLowerCase().concat("_").concat(req.body.console.toLowerCase()).replace(/[^\w\s]/gi, '').concat('.jpg'));
 			imgPath = imgPath.split(' ').join('_');
 			game.set('image_path', imgPath);
 			console.log(game);
@@ -108,6 +108,22 @@ exports.getActionGames = function(req, res) {
 			res.json(games);
 		}
 	});
+};
+
+// get the action games that have been clicked the most 
+// if the DOTM is < 15 use last month count else use this month
+exports.getTopAction = function(req, res) {
+	// get the DOTM
+	var DOM = new Date().getDate();
+	console.log("DOM: " + DOM);
+	Game.find({ genre: "Action" }).sort({clicksLastMonth:1}).limit(40).exec(function(err, games) {
+		if(err) {
+			console.log("error finding top action: " + err);
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			res.json(games);
+		}
+	});	
 };
 
 
