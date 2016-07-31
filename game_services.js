@@ -116,7 +116,7 @@ exports.getTopAction = function(req, res) {
 	// get the DOTM
 	var DOM = new Date().getDate();
 	console.log("DOM: " + DOM);
-	Game.find({ genre: "Action" }).sort({clicksLastMonth:1}).limit(40).exec(function(err, games) {
+	Game.find({ genre: "Action" }).sort({clicksLastMonth:1}).limit(15).exec(function(err, games) {
 		if(err) {
 			console.log("error finding top action: " + err);
 			res.json(404, {err: 'Data Not Found.'});

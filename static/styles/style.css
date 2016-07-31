@@ -369,8 +369,23 @@ img.center {
 }
 
 .genre-header {
-	padding-left: 10px !important;
+	padding-left: 20px !important;
 }
+
+.item-preview-active {
+	height: 10px;
+	width: 25px;
+	background-color: gray;
+	margin-right: 5px;
+}
+
+.item-preview-nonactive {
+	height: 10px;
+	width: 25px;
+	background-color: LightGray;
+	margin-right: 5px;
+}
+
 
 #action-carousel {
 	position: absolute;
@@ -385,6 +400,11 @@ img.center {
 }
 
 #action-carousel-1 {
+	position: absolute;
+	z-index: 0;
+}
+
+#action-carousel-2 {
 	position: absolute;
 	z-index: 0;
 }
