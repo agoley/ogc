@@ -116,7 +116,9 @@ exports.getTopAction = function(req, res) {
 	// get the DOTM
 	var DOM = new Date().getDate();
 	console.log("DOM: " + DOM);
-	Game.find({ genre: "Action" }).sort({clicksLastMonth:1}).limit(15).exec(function(err, games) {
+	Game.find({ genre: "Action" }).sort({clicksLastMonth:1})
+		.limit(15)
+		.exec(function(err, games) {
 		if(err) {
 			console.log("error finding top action: " + err);
 			res.json(404, {err: 'Data Not Found.'});
@@ -125,6 +127,25 @@ exports.getTopAction = function(req, res) {
 		}
 	});	
 };
+
+// get the action games that have been clicked the most 
+// if the DOTM is < 15 use last month count else use this month
+exports.getTopShooter = function(req, res) {
+	// get the DOTM
+	var DOM = new Date().getDate();
+	console.log("DOM: " + DOM);
+	Game.find({ genre: "Shooter" }).sort({clicksLastMonth:1})
+		.limit(15)
+		.exec(function(err, games) {
+		if(err) {
+			console.log("error finding top action: " + err);
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			res.json(games);
+		}
+	});	
+};
+
 
 
 exports.getShooterGames = function(req, res) {

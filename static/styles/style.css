@@ -150,8 +150,8 @@ body {
 }
 
 .browse {
-	top: 10px;
-	padding-left: 15px;
+	top: 5px;
+	padding-left: 25px;
 }
 
 .signinup {
@@ -169,13 +169,13 @@ body {
 
 .matches {
 	background: white !important;
-	position: absolute;
-	z-index: 999;
 }
 
 .games-matched {
 	padding-top: 10px;
 	padding-left: 15px;
+	position: absolute;
+	z-index: 999;
 }
 
 #logo-footer {
@@ -386,6 +386,11 @@ img.center {
 	margin-right: 5px;
 }
 
+.game-carousel {
+	position: absolute;
+	z-index: 0;
+}
+
 
 #action-carousel {
 	position: absolute;
@@ -397,20 +402,6 @@ img.center {
 	display:inline-block;
 	width: 100%;
  */
-}
-
-#action-carousel-1 {
-	position: absolute;
-	z-index: 0;
-}
-
-#action-carousel-2 {
-	position: absolute;
-	z-index: 0;
-}
-
-#action-carousel li {
-	/* padding-right: 0px; */
 }
 
 .reverse-game-btn {
@@ -431,4 +422,7 @@ img.center {
 	z-index: 1;
 }
 
+.header {
+	overflow: visible;
+}
 .minwidth { white-space: nowrap; }

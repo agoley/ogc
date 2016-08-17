@@ -2,7 +2,7 @@
 	<div class="minwidth">
 	<div class="row">
 		<div class="col col-md-6 col-xs-6">
-			<h4 class="genre-header regular-bold">Featured Action</h4>
+			<h4 class="genre-header regular-bold">featured {{$ctrl.category}}</h4>
 		</div>
 		<div class="col col-md-6 col-xs-6">
 			<h4 ng-class="$ctrl.activeItem==2 ? 'pull-right item-preview-active' :
@@ -13,8 +13,8 @@
 			 	'pull-right item-preview-nonactive'"></h4>
 		</div>
 	</div>
-	<ul id='action-carousel' style="left: {{$ctrl.item0Left}}px" 
-		class="list-inline game-carousel">
+	<ul style="left: {{$ctrl.item0Left}}px" 
+		class="list-inline game-carousel {{$ctrl.category}}">
 		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames">
 			<a href="" ng-click="getGame(game.title)">
 				<img style='height: {{$ctrl.gameImageHeight}}px; 
@@ -22,8 +22,8 @@
 			</a>
 		</li>
 	</ul>
-	<ul id='action-carousel-1' style="left: {{$ctrl.item1Left}}px"
-	 	class="list-inline game-carousel">
+	<ul style="left: {{$ctrl.item1Left}}px"
+	 	class="list-inline game-carousel {{$ctrl.category}}">
 		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames2">
 			<a href="" ng-click="getGame(game.title)">
 				<img style='height: {{$ctrl.gameImageHeight}}px; 
@@ -31,8 +31,8 @@
 			</a>
 		</li>
 	</ul>
-	<ul id='action-carousel-2' style="left: {{$ctrl.item2Left}}px"
-	 	class="list-inline game-carousel">
+	<ul style="left: {{$ctrl.item2Left}}px"
+	 	class="list-inline game-carousel {{$ctrl.category}}">
 		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames3">
 			<a href="" ng-click="getGame(game.title)">
 				<img style='height: {{$ctrl.gameImageHeight}}px; 

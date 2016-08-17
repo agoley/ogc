@@ -78,7 +78,8 @@ welcome.component('loginForm', {
 			UserFactory.login(ctrl.credentials).then(function(response) {
 				ctrl.user = response.data;
 				$("#intro").slideUp();
-				$("#core").css("padding-top", "125px");
+				var headerHeight = $('.header').height();
+				$("#core").css("padding-top", headerHeight);
 			});
 		};
 		

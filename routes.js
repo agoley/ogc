@@ -171,6 +171,7 @@ module.exports = function(app) {
 	app.post('/game', games.game);
 	app.post('/games/update', games.update);
 	app.get('/games/topAction', games.getTopAction);
+	app.get('/games/topShooter', games.getTopShooter);
 	
 
 	
