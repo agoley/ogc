@@ -30,11 +30,12 @@ gamesView.component('actionScroller', {
 		ctrl.item0Left = 0;
 		ctrl.item1Left = window.innerWidth;
 		ctrl.item2Left = window.innerWidth *2;
-		ctrl.leftBtnLeft = -60;
 		ctrl.category = $attrs.category;
 		
-		var headerHeight = $('.header').height();
-		$("#core").css("padding-top", headerHeight);
+		if(ctrl.user.email){
+			var headerHeight = $('.header').height();
+			$("#core").css("padding-top", headerHeight);
+		}
 		
 		GamesFactory.getFeaturedAction($attrs.category).then(function(response){
 			ctrl.featuredActionGames = response.data.slice(0,5);
@@ -43,7 +44,9 @@ gamesView.component('actionScroller', {
 			ctrl.width = window.innerWidth;
 			ctrl.gameImageWidth = (ctrl.width - 40) / 5;
 			ctrl.gameImageHeight = ctrl.gameImageWidth * 1.2;
-			$('.scroll-btn').css({height: ctrl.gameImageHeight});
+			ctrl.scrollWidth = ctrl.gameImageWidth / 3;
+			ctrl.leftBtnLeft = -ctrl.scrollWidth;
+			$('.scroll-btn').css({height: ctrl.gameImageHeight, width: ctrl.scrollWidth});
 		});
 		
 		ctrl.scrollLeft = function(){
@@ -64,7 +67,7 @@ gamesView.component('actionScroller', {
 				$('.game-carousel.'+ctrl.category).animate({left: "+="+width*2}, 
 					700, function(){});
 				ctrl.activeItem = 0;
-				ctrl.leftBtnLeft = -60;
+				ctrl.leftBtnLeft = -ctrl.scrollWidth;
 			} else {
 				ctrl.leftBtnLeft= 0;
 				$('.game-carousel.'+ctrl.category).animate({left: "-="+width}, 
@@ -75,9 +78,13 @@ gamesView.component('actionScroller', {
 		
 		ctrl.resize = function() {
 			var width = window.innerWidth;
+			ctrl.gameImageWidth = (width - 40) / 5;
+			ctrl.gameImageHeight = ctrl.gameImageWidth * 1.2;
+			ctrl.scrollWidth = ctrl.gameImageWidth / 3;
 			if (ctrl.activeItem == 0) {
 				ctrl.item1Left = width;
 				ctrl.item2Left = width*2;
+				ctrl.leftBtnLeft = -ctrl.scrollWidth;
 			} else if (ctrl.activeItem == 1) {
 				ctrl.item0Left = -width;
 				ctrl.item2Left = width;
@@ -85,13 +92,13 @@ gamesView.component('actionScroller', {
 				ctrl.item0Left = -width*2;
 				ctrl.item1Left = -width;
 			}
-			ctrl.gameImageWidth = (width - 40) / 5;
-			ctrl.gameImageHeight = ctrl.gameImageWidth * 1.2;
+			
+			
 			$scope.$apply();
 			$('.game-image')
 				.css({width: ctrl.gameImageWidth, height: ctrl.gameImageHeight});
 			ctrl.scrollHeight = ctrl.gameImageHeight;	
-			$('.scroll-btn').css({height: ctrl.gameImageHeight});
+			$('.scroll-btn').css({height: ctrl.gameImageHeight, width: ctrl.scrollWidth});
 			if(ctrl.user.email){			
 				var headerHeight = $('.header').height();
 				$('#core').css('padding-top', headerHeight);

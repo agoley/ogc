@@ -41,13 +41,14 @@
 		</li>
 	</ul>
 	<button 
-		style="margin-left: {{$ctrl.leftBtnLeft}}px; height: {{$ctrl.gameImageHeight}}px"
-	 	ng-click="$ctrl.scrollLeft()"
+		style="margin-left: {{$ctrl.leftBtnLeft}}px; height: {{$ctrl.gameImageHeight}}px;
+		width: {{$ctrl.scrollWidth}}px" ng-click='$ctrl.scrollLeft()'
 		class="scroll-btn reverse-game-btn btn neat outset-arrow black">
 		<span class="glyphicon glyphicon-menu-left"></span>
 	</button>
-	<button style="height: {{$ctrl.gameImageHeight}}px" ng-click="$ctrl.scrollRight()" 
-		class="scroll-btn fwd-game-btn btn neat outset-arrow black">
+	<button style="height: {{$ctrl.gameImageHeight}}px; width: {{$ctrl.scrollWidth}}px"
+		 ng-click="$ctrl.scrollRight()" 
+		 class="scroll-btn fwd-game-btn btn neat outset-arrow black">
 			<span class="glyphicon glyphicon-menu-right"></span>
 	</button>
 	</div>

@@ -43,9 +43,9 @@ header.component('signoutBtn', {
 		signout: '&'
 	},
 	controller: function() {},
-	template: 	"<button ng-show='$ctrl.user.email' class='btn navbar-btn neat outset' " +
+	template: 	"<a ng-show='$ctrl.user.email' href=''"+
 				 "ng-click='$ctrl.signout()' ><text class='text-glow-hover'>" +
-				 "Sign Out</text></button>"
+				 "Sign Out</text></a>"
 });
 
 
@@ -66,7 +66,7 @@ header.component('showLoginBtn', {
 				"ng-class=\"!$ctrl.showSignUp? " +
 				"'btn navbar-btn neat outset no-border' : " +
 				"'btn  navbar-btn neat inset no-border'\"" +
-				"ng-click='$ctrl.viewSignIn()'> Log In </button>"
+				"ng-click='$ctrl.viewSignIn()'> Sign In </button>"
 });
 
 // Shopping cart button
@@ -86,8 +86,13 @@ header.component('shoppingCartBtn', {
 		}
 	},
 	template:  "<button class='btn navbar-btn neat outset' " +
-				"ng-click='$ctrl.viewCart()' >Shopping Cart <span class='badge'> " +
-				"{{$ctrl.getCartLength()}}</span></button>"
+					"ng-click='$ctrl.viewCart()'> " +
+					"<span class='glyphicon " +
+						"glyphicon-shopping-cart' aria-hidden='true'></span> " +
+					"<span class='badge'>" +
+						"{{$ctrl.getCartLength()}}"+
+					"</span>"+
+				"</button>"
 
 });
 

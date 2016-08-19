@@ -13,19 +13,54 @@
 		</div>
 	</div>
 	<div class="col col-md-6 col-xs-12">
-		<div class="pull-right signinup">
-			<button ng-show="user.email" 
+		<div class="pull-right signinup dropdown">
+			<!--<button ng-show="user.email" 
 				class="btn navbar-btn neat outset" 
 				ng-click="viewProf()" >
 				<text class="text-glow-hover">
 					{{user.email}}
 				</text>
-			</button>
+			</button>-->
 			<shopping-cart-btn view-cart="viewCart()" user="user"></shopping-cart-btn>
-			<show-login-btn 
+			<!--<show-login-btn 
 				user="user" 
-				show-sign-up="showSignUp"></show-login-btn>
-			<signout-btn signout="signout()" user="user"></signout-btn>
+				show-sign-up="showSignUp"></show-login-btn>-->
+			<button 
+				class="btn navbar-btn neat outset dropdown-toggle" 
+				type="button" id="dropdownMenu1" 
+				data-toggle="dropdown" 
+				aria-haspopup="true" 
+				aria-expanded="true">
+    			<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				<span class="caret"></span>
+  			</button>
+  			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    			<li><a 
+    					href="#" 
+    					ng-show="user.email" 
+						ng-click="viewProf()">
+						{{user.email}}
+					</a>
+				</li>
+				<li>
+					<a 
+						href="#" 
+						ng-click='$ctrl.viewSignIn()' 
+						id='loginBtn' 
+						ng-hide='user.email'>
+							Sign In
+					</a>
+				</li>
+    			<!--<li role="separator" ng-show='user.email' class="divider"></li>-->
+    			<li>
+    				<a 
+    					href="#" 
+    					ng-show='user.email' 
+    					ng-click="signout()">
+    						Sign Out
+    				</a>
+    			</li>
+  			</ul>
 		</div>
 	</div>
 </div>
