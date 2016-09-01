@@ -146,8 +146,6 @@ exports.getTopShooter = function(req, res) {
 	});	
 };
 
-
-
 exports.getShooterGames = function(req, res) {
 	var paginate = 3;
 	var size = 15;

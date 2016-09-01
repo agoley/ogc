@@ -7,8 +7,13 @@
 	</div> -->
 	<div id="core">
 		<content-manager ng-if="user.admin" ></content-manager>
-		<action-scroller category="action" user="user"></action-scroller>
-		<action-scroller category="shooter" user="user"></action-scroller>
+		<div 
+			ng-hide="displayGame||displayCart||displayCheckout||displayConf||displayProf">
+			<action-scroller category="action" user="user" get-game="getGame(title)">
+			</action-scroller>
+			<action-scroller category="shooter" user="user" get-game="getGame(title)">
+			</action-scroller>
+		</div>
 		<user-profile ng-show="displayProf"></user-profile>
 		<confirmation ng-show="displayConf"></confirmation>
 		<cart-display ng-show="displayCart"></cart-display>

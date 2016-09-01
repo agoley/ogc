@@ -16,7 +16,7 @@
 	<ul style="left: {{$ctrl.item0Left}}px" 
 		class="list-inline game-carousel {{$ctrl.category}}">
 		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames">
-			<a href="" ng-click="getGame(game.title)">
+			<a href="" ng-click="$ctrl.getGame({title: game.title})">
 				<img style='height: {{$ctrl.gameImageHeight}}px; 
 					width: {{$ctrl.gameImageWidth}}px' ng-src="{{game.image_path}}"/>
 			</a>
@@ -25,7 +25,7 @@
 	<ul style="left: {{$ctrl.item1Left}}px"
 	 	class="list-inline game-carousel {{$ctrl.category}}">
 		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames2">
-			<a href="" ng-click="getGame(game.title)">
+			<a href="" ng-click="$ctrl.getGame({title: game.title})">
 				<img style='height: {{$ctrl.gameImageHeight}}px; 
 					width: {{$ctrl.gameImageWidth}}px' ng-src="{{game.image_path}}"/>
 			</a>
@@ -34,7 +34,7 @@
 	<ul style="left: {{$ctrl.item2Left}}px"
 	 	class="list-inline game-carousel {{$ctrl.category}}">
 		<li class="game-row" ng-repeat="game in $ctrl.featuredActionGames3">
-			<a href="" ng-click="getGame(game.title)">
+			<a href="" ng-click="$ctrl.getGame({title: game.title})">
 				<img style='height: {{$ctrl.gameImageHeight}}px; 
 					width: {{$ctrl.gameImageWidth}}px' ng-src="{{game.image_path}}"/>
 			</a>

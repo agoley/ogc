@@ -542,6 +542,9 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.displayProf = false;
 					$scope.query = null;
 					$scope.getMatches();
+					$("#intro").slideUp();
+					var headerHeight = $('.header').height();
+					$("#core").css("padding-top", headerHeight);
 				} else {
 					console.log("handle error");
 					$scope.fail = true;
@@ -669,6 +672,13 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			console.log("App failed to post to //localhost:8080/login");
 		});
 	};
+	
+	$scope.viewSignIn = function() {
+			$scope.showSignUp = false;
+			$('#intro').addClass('login-body');
+			$('#intro').slideDown();
+			$("#core").css("padding-top", "0px");
+	}
 	
 	/**
 	Register new user

@@ -58,15 +58,21 @@ header.component('showLoginBtn', {
 	controller: function(){
 		var ctrl = this;
 		ctrl.viewSignIn = function(){
+			console.log("login btn clicked");
 			ctrl.showSignUp = false;
+			$('#intro').addClass('login-body');
+			$('#intro').slideDown();
+			$("#core").css("padding-top", "0px");
 		}
 		
 	},
-	template:  	"<button id='loginBtn' class='a' ng-hide='$ctrl.user.email'" +
-				"ng-class=\"!$ctrl.showSignUp? " +
-				"'btn navbar-btn neat outset no-border' : " +
-				"'btn  navbar-btn neat inset no-border'\"" +
-				"ng-click='$ctrl.viewSignIn()'> Sign In </button>"
+	template:  	"<a" + 
+						"href='' " + 
+						"ng-click='$ctrl.viewSignIn()' " + 
+						"id='loginBtn' " +  
+						"ng-hide='user.email'>" +
+							"Sign In" +
+					"</a>"
 });
 
 // Shopping cart button

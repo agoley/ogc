@@ -22,7 +22,8 @@ gamesView.factory('GamesFactory', function($http) {
 // Game scroll component - possibly dynamic based on category??
 gamesView.component('actionScroller', {
 	bindings: {
-		user: '='
+		user: '=',
+		getGame: '&'
 	},
 	controller: function($scope, GamesFactory, $attrs){
 		var ctrl = this;
@@ -31,6 +32,19 @@ gamesView.component('actionScroller', {
 		ctrl.item1Left = window.innerWidth;
 		ctrl.item2Left = window.innerWidth *2;
 		ctrl.category = $attrs.category;
+		ctrl.size = $attrs.size; 
+		
+		var isMobile = window.matchMedia("only screen and (max-width: 760px)");
+
+		// TODO: pull this up a layer to enable setting on demand
+    	if (isMobile.matches) {
+        	//Conditional script here
+        	ctrl.size = 3;
+        	ctrl.r = 20;
+    	} else {
+    		ctrl.r = 40;
+    		ctrl.size = 5;
+    	}
 		
 		if(ctrl.user.email){
 			var headerHeight = $('.header').height();
@@ -38,11 +52,11 @@ gamesView.component('actionScroller', {
 		}
 		
 		GamesFactory.getFeaturedAction($attrs.category).then(function(response){
-			ctrl.featuredActionGames = response.data.slice(0,5);
-			ctrl.featuredActionGames2 = response.data.slice(5, 10);
-			ctrl.featuredActionGames3 = response.data.slice(10, 15);
+			ctrl.featuredActionGames = response.data.slice(0,ctrl.size);
+			ctrl.featuredActionGames2 = response.data.slice(ctrl.size, ctrl.size*2);
+			ctrl.featuredActionGames3 = response.data.slice(ctrl.size*2, ctrl.size*3);
 			ctrl.width = window.innerWidth;
-			ctrl.gameImageWidth = (ctrl.width - 40) / 5;
+			ctrl.gameImageWidth = (ctrl.width - ctrl.r) / ctrl.size;
 			ctrl.gameImageHeight = ctrl.gameImageWidth * 1.2;
 			ctrl.scrollWidth = ctrl.gameImageWidth / 3;
 			ctrl.leftBtnLeft = -ctrl.scrollWidth;
@@ -78,7 +92,7 @@ gamesView.component('actionScroller', {
 		
 		ctrl.resize = function() {
 			var width = window.innerWidth;
-			ctrl.gameImageWidth = (width - 40) / 5;
+			ctrl.gameImageWidth = (width - ctrl.r) / ctrl.size;
 			ctrl.gameImageHeight = ctrl.gameImageWidth * 1.2;
 			ctrl.scrollWidth = ctrl.gameImageWidth / 3;
 			if (ctrl.activeItem == 0) {
