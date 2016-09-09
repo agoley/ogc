@@ -128,7 +128,7 @@ exports.getTopAction = function(req, res) {
 	});	
 };
 
-// get the action games that have been clicked the most 
+// get the shooting games that have been clicked the most 
 // if the DOTM is < 15 use last month count else use this month
 exports.getTopShooter = function(req, res) {
 	// get the DOTM
@@ -138,13 +138,48 @@ exports.getTopShooter = function(req, res) {
 		.limit(15)
 		.exec(function(err, games) {
 		if(err) {
-			console.log("error finding top action: " + err);
+			console.log("error finding top shooter: " + err);
 			res.json(404, {err: 'Data Not Found.'});
 		} else {
 			res.json(games);
 		}
 	});	
 };
+
+// get the family games that have been clicked the most 
+// if the DOTM is < 15 use last month count else use this month
+exports.getTopFamily = function(req, res) {
+	// get the DOTM
+	var DOM = new Date().getDate();
+	console.log("DOM: " + DOM);
+	Game.find({ genre: "Family" }).sort({clicksLastMonth:1})
+		.limit(15)
+		.exec(function(err, games) {
+		if(err) {
+			console.log("error finding top family: " + err);
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			res.json(games);
+		}
+	});	
+};
+
+exports.getTopFighting = function(req, res) {
+	// get the DOTM
+	var DOM = new Date().getDate();
+	console.log("DOM: " + DOM);
+	Game.find({ genre: "Fighting" }).sort({clicksLastMonth:1})
+		.limit(15)
+		.exec(function(err, games) {
+		if(err) {
+			console.log("error finding top fighting: " + err);
+			res.json(404, {err: 'Data Not Found.'});
+		} else {
+			res.json(games);
+		}
+	});	
+};
+
 
 exports.getShooterGames = function(req, res) {
 	var paginate = 3;

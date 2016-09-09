@@ -172,6 +172,8 @@ module.exports = function(app) {
 	app.post('/games/update', games.update);
 	app.get('/games/topAction', games.getTopAction);
 	app.get('/games/topShooter', games.getTopShooter);
+	app.get('/games/topFamily', games.getTopFamily);
+	app.get('/games/topFighting', games.getTopFighting);
 	
 	// Passport (Social media authentication) staging
 	var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;		

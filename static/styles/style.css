@@ -422,6 +422,10 @@ img.center {
 	z-index: 1;
 }
 
+.game-cover {
+	background: url('../images/default.gif') no-repeat;
+}
+
 .header {
 	overflow: visible;
 }

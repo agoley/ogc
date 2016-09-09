@@ -96,13 +96,14 @@ exports.clearLastTransaction = function(req, res) {
 }
 
 /**
-	Return all pending transactions for a given user.
+	Return last 5 transactions for a given user.
 	Passed in the request is a user id.
 */
 exports.getPendingTransForUser = function(req, res) {
 	var session = req.session;
 	if(session){
-		Transaction.find({ user_id: session.user, status: 'pending' })
+		Transaction.find({user_id: session.user})
+		.sort('-date')
 		.limit(5)
 		.exec(function(err, data) {
 			if (err){

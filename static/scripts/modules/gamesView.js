@@ -12,15 +12,17 @@ gamesView.factory('GamesFactory', function($http) {
 			return $http.get('//localhost:8080/games/topAction');
 		} else if(category == 'shooter') {
 			return $http.get('//localhost:8080/games/topShooter');
+		} else if(category == 'family') {
+			return $http.get('//localhost:8080/games/topFamily');
+		} else if(category == 'fighting') {
+			return $http.get('//localhost:8080/games/topFighting');
 		}
 	}
 	return gamesFactory;
 });
 
-// Content manager component
-
 // Game scroll component - possibly dynamic based on category??
-gamesView.component('actionScroller', {
+gamesView.component('gameScroller', {
 	bindings: {
 		user: '=',
 		getGame: '&'
@@ -124,7 +126,5 @@ gamesView.component('actionScroller', {
 		});
 			
 	},
-	templateUrl: "views/action_scroller.html"
+	templateUrl: "views/game_scroller.html"
 });
-
-// Game detail component

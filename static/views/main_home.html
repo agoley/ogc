@@ -1,26 +1,19 @@
-<div ng-controller="HomeController"> 
+<div class="all" ng-controller="HomeController"> 
 	<ogc-welcome></ogc-welcome>
 	<ogc-header id='header'></ogc-header> 
-	<!--<div id="intro" class="login-body">
-		<authorized-header></authorized-header>
-		<div id="welcome"><new-member ></new-member></div>
-	</div> -->
 	<div id="core">
 		<content-manager ng-if="user.admin" ></content-manager>
 		<div 
 			ng-hide="displayGame||displayCart||displayCheckout||displayConf||displayProf">
-			<action-scroller category="action" user="user" get-game="getGame(title)">
-			</action-scroller>
-			<action-scroller category="shooter" user="user" get-game="getGame(title)">
-			</action-scroller>
+			<game-scroller category="action" user="user" get-game="getGame(title)"/>
+			<game-scroller category="shooter" user="user" get-game="getGame(title)"/>
+			<game-scroller category="family" user="user" get-game="getGame(title)"/>
+			<game-scroller category="fighting" user="user" get-game="getGame(title)"/>
 		</div>
 		<user-profile ng-show="displayProf"></user-profile>
 		<confirmation ng-show="displayConf"></confirmation>
 		<cart-display ng-show="displayCart"></cart-display>
 		<game-display ng-show="displayGame && !displayCart"></game-display>
-		<!--<games 
-			ng-hide="displayGame||displayCart||displayCheckout||displayConf||displayProf">
-		</games>-->
 		<checkout ng-show="displayCheckout"></checkout>
 	</div>
 </div>
