@@ -13,7 +13,14 @@
 		<user-profile ng-show="displayProf"></user-profile>
 		<confirmation ng-show="displayConf"></confirmation>
 		<cart-display ng-show="displayCart"></cart-display>
-		<game-display ng-show="displayGame && !displayCart"></game-display>
+		<game-detail 
+			user="user"
+			game="game" 
+			transaction="transaction"
+			add-to-cart="addToCart(game)"
+			update-game="updateGame(game)"
+			clear-game="clearGame()" 
+			ng-show="displayGame && !displayCart"/>
 		<checkout ng-show="displayCheckout"></checkout>
 	</div>
 </div>

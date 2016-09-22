@@ -198,6 +198,47 @@ exports.submitTransaction = function(req, res) {
 	
 }
 
+// experimental
+exports.addItemToCart = function(req, res) {
+	if (req.body.type=='sale') {
+		addSaleToCart(req, res);
+	} else if (req.body.type=='ingest') {
+	
+	} else if (req.body.type=='trade') {
+	
+	} else {
+		res.send(true);
+	}
+};
+
+function addSaleToCart(req, res) {
+	User.findOne({ _id: req.session.user })
+			.exec(function(err, user) {
+			if (!user){
+				res.json(404, {err: 'User Not Found.'});
+			} else {
+				var cart = user.cart;
+				if(!cart){
+					cart = [];
+				} 
+				var game = req.body.game;
+				var item = 
+					{ title: game.title,
+					  console: game.console,
+					  path: game.image_path,
+					  quantity: 1,
+					  cost: game.sell_price,
+					  type: "sale"
+					};				
+				cart.push(item);
+				user.cart = cart;
+				user.save();
+				res.json(user)
+			}
+		});
+}
+
+
 exports.addToCart = function(req, res) {
 	User.findOne({ _id: req.session.user })
 	.exec(function(err, user) {

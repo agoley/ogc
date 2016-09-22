@@ -22,6 +22,11 @@ welcome.factory('UserFactory', function($http) {
 					{ withCredentials: true });
 		} 
 	}
+	
+	userFactory.addItemToCart = function (game, type) {
+		return $http.post('//localhost:8080/user/addItemToCart',{game: game, type: type});
+	}
+	
 	return userFactory;
 });
 

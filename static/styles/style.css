@@ -424,6 +424,7 @@ img.center {
 
 .game-cover {
 	background: url('../images/default.gif') no-repeat;
+	background-position: center;
 }
 
 .header {

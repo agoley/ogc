@@ -1,8 +1,8 @@
 'use strict';
 
-var app = angular.module('loginApp', ["header", "welcome", "gamesView"])
-	.controller('MainCtrl', function ($scope) {});
+var app = angular.module('loginApp', ["header", "welcome", "gamesView"]);
   
+// todo transform into main component
 app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
 	$scope.addConfirm = false;
 	$scope.transaction = {};
@@ -210,7 +210,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 //app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.game = {};
 	$scope.consoles = ["PS4", "Xbox One", "Wii U", "PS3", "Xbox 360", "Wii", "3DS", "DS" ];
-	$scope.genres = ["Action", "Adventure", "FPS", "RPG", "TPS", "Shooter", "Fighting", "Racing", "Family", "Strategy", "MMO" ];
 	$scope.uploadGame = false;
 	$scope.uploadPhoto = false;
 	$scope.page = {};

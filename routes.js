@@ -145,6 +145,7 @@ module.exports = function(app) {
 	app.post('/signup', users.signup);
 	app.post('/signout', users.signout);
 	app.post('/user/addGame', users.addToCart);
+	app.post('/user/addItemToCart', users.addItemToCart);
 	app.post('/user/addCredit', users.creditUser);
 	app.post('/user/addCoin', users.coinUser);
 	app.post('/user/removeGame', users.removeFromCart);

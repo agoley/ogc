@@ -1,63 +1,33 @@
-<div ng-controller="GameController">
-	<div class="row">
-		<div class="col col-md-2">
-			<a href="/">
-				<img id="logo" src="../images/logo-white.png"/>
-			</a>
-		</div>	
-		<div class="col col-md-4 ">
-			<div class="input-group browse">
-				<span class="input-group-addon neat" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
-				<input type="text" class="form-control neat" ng-model="query" ng-change="getMatches()"  placeholder="Browse" aria-describedby="basic-addon1">
-			</div>
-			<div class="games-matched">
-				<ul class="list-group matches neat">
-					<a href="" ng-click="getGame(match)" ng-repeat="match in matches track by $index" class="list-group-item">{{match}} </a>
-				</ul>
-			</div>
-		</div>
-		<div class="col col-md-6">
-			<div class="pull-right signinup">
-				<div class="pull-right signinup" ng-controller="LoginController">
-					<form>
-						<button class="btn navbar-btn neat outset" ng-click="" ><text class="text-glow-hover">{{user.email}}</text>
-						<button class="btn navbar-btn neat outset" ng-click="signout()" ><text class="text-glow-hover">Sign Out</text>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
+<!--<div ng-controller="GameController">-->
 	<div class="container game-profile-container">
-		<button class="btn navbar-btn neat outset" ng-click="toggleEditGame()" ><text class="text-glow-hover">Edit Game</text></button>
-		<div ng-if="user.email == 'baymax@bot.com' && editGame">
+		<button class="btn navbar-btn neat outset" ng-click="$ctrl.toggleEditGame()" ><text class="text-glow-hover">Edit Game</text></button>
+		<div ng-if="$ctrl.user.email == 'baymax@bot.com' && $ctrl.editGame">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<div class="bold">Edit Game</div>
 				</div>
 				<div class="panel-body">
-					<form name="edit-game"  ng-submit="updateGame(game)">
+					<form name="edit-game"  ng-submit="$ctrl.updateGame({game: $ctrl.game})">
 						<div class="regular-bold low-div">
 							Select All Genres That Apply
 						</div>
 						<div class="regular-bold low-div">
-							<select multiple data-ng-model="game.genre" data-ng-options="genre for genre in genres">
+							<select multiple data-ng-model="$ctrl.game.genre" data-ng-options="genre for genre in $ctrl.genres">
 						</div>
 						<div class="regular-bold low-div">
-							<input type="text" ng-model="game.developer" class="form-control neat-input" placeholder="Developer">
+							<input type="text" ng-model="$ctrl.game.developer" class="form-control neat-input" placeholder="Developer">
 						</div>
 						<div class="regular-bold low-div">
-							<textarea type="text" ng-model="game.summary" class="form-control neat-input" placeholder="Summary"></textarea>
+							<textarea type="text" ng-model="$ctrl.game.summary" class="form-control neat-input" placeholder="Summary"></textarea>
 						</div>
 						<div class="regular-bold low-div">
-							<input type="date" ng-model="game.release_date" class="form-control neat-input" placeholder="yyyy-MM-dd">
+							<input type="date" ng-model="$ctrl.game.release_date" class="form-control neat-input" placeholder="yyyy-MM-dd">
 						</div>
 						<div class="regular-bold low-div">
-							<input type="number" ng-model="game.buy_price" class="form-control neat-input" placeholder="Buy Price">
+							<input type="number" ng-model="$ctrl.game.buy_price" class="form-control neat-input" placeholder="Buy Price">
 						</div>
 						<div class="regular-bold low-div">
-							<input type="number" ng-model="game.sell_price" class="form-control neat-input" placeholder="Sell Price">
+							<input type="number" ng-model="$ctrl.game.sell_price" class="form-control neat-input" placeholder="Sell Price">
 						</div>
 						<div class="low-div pull-right">
 							<input type="submit" class="btn btn-attention pull-left neat" value="Update Game" >
@@ -68,23 +38,23 @@
 		</div>
 	<div class="media">
 		<div class="media-left">
-			<img class="game-profile-image" ng-src="{{game.image_path}}"/>
+			<img class="game-profile-image" ng-src="{{$ctrl.game.image_path}}"/>
 		</div>
 		<div class="media-body">
-			<h4 class="media-heading bold"> {{game.title}} </h4>
+			<h4 class="media-heading bold"> {{$ctrl.game.title}} </h4>
 				<ul class="list-unstyled">
-					<li>Console: {{game.console}}</li>
-					<li>Developer: {{game.developer}}</li>
-					<li>Genre: {{game.genre}}</li>
-					<li>Release Date: {{game.release_date}}</li>
-					<li>Summary: {{game.summary}}</li>
+					<li>Console: {{$ctrl.game.console}}</li>
+					<li>Developer: {{$ctrl.game.developer}}</li>
+					<li>Genre: {{g$ctrl.ame.genre}}</li>
+					<li>Release Date: {{$ctrl.game.release_date}}</li>
+					<li>Summary: {{$ctrl.game.summary}}</li>
 				</ul>
 		</div>
 	</div>
-	<span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{game.sell_price}}
-	<button class="a btn-lg btn-attention neat add-button" ng-click="addToCart(game)"> Add to Cart </button>
+	<span class="glyphicon glyphicon-usd" aria-hidden="true"></span> {{$ctrl.game.sell_price}}
+	<button class="a btn-lg btn-attention neat add-button" ng-click="$ctrl.addToCart({game: $ctrl.game})"> Add to Cart </button>
 	</div>
-</div>
+<!--</div>
 
 <footer class="footer">
 	<div class="container high-div">
@@ -102,4 +72,4 @@
 			</div>
 		</div>
 	</div>		
-</footer>
+</footer> -->
