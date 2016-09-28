@@ -13,17 +13,7 @@
 	</div>
 	<div class="col col-md-6 col-xs-12">
 		<div class="pull-right signinup dropdown">
-			<!--<button ng-show="user.email" 
-				class="btn navbar-btn neat outset" 
-				ng-click="viewProf()" >
-				<text class="text-glow-hover">
-					{{user.email}}
-				</text>
-			</button>-->
 			<shopping-cart-btn view-cart="viewCart()" user="user"></shopping-cart-btn>
-			<!--<show-login-btn 
-				user="user" 
-				show-sign-up="showSignUp"></show-login-btn>-->
 			<button 
 				class="btn navbar-btn neat outset dropdown-toggle" 
 				type="button" id="dropdownMenu1" 
@@ -38,7 +28,7 @@
     					href="#" 
     					ng-show="user.email" 
 						ng-click="viewProf()">
-						{{user.email}}
+						account
 					</a>
 				</li>
 				<li>
@@ -50,16 +40,20 @@
 							Sign In
 					</a>
 				</li>
-    			<!--<li role="separator" ng-show='user.email' class="divider"></li>-->
     			<li>
     				<a 
     					href="#" 
     					ng-show='user.email' 
     					ng-click="signout()">
-    						Sign Out
+    						sign out
     				</a>
     			</li>
   			</ul>
+  			<div 
+  				class="animated bounce alert alert-success add-success"
+  				ng-if="view.addConfirm">
+  				<strong>Game added</strong>
+  			</div>
 		</div>
 	</div>
 </div>

@@ -23,13 +23,13 @@
 	</ul>
 	<ul class="list-inline low-div">
 		<li ng-if="total > 0">
-			<mark>Total Due:  ${{total}}</mark>
+			<mark>Total Cost:  ${{user.cart.cost}}</mark>
 		</li>
 		<li ng-if="credit > 0">
-			<mark>Total Credit:  ${{credit}}</mark>
+			<mark>Total Credit:  ${{user.cart.credit}}</mark>
 		</li>
 		<li ng-if="coin > 0">
-			<mark>Total Game Cash: ${{coin}}</mark>
+			<mark>Total Game Cash: ${{user.cart.coin}}</mark>
 		</li>
 	</ul>
 	<div class="low-div">

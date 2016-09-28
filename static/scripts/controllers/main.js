@@ -4,12 +4,20 @@ var app = angular.module('loginApp', ["header", "welcome", "gamesView"]);
   
 // todo transform into main component
 app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
+	$scope.view = {
+		showFeaturedGames: true,
+		showProfile: false,
+		showConfirmation: false,
+		showCart: false,
+		showGameDetail: false,
+		showCheckout: false,
+		addConfirm: false
+	};
 	$scope.addConfirm = false;
 	$scope.transaction = {};
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
 	$scope.page = {};
-	$scope.view = "test parent";
 	
 	$scope.clearLastTransaction = function(){
 		console.log("clearing.");
@@ -131,7 +139,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		return tot;
 	}
 		
-	$scope.addToCart = function(game) {
+	/*$scope.addToCart = function(game) {
 		// Filter by transaction type
 		if($scope.transaction.type == "sale") {
 			console.log("adding game: " + game);
@@ -140,7 +148,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				if(data) {
 					console.log("user cart after add: " +  data.cart);
 					$scope.user = data;
-					$scope.addConfirm = true;
 					$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
 					$scope.total = $scope.totalCart();
 					$scope.credit = $scope.totalCredit();
@@ -158,8 +165,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			success(function(data, status, headers, config) {
 				if(data) {
 					$scope.user = data;
-					$timeout(function(){$scope.addConfirm = true; $scope.$apply();}, 100);
-					$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
 					$scope.total = $scope.totalCart();
 					$scope.credit = $scope.totalCredit();
 					$scope.coin = $scope.totalCoin();
@@ -176,8 +181,6 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			success(function(data, status, headers, config) {
 				if(data) {
 					$scope.user = data;
-					timeout(function(){$scope.addConfirm = true; $scope.$apply();}, 100);
-					$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
 					$scope.total = $scope.totalCart();
 					$scope.credit = $scope.totalCredit();
 					$scope.coin = $scope.totalCoin();
@@ -190,7 +193,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			});
 		}
 		
-	}
+	}*/
 		
 	$scope.removeFromCart = function(game) {
 		$http.post('//localhost:8080/user/removeGame', game, { withCredentials: true }).
@@ -315,8 +318,8 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		$scope.checkout.billing_address = user.billing_address;
 		$scope.checkout.user_cart = user.cart;
 		$scope.checkout.credit = $scope.credit;
-		$scope.checkout.charge = $scope.total;
-		$scope.checkout.coin = $scope.coin;
+		$scope.checkout.charge = user.cart.cost;
+		$scope.checkout.coin = user.cart.coin;
 		
 		$http.post('//localhost:8080/submitTransaction', $scope.checkout, { withCredentials: true }).success(function(data, status, headers, config) {
 			$scope.viewConf();
@@ -536,9 +539,13 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 					$scope.game = data;
 					console.log($scope.game.genre);
 				//	$scope.displayCart = false;
-					$scope.displayCheckout = false;
-					$scope.displayGame = true;
-					$scope.displayProf = false;
+					$scope.view.showCheckout = false;
+					$scope.view.showGameDetail = true;
+					$scope.view.showFeaturedGames = false;
+					$scope.view.showProfile = false;
+					//$scope.displayCheckout = false;
+					//$scope.displayGame = true;
+					//$scope.displayProf = false;
 					$scope.query = null;
 					$scope.getMatches();
 					$("#intro").slideUp();
@@ -553,14 +560,17 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		});
 	}
 	
-	$scope.clearGame = function(){
-		$scope.displayGame = false;
-		$scope.displayCart = false;
-		$scope.displayCheckout = false;
-		$scope.displayConf = false;
-		$scope.displayProf = false;
+	/*
+	depr. 9/24/16
+		$scope.clearGame = function(){
+		$scope.view.showGameDetail = false;
+		$scope.view.showCart = false;
+		$scope.view.showCheckout = false;
+		$scope.view.showConfirmation = false;
+		$scope.view.showProfile = false;
+		$scope.view.showFeaturedGames = true;
 	}
-//}]);
+//}]);*/
 
 //app.controller('LoginController', ['$scope', '$http', function($scope, $http ) {
 	$scope.credentials = {};

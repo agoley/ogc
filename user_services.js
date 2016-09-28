@@ -203,9 +203,9 @@ exports.addItemToCart = function(req, res) {
 	if (req.body.type=='sale') {
 		addSaleToCart(req, res);
 	} else if (req.body.type=='ingest') {
-	
+		addCreditToCart(req, res);
 	} else if (req.body.type=='trade') {
-	
+		addCoinToCart(req, res);
 	} else {
 		res.send(true);
 	}
@@ -213,32 +213,92 @@ exports.addItemToCart = function(req, res) {
 
 function addSaleToCart(req, res) {
 	User.findOne({ _id: req.session.user })
-			.exec(function(err, user) {
-			if (!user){
-				res.json(404, {err: 'User Not Found.'});
-			} else {
-				var cart = user.cart;
-				if(!cart){
-					cart = [];
-				} 
-				var game = req.body.game;
-				var item = 
-					{ title: game.title,
-					  console: game.console,
-					  path: game.image_path,
-					  quantity: 1,
-					  cost: game.sell_price,
-					  type: "sale"
-					};				
-				cart.push(item);
-				user.cart = cart;
-				user.save();
-				res.json(user)
+		.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			var cart = user.cart;
+			if(!cart){
+				cart = [];
+			} 
+			var game = req.body.game;
+			var item = 
+				{ title: game.title,
+				  console: game.console,
+				  path: game.image_path,
+				  quantity: 1,
+				  cost: game.sell_price,
+				  type: "sale"
+				};				
+			cart.push(item);
+			user.cart = cart;
+			user.save();
+			res.json(user)
+		}
+	});
+}
+
+function addCreditToCart(req, res) {
+	User.findOne({ _id: req.session.user })
+		.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			var cart = user.cart;
+			if(!cart){
+				cart = [];
+			} 
+			if(!user.credit_buffered){
+				user.credit_buffered = 0;
 			}
-		});
+			var game = req.body.game;
+			var item = {
+				title: game.title, 
+				console: game.console, 
+				path: game.image_path, 
+				quantity: 1, 
+				cost: game.buy_price, 
+				type: 'ingest'
+			};
+			cart.push(item);
+			user.cart = cart;
+			user.save();
+			res.json(user)
+		}
+	});
+}
+
+function addCoinToCart(req, res) {
+	User.findOne({ _id: req.session.user })
+		.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			var cart = user.cart;
+			if(!cart){
+				cart = [];
+			} 
+			if(!user.coin_buffered){
+				user.coin_buffered = 0;
+			}
+			var game = req.body.game;
+			cart.push({ 
+				title: game.title, 
+				console: game.console, 
+				path: game.image_path, 
+				quantity: 1, 
+				cost: (game.buy_price + 5), 
+				type: 'trade'});
+			user.cart = cart;
+			user.save();
+			res.json(user)
+		}
+	});
 }
 
 
+/*
+depreciated 9/23/16
 exports.addToCart = function(req, res) {
 	User.findOne({ _id: req.session.user })
 	.exec(function(err, user) {
@@ -250,17 +310,17 @@ exports.addToCart = function(req, res) {
 				cart = [];
 			} 
 			// Check if the game exists in the cart
-			/*var exists = false;
-			for(var i = 0; i < cart.length; i++) {
-				if( cart[i].title == req.body.title && cart[i].console == req.body.console ) {
-					cart[i].quantity = cart[i].quantity + 1;
-					exists = true;
-				}
-			}
-			if(!exists) {
-				cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: req.body.sell_price});
-			}
-			*/
+			//var exists = false;
+			//for(var i = 0; i < cart.length; i++) {
+			//	if( cart[i].title == req.body.title && cart[i].console == req.body.console ) {
+			//		cart[i].quantity = cart[i].quantity + 1;
+			//		exists = true;
+			//	}
+			//}
+			//if(!exists) {
+			//	cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: req.body.sell_price});
+			//}
+			//
 			var item = { title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: req.body.sell_price, type: "sale"};
 			cart.push(item);
 			user.cart = cart;
@@ -271,12 +331,14 @@ exports.addToCart = function(req, res) {
 };
 
 /*
+depreciated 9/23/16
 Descrip: 
 	This service adds credit to a users account. Credit is gained when a user sells a game to ogc.
 	The credit is placed on hold until the game is mailed to ogc and verified.
 Return:
 	Returns the updated user.
 */
+/*
 exports.creditUser = function(req, res) {
 	User.findOne({ _id: req.session.user })
 	.exec(function(err, user) {
@@ -298,14 +360,16 @@ exports.creditUser = function(req, res) {
 		}
 	});
 }
-
+*/
 /*
+depreciated 9/23/16
 Descrip: 
 	This service adds coin to a users account. Coin is gained when a user trades a game to ogc.
 	The coin is placed on hold until the game is mailed to ogc and verified.
 Return:
 	Returns the updated user.
 */
+/*
 exports.coinUser = function(req, res) {
 	User.findOne({ _id: req.session.user })
 	.exec(function(err, user) {
@@ -327,6 +391,7 @@ exports.coinUser = function(req, res) {
 		}
 	});
 }
+*/
 
 /**
 	Clear the sessions user and return to home.

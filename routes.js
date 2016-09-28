@@ -144,10 +144,10 @@ module.exports = function(app) {
 	app.post('/signin/', users.signin);
 	app.post('/signup', users.signup);
 	app.post('/signout', users.signout);
-	app.post('/user/addGame', users.addToCart);
+	// dep. app.post('/user/addGame', users.addToCart);
 	app.post('/user/addItemToCart', users.addItemToCart);
-	app.post('/user/addCredit', users.creditUser);
-	app.post('/user/addCoin', users.coinUser);
+	// dep. app.post('/user/addCredit', users.creditUser);
+	// dep. app.post('/user/addCoin', users.coinUser);
 	app.post('/user/removeGame', users.removeFromCart);
 	app.post('/submitTransaction', users.submitTransaction);
 	app.post('/user/update', users.updateUser);

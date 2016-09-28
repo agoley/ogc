@@ -17,6 +17,10 @@ gamesView.factory('GamesFactory', function ($http) {
 			return $http.get('//localhost:8080/games/topFighting');
 		}
 	}
+	
+	gamesFactory.updateGame = function (game) {
+		return $http.post('//localhost:8080/games/update', JSON.stringify(game));
+	}
 	return gamesFactory;
 }); 
 
@@ -25,12 +29,9 @@ gamesView.component('gameDetail', {
 	bindings: {
 		user: '=',
 		game: '=',
-		transaction: '=',
-		addToCart: '&',
-		updateGame: '&',
-		clearGame: '&'
+		view: '='
 	},
-	controller: function ($scope, $timeout, UserFactory) {
+	controller: function (GamesFactory, UserFactory, $timeout, $scope) {
 		var ctrl = this;
 		ctrl.editGame = false;
 		ctrl.genres = 
@@ -49,20 +50,71 @@ gamesView.component('gameDetail', {
 		ctrl.toggleEditGame = function () {
 			ctrl.editGame = !ctrl.editGame;
 		}
+		
+		ctrl.totalCart = function () {
+			var tot = 0;
+			var currSales = [];
+			for (var i = 0; i < ctrl.user.cart.length; i++) {
+				if (ctrl.user.cart[i].type == 'sale') {
+					tot += ctrl.user.cart[i].cost;
+				}
+			}
+			ctrl.user.cart.cost = tot;
+		}
+		
+		ctrl.totalCoin = function () {
+			var tot = 0;
+			for (var i = 0; i < ctrl.user.cart.length; i++) {
+				if (ctrl.user.cart[i].type == 'trade') {
+					tot += ctrl.user.cart[i].cost;
+				}
+			}
+			ctrl.user.cart.coin;
+		}
+		
+		ctrl.totalCredit = function () {
+			var tot = 0;
+			for (var i = 0; i < ctrl.user.cart.length; i++) {
+				if (ctrl.user.cart[i].type == 'ingest') {
+					tot += ctrl.user.cart[i].cost;
+				}
+			}
+			ctrl.user.cart.credit;
+		}
+		
+		ctrl.updateCartTotals = function () {
+			ctrl.totalCart();
+			ctrl.totalCoin();
+			ctrl.totalCredit();
+		}
+		
+		ctrl.clearGame = function () {
+			ctrl.view.showGameDetail = false;
+			ctrl.view.showCart = false;
+			ctrl.view.showCheckout = false;
+			ctrl.view.showConfirmation = false;
+			ctrl.view.showProfile = false;
+			ctrl.view.showFeaturedGames = true;
+		}
 			
 		ctrl.addItemToCart = function (item, type) {
 			UserFactory.addItemToCart(item, type).then(function (response) {
-				if(response.data) {
-					console.log("user cart after add: " +  response.data.cart);
+				if (response.data) {
 					ctrl.user = response.data;
-					//$scope.addConfirm = true;
-					//$timeout(function(){$scope.addConfirm = false; $scope.$apply();}, 3000);
-					//$scope.total = $scope.totalCart();
-					//$scope.credit = $scope.totalCredit();
-					//$scope.coin = $scope.totalCoin();
-					//$scope.sales = $scope.allSalesInCart();
-					//$scope.buys = $scope.allBuysInCart();
-					//$scope.trades = $scope.allTradesInCart();
+					ctrl.view.addConfirm = true;
+					$timeout(function () {
+						ctrl.view.addConfirm = false; $scope.$apply();
+					}, 3000);
+					ctrl.updateCartTotals();
+				}
+			});
+		}
+		
+		ctrl.updateGame = function (game) {
+			GamesFactory.updateGame(game).then(function (response) {
+				if (response.data) {
+					// TODO: close edit game view
+					ctrl.game = data;
 				}
 			});
 		}	
