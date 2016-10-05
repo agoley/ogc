@@ -1,0 +1,104 @@
+<div class="container" >
+	<ul class="list-inline">
+		<li class="">
+			<button 
+				class="btn navbar-btn neat outset" 
+				ng-click="$ctrl.toggleUploadGame()">
+			<text class="text-glow-hover">Add Game</text>
+		</li>
+		<li class="">
+			<button 
+				class="btn navbar-btn neat outset" 
+				ng-click="$ctrl.toggleUploadPhoto()">
+			<text class="text-glow-hover">Add Photo</text>
+		</li>
+	</ul>
+	<div class="panel panel-default" ng-if="$ctrl.view.cm.uploadGame">
+		<div class="panel-heading">
+			<div class="bold">ADD GAME</div>
+		</div>
+		<div class="panel-body">
+			<form>
+				<div class="regular-bold low-div">
+					<input 
+						type="text" 
+						ng-model="$ctrl.game.title" 
+						class="form-control neat-input" 
+						placeholder="Title" required>
+				</div>
+				<div class="regular-bold low-div">
+					Select A Console
+				</div>
+				<div class="regular-bold low-div">
+					<select 
+						data-ng-model="$ctrl.game.console" 
+						data-ng-options="con for con in $ctrl.consoles" 
+						required>
+					</select>
+				</div>
+				<div class="regular-bold low-div">
+					Select All Genres That Apply
+				</div>
+				<div class="regular-bold low-div">
+					<select 
+						multiple 
+						data-ng-model="$ctrl.game.genre" 
+						data-ng-options="genre for genre in $ctrl.genres" 
+						required>
+					</select>
+				</div>
+				<div class="regular-bold low-div">
+					<input 
+						type="text" 
+						ng-model="$ctrl.game.developer" 
+						class="form-control neat-input" 
+						placeholder="Developer">
+				</div>
+				<div class="regular-bold low-div">
+					<input 
+						type="date" 
+						ng-model="$ctrl.game.date" 
+						class="form-control neat-input" 
+						placeholder="Release Date">
+				</div>
+				<div class="regular-bold low-div">
+					<input 
+						type="number" 
+						ng-model="$ctrl.game.buyPrice" 
+						class="form-control neat-input" 
+						placeholder="Buy Price">
+				</div>
+				<div class="regular-bold low-div">
+					<input 
+						type="number" 
+						ng-model="$ctrl.game.sellPrice" 
+						class="form-control neat-input" 
+						placeholder="Sell Price">
+				</div>
+				<div class="low-div pull-right">
+					<input 
+						type="submit" 
+						ng-click="$ctrl.uploadGame($ctrl.game)" 
+						class="btn btn-attention pull-left neat" 
+						value="Upload New Game">
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="panel panel-default" ng-if="$ctrl.view.cm.uploadPhoto">
+		<div class="panel-heading">
+			<div class="bold">ADD PHOTO</div>
+		</div>
+		<div class="panel-body">
+			<form 
+				id 	      =  "uploadForm"
+				enctype   =  "multipart/form-data"
+				action    =  "/api/photo"
+				method    =  "post" >
+				Select Box Art <input type="file" class="neat" name="coverArt" />
+				<input type="submit" value="Upload Image" name="submit">
+			</form>
+		</div>
+	</div>
+</div>

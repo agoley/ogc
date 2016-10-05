@@ -4,6 +4,29 @@ var gamesView = angular.module('gamesView', []);
 // Provide game services for the module
 gamesView.factory('GamesFactory', function ($http) {
 	var gamesFactory = {};
+	gamesFactory.genres = 
+			["Action",
+			 "Adventure",
+			 "FPS", 
+			 "RPG", 
+			 "TPS", 
+			 "Shooter", 
+			 "Fighting", 
+			 "Racing", 
+			 "Family", 
+			 "Strategy", 
+			 "MMO"];
+	gamesFactory.consoles = [
+			"PS4", 
+			"Xbox One", 
+			"Wii U", 
+			"PS3", 
+			"Xbox 360", 
+			"Wii", 
+			"3DS", 
+			"DS" ];
+		
+
 	
 	// get featured games of this components category
 	gamesFactory.getFeaturedGames = function (category) {
@@ -18,11 +41,86 @@ gamesView.factory('GamesFactory', function ($http) {
 		}
 	}
 	
+	gamesFactory.uploadGame = function (game) {
+		return $http.post('//localhost:8080/upload/game', game);
+	}
+	
+	gamesFactory.getGame = function (gameTitle) {
+		var param = { title: gameTitle };
+		return $http.post('//localhost:8080/game', JSON.stringify(param));
+	}
+	
 	gamesFactory.updateGame = function (game) {
 		return $http.post('//localhost:8080/games/update', JSON.stringify(game));
 	}
+	
+	gamesFactory.getGameTitles = function() {
+		return $http.get('//localhost:8080/games/titles');
+	};	
+	
+	gamesFactory.getMatches = function(titles, query) {
+		var matches = [];
+		if(query == null || query == "") return;
+		var m = 0;
+		for(var i = 0; i < titles.length; i++){
+			if( m < 10 ) {
+				if( titles[i].toUpperCase().indexOf(query
+					.toUpperCase()) > -1 ){
+					matches.push(titles[i]);
+					m += 1;
+				}
+			}
+		}
+		return matches;
+	};
 	return gamesFactory;
 }); 
+
+// Content Manager component
+gamesView.component('contentManager', {
+	bindings: {
+		view: '=',
+		user: '='
+	},
+	controller: function (GamesFactory) {
+		var ctrl = this;
+		ctrl.game = {}; // client side place holder for the new game
+		ctrl.view.cm = { 
+			uploadGame: false,
+			uploadPhoto: false
+		};
+		
+		ctrl.consoles = GamesFactory.consoles;
+		ctrl.genres = GamesFactory.genres;
+				
+		ctrl.toggleUploadGame = function ()  {
+			ctrl.view.cm.uploadGame = ! ctrl.view.cm.uploadGame;
+		}
+		
+		ctrl.toggleUploadPhoto = function () {
+			ctrl.view.cm.uploadPhoto = ! ctrl.view.cm.uploadPhoto;
+		}
+		
+		ctrl.updateTitles = function () {
+			GamesFactory.getGameTitles().then(function(response) {
+				ctrl.view.browser.titles = response.data;
+			});
+		}
+		
+		ctrl.uploadGame = function (game) {
+			GamesFactory.uploadGame(game).then(function(response) {
+				ctrl.view.game = response.data;
+				ctrl.view.cm.uploadGame = false;
+				ctrl.game = {}; // reset the game
+				ctrl.updateTitles();
+			});
+		}
+		
+		
+		
+	},
+	templateUrl: "views/content_manager.html"
+});
 
 // Game display component
 gamesView.component('gameDetail', {
@@ -34,18 +132,7 @@ gamesView.component('gameDetail', {
 	controller: function (GamesFactory, UserFactory, $timeout, $scope) {
 		var ctrl = this;
 		ctrl.editGame = false;
-		ctrl.genres = 
-			["Action",
-			 "Adventure",
-			 "FPS", 
-			 "RPG", 
-			 "TPS", 
-			 "Shooter", 
-			 "Fighting", 
-			 "Racing", 
-			 "Family", 
-			 "Strategy", 
-			 "MMO"];
+		ctrl.genres = GamesFactory.genres;
 
 		ctrl.toggleEditGame = function () {
 			ctrl.editGame = !ctrl.editGame;
@@ -98,6 +185,7 @@ gamesView.component('gameDetail', {
 		}
 			
 		ctrl.addItemToCart = function (item, type) {
+			console.log("adding item to cart");
 			UserFactory.addItemToCart(item, type).then(function (response) {
 				if (response.data) {
 					ctrl.user = response.data;
@@ -114,7 +202,7 @@ gamesView.component('gameDetail', {
 			GamesFactory.updateGame(game).then(function (response) {
 				if (response.data) {
 					// TODO: close edit game view
-					ctrl.game = data;
+					ctrl.view.game = data;
 				}
 			});
 		}	
@@ -126,7 +214,7 @@ gamesView.component('gameDetail', {
 gamesView.component('gameScroller', {
 	bindings: {
 		user: '=',
-		getGame: '&'
+		view: '='
 	},
 	controller: function ($scope, GamesFactory, UserFactory, $attrs){
 		var ctrl = this;
@@ -163,6 +251,23 @@ gamesView.component('gameScroller', {
 			ctrl.leftBtnLeft = -ctrl.scrollWidth;
 			$('.scroll-btn').css({height: ctrl.gameImageHeight, width: ctrl.scrollWidth});
 		});
+		
+		ctrl.getGame = function (title) {
+			GamesFactory.getGame(title).then(function (response) {
+				if (response.data) {
+					ctrl.view.game = response.data;
+					ctrl.view.game.release_date = new Date(ctrl.view.game.release_date);
+					ctrl.view.showCheckout = false;
+					ctrl.view.showGameDetail = true;
+					ctrl.view.showFeaturedGames = false;
+					ctrl.view.showProfile = false;
+					
+					$("#intro").slideUp();
+					var headerHeight = $('.header').height();
+					$("#core").css("padding-top", headerHeight);
+				}
+			});
+		}
 		
 		ctrl.scrollLeft = function (){
 			if(ctrl.activeItem > 0){

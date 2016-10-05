@@ -1,36 +1,22 @@
 // Header module: contains components and templates for the header
 var header = angular.module('header', []);
 
-// Provides games services.
-header.factory('GameFactory', function($http) {
-	var gameFactory = {};
-	gameFactory.getGameTitles = function() {
-		return $http.get('//localhost:8080/games/titles');
-	};	
-	gameFactory.getMatches = function(titles, query) {
-		var matches = [];
-		if(query == null || query == "") return;
-		var m = 0;
-		for(var i = 0; i < titles.length; i++){
-			if( m < 10 ) {
-				if( titles[i].toUpperCase().indexOf(query
-					.toUpperCase()) > -1 ){
-					matches.push(titles[i]);
-					m += 1;
-				}
-			}
-		}
-		return matches;
-	};
-	return gameFactory;
-});
-
 // Site logo 
 header.component('logo', {
 	bindings: {
-		clearGame: '&'
+		view: '='
 	},
-	controller: function(){},
+	controller: function(){
+		var ctrl = this;
+		ctrl.clearGame = function () {
+			ctrl.view.showGameDetail = false;
+			ctrl.view.showCart = false;
+			ctrl.view.showCheckout = false;
+			ctrl.view.showConfirmation = false;
+			ctrl.view.showProfile = false;
+			ctrl.view.showFeaturedGames = true;
+		}
+	},
 	template: 	"<a href='/home' ng-click='$ctrl.clearGame()'>" +
 					"<img id='logo' src='../images/logo-white.png'/>" +
 				"</a>"
@@ -105,20 +91,38 @@ header.component('shoppingCartBtn', {
 // Constructs a browse bar which lexicographically sorts games base on input.
 header.component('titleBrowser', {
 	bindings: {
-		getGame: '&'
+		view: '='
 	},
-	controller: function(GameFactory){
+	controller: function(GamesFactory){
 		// It is necessary to declare a global ctrl variable, because the 'this' object
 		// will not be within the closure of callbacks and not accessible. By 
 		// creating a global reference to the 'this' object it can be reached.
 		var ctrl = this;
-		ctrl.browser = {};
-		GameFactory.getGameTitles().then(function(response) {
-			ctrl.browser.titles = response.data;
+		ctrl.view.browser = {};
+		GamesFactory.getGameTitles().then(function(response) {
+			ctrl.view.browser.titles = response.data;
 		});
 		ctrl.getMatches = function() {
-			ctrl.browser.matches = 
-				GameFactory.getMatches(ctrl.browser.titles, ctrl.query);
+			ctrl.view.browser.matches = 
+				GamesFactory.getMatches(ctrl.view.browser.titles, ctrl.view.query);
+		}
+		
+		ctrl.getGame = function (title) {
+			GamesFactory.getGame(title).then(function (response) {
+				if (response.data) {
+					ctrl.view.game = response.data;
+					ctrl.view.game.release_date = new Date(ctrl.view.game.release_date);					
+					ctrl.view.showCheckout = false;
+					ctrl.view.showGameDetail = true;
+					ctrl.view.showFeaturedGames = false;
+					ctrl.view.showProfile = false;
+					ctrl.view.query = '';
+					ctrl.getMatches();
+					$("#intro").slideUp();
+					var headerHeight = $('.header').height();
+					$("#core").css("padding-top", headerHeight);
+				}
+			});
 		}
 	},
 	templateUrl: "views/title_browser.html"

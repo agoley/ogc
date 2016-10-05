@@ -198,19 +198,6 @@ exports.submitTransaction = function(req, res) {
 	
 }
 
-// experimental
-exports.addItemToCart = function(req, res) {
-	if (req.body.type=='sale') {
-		addSaleToCart(req, res);
-	} else if (req.body.type=='ingest') {
-		addCreditToCart(req, res);
-	} else if (req.body.type=='trade') {
-		addCoinToCart(req, res);
-	} else {
-		res.send(true);
-	}
-};
-
 function addSaleToCart(req, res) {
 	User.findOne({ _id: req.session.user })
 		.exec(function(err, user) {
@@ -296,6 +283,18 @@ function addCoinToCart(req, res) {
 	});
 }
 
+// experimental
+exports.addItemToCart = function(req, res) {
+	if (req.body.type=='sale') {
+		addSaleToCart(req, res);
+	} else if (req.body.type=='ingest') {
+		addCreditToCart(req, res);
+	} else if (req.body.type=='trade') {
+		addCoinToCart(req, res);
+	} else {
+		res.send(true);
+	}
+};
 
 /*
 depreciated 9/23/16

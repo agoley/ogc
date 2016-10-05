@@ -13,7 +13,7 @@ app.directive("gamesUnauth", function() {
     };
 });
 
-app.directive("contentManager", function() {
+app.directive("cm", function() {
   return {
     restrict: 'E',
     templateUrl: "views/cm.html"

@@ -1,14 +1,13 @@
 <input type="text" class="form-control neat" 
-	ng-model="$ctrl.query" 
+	ng-model="$ctrl.view.query" 
 	ng-change="$ctrl.getMatches()"  
 	placeholder="Browse" 
 	aria-describedby="basic-addon1">
 <div class="games-matched">
 	<ul class="list-group matches neat">
 		<a href=""
-		 	ng-click="$ctrl.getGame({title: match});
-		 	$ctrl.query = ''; $ctrl.browser.matches = [];" 
-		 	ng-repeat="match in $ctrl.browser.matches track by $index"
+		 	ng-click="$ctrl.getGame(match)" 
+		 	ng-repeat="match in $ctrl.view.browser.matches track by $index"
 		 	class="list-group-item">
 		 	 {{match}} 
 		 </a>

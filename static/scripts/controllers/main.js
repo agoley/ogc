@@ -11,9 +11,13 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		showCart: false,
 		showGameDetail: false,
 		showCheckout: false,
-		addConfirm: false
+		addConfirm: false,
+		titleBrowser: {
+				query: '',
+				matches: []
+			}
 	};
-	$scope.addConfirm = false;
+	
 	$scope.transaction = {};
 	$scope.creditTypes = ["Venmo", "Mailed Check"];
 	$scope.checkout = {};
@@ -212,7 +216,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 
 //app.controller('GameController', ['$scope', '$http', function($scope, $http ) {
 	$scope.game = {};
-	$scope.consoles = ["PS4", "Xbox One", "Wii U", "PS3", "Xbox 360", "Wii", "3DS", "DS" ];
+	//$scope.consoles = ["PS4", "Xbox One", "Wii U", "PS3", "Xbox 360", "Wii", "3DS", "DS" ];
 	$scope.uploadGame = false;
 	$scope.uploadPhoto = false;
 	$scope.page = {};
@@ -486,6 +490,8 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	}
 	
 	// Post to node server to upload a game
+	/*
+	depr. 10/5/16
 	$scope.gameUpload = function(game) {
 		$http.post('//localhost:8080/upload/game', game).
 		success(function(data, status, headers, config) {
@@ -496,6 +502,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 			console.log("App failed to post to //localhost:8080/upload/game, { withCredentials: true }");
 		});
 	};
+	*/
 	
 	$scope.getMatches = function() {
 		$scope.matches = [];
@@ -528,6 +535,8 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 		});
 	}
 	
+	/*
+	depr. 9/29/16
 	$scope.getGame = function(gameTitle) {
 		console.log("getting game " + gameTitle );
 		var param = {};
@@ -559,6 +568,7 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				console.log("App failed to post to //localhost:8080/game");
 		});
 	}
+	*/
 	
 	/*
 	depr. 9/24/16

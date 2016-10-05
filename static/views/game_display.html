@@ -13,26 +13,26 @@
 				<div class="panel-body">
 					<form 
 						name="edit-game" 
-						ng-submit="$ctrl.updateGame($ctrl.game)">
+						ng-submit="$ctrl.updateGame($ctrl.view.game)">
 						<div class="regular-bold low-div">
 							Select All Genres That Apply
 						</div>
 						<div class="regular-bold low-div">
 							<select 
-								multiple data-ng-model="$ctrl.game.genre"
+								multiple data-ng-model="$ctrl.view.game.genre"
 								 data-ng-options="genre for genre in $ctrl.genres">
 						</div>
 						<div class="regular-bold low-div">
 							<input 
 								type="text" 
-								ng-model="$ctrl.game.developer" 
+								ng-model="$ctrl.view.game.developer" 
 								class="form-control neat-input" 
 								placeholder="Developer">
 						</div>
 						<div class="regular-bold low-div">
 							<textarea 
 								type="text" 
-								ng-model="$ctrl.game.summary" 
+								ng-model="$ctrl.view.game.summary" 
 								class="form-control neat-input" 
 								placeholder="Summary">
 							</textarea>
@@ -40,7 +40,7 @@
 						<div class="regular-bold low-div">
 							<input 
 								type="date" 
-								ng-model="$ctrl.game.release_date" 
+								ng-model="$ctrl.view.game.release_date" 
 								class="form-control neat-input" 
 								placeholder="yyyy-MM-dd">
 						</div>
@@ -48,7 +48,7 @@
 							<input 
 								type="number" 
 								step="any" 
-								ng-model="$ctrl.game.buy_price" 
+								ng-model="$ctrl.view.game.buy_price" 
 								class="form-control neat-input" 
 								placeholder="Buy Price">
 						</div>
@@ -56,7 +56,7 @@
 							<input 
 								type="number" 
 								step="any" 
-								ng-model="$ctrl.game.sell_price" 
+								ng-model="$ctrl.view.game.sell_price" 
 								class="form-control neat-input" 
 								placeholder="Sell Price">
 						</div>
@@ -72,16 +72,16 @@
 		</div>
 	<div class="media">
 		<div class="media-left">
-			<img class="game-profile-image" ng-src="{{$ctrl.game.image_path}}"/>
+			<img class="game-profile-image" ng-src="{{$ctrl.view.game.image_path}}"/>
 		</div>
 		<div class="media-body">
-			<h4 class="media-heading bold"> {{$ctrl.game.title}} </h4>
+			<h4 class="media-heading bold"> {{$ctrl.view.game.title}} </h4>
 				<ul class="list-unstyled">
-					<li>Console: {{$ctrl.game.console}}</li>
-					<li>Developer: {{$ctrl.game.developer}}</li>
-					<li>Genre: {{$ctrl.game.genre}}</li>
-					<li>Release Date: {{$ctrl.game.release_date}}</li>
-					<li>Summary: {{$ctrl.game.summary}}</li>
+					<li>Console: {{$ctrl.view.game.console}}</li>
+					<li>Developer: {{$ctrl.view.game.developer}}</li>
+					<li>Genre: {{$ctrl.view.game.genre}}</li>
+					<li>Release Date: {{$ctrl.view.game.release_date}}</li>
+					<li>Summary: {{$ctrl.view.game.summary}}</li>
 				</ul>
 		</div>
 	</div>
@@ -92,7 +92,7 @@
 				ng-model="$ctrl.type" value="sale"> 
 				Buy this game for 
 				<span class="glyphicon glyphicon-usd" aria-hidden="true"></span> 
-				{{$ctrl.game.sell_price}}
+				{{$ctrl.view.game.sell_price}}
 		</label>
 	</div>
 	<div class="radio">
@@ -104,7 +104,7 @@
 				value="ingest">
 				Sell this game for 
 				<span class="glyphicon glyphicon-usd" aria-hidden="true"></span> 
-				{{$ctrl.game.buy_price}}
+				{{$ctrl.view.game.buy_price}}
 		</label>
 	</div>
 	<div class="radio">
@@ -113,13 +113,13 @@
 				type="radio" 
 				name="optradio" 
 				ng-model="$ctrl.type" 
-				value="trade">Trade in for {{$ctrl.game.buy_price + 5}} game cash
+				value="trade">Trade in for {{$ctrl.view.game.buy_price + 5}} game cash
 		</label>
 	</div>
 	<button 
 		id="addBtn" 
 		class="btn-lg btn-attention neat add-button" 
-		ng-click="$ctrl.addItemToCart($ctrl.game, $ctrl.type)"> 
+		ng-click="$ctrl.addItemToCart($ctrl.view.game, $ctrl.type)"> 
 		Add to Cart 
 	</button>
 	<button 

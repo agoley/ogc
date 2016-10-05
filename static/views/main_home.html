@@ -2,13 +2,13 @@
 	<ogc-welcome></ogc-welcome>
 	<ogc-header id='header'></ogc-header> 
 	<div id="core">
-		<content-manager ng-if="user.admin" ></content-manager>
+		<content-manager user="user" view="view" ng-if="user.admin" ></content-manager>
 		<div 
 			ng-show="view.showFeaturedGames">
-			<game-scroller category="action" user="user" get-game="getGame(title)"/>
-			<game-scroller category="shooter" user="user" get-game="getGame(title)"/>
-			<game-scroller category="family" user="user" get-game="getGame(title)"/>
-			<game-scroller category="fighting" user="user" get-game="getGame(title)"/>
+			<game-scroller view="view" category="action" user="user"/>
+			<game-scroller view="view" category="shooter" user="user"/>
+			<game-scroller view="view" category="family" user="user"/>
+			<game-scroller view="view" category="fighting" user="user"/>
 		</div>
 		<user-profile ng-show="view.showProfile"></user-profile>
 		<confirmation ng-show="view.showConfirmation"></confirmation>
@@ -16,7 +16,6 @@
 		<game-detail 
 			user="user"
 			view="view"
-			game="game" 
 			ng-show="view.showGameDetail"/>
 		<checkout ng-show="view.showCheckout"></checkout>
 	</div>
