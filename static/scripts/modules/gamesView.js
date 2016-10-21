@@ -129,7 +129,7 @@ gamesView.component('gameDetail', {
 		game: '=',
 		view: '='
 	},
-	controller: function (GamesFactory, UserFactory, $timeout, $scope) {
+	controller: function (GamesFactory, UserFactory, $timeout, $scope, ViewService) {
 		var ctrl = this;
 		ctrl.editGame = false;
 		ctrl.genres = GamesFactory.genres;
@@ -176,12 +176,7 @@ gamesView.component('gameDetail', {
 		}
 		
 		ctrl.clearGame = function () {
-			ctrl.view.showGameDetail = false;
-			ctrl.view.showCart = false;
-			ctrl.view.showCheckout = false;
-			ctrl.view.showConfirmation = false;
-			ctrl.view.showProfile = false;
-			ctrl.view.showFeaturedGames = true;
+			ctrl.view = ViewService.setViewToFeaturedGames(ctrl.view);
 		}
 			
 		ctrl.addItemToCart = function (item, type) {
@@ -216,7 +211,7 @@ gamesView.component('gameScroller', {
 		user: '=',
 		view: '='
 	},
-	controller: function ($scope, GamesFactory, UserFactory, $attrs){
+	controller: function ($scope, GamesFactory, UserFactory, $attrs, ViewService){
 		var ctrl = this;
 		ctrl.activeItem = 0; // 0, 1, or 2
 		ctrl.item0Left = 0;
@@ -257,11 +252,7 @@ gamesView.component('gameScroller', {
 				if (response.data) {
 					ctrl.view.game = response.data;
 					ctrl.view.game.release_date = new Date(ctrl.view.game.release_date);
-					ctrl.view.showCheckout = false;
-					ctrl.view.showGameDetail = true;
-					ctrl.view.showFeaturedGames = false;
-					ctrl.view.showProfile = false;
-					
+					ctrl.view = ViewService.setViewToGameDetail(ctrl.view);
 					$("#intro").slideUp();
 					var headerHeight = $('.header').height();
 					$("#core").css("padding-top", headerHeight);

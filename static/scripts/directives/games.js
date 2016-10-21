@@ -79,12 +79,15 @@ app.directive("confirmation", function() {
     };
 });
 
+/*
+depr. 10/11/16
 app.directive("userProfile", function() {
   return {
     restrict: 'E',
     templateUrl: "views/user_profile.html"
     };
 });
+*/
 
 app.directive("unauthHome", function() {
   return {

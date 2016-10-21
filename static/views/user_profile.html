@@ -1,11 +1,18 @@
 <div class="container">
 	<h2 class="bold"> Account Information </h2>
 	<h3><small>Email</small></h3>
-	<input ng-model="user.email" class="form-control clean" placeholder="email"/>
+	<input 
+		ng-disabled="!$ctrl.userform.isEditing" 
+		ng-model="$ctrl.user.email" 
+		class="form-control clean" 
+		placeholder="email"/>
 	<h3><small>Recent Transactions</small></h3>
 	<div>
-		<ul class="list-unstyled">
-			<li ng-repeat="item in transForUser">
+		<small ng-if="$ctrl.transForUser.length == 0">
+			- You have no recent transactions.
+		</small>
+		<ul class="list-unstyled" ng-if="$ctrl.transForUser.length > 0">
+			<li ng-repeat="item in $ctrl.transForUser">
 				<div class="row"> 
 					<div class="col-lg-2">
 						<div>
@@ -36,34 +43,57 @@
 			</li>
 		</ul>
 	</div>
-	<h3><small>Game Cash Balance: ${{user.coin_available}} </small></h3>
+	<h3><small>Game Cash Balance: ${{$ctrl.user.coin_available}} </small></h3>
 	<small>Game Cash can be used like cash for onlinegamecash.com purchases.</small>
 	
 	<h3><small>Mailing Address</small></h3>
 	<input 
-		ng-model="user.mailing_address.lineOne" 
-		class="form-control clean" 
+		ng-model="$ctrl.user.mailing_address.lineOne" 
+		class="form-control clean"
+		ng-disabled="!$ctrl.userform.isEditing" 
 		placeholder="Line One"/>
 	<input 
-		ng-model="user.mailing_address.lineTwo" 
-		class="form-control clean" 
+		ng-model="$ctrl.user.mailing_address.lineTwo" 
+		class="form-control clean"
+		ng-disabled="!$ctrl.userform.isEditing" 
 		placeholder="Line Two"/>
 	<input 
-		ng-model="user.mailing_address.city" c
+		ng-model="$ctrl.user.mailing_address.city" 
 		class="form-control clean" 
+		ng-disabled="!$ctrl.userform.isEditing"
 		placeholder="City"/>
 	<input 
-		ng-model="user.mailing_address.state" 
+		ng-model="$ctrl.user.mailing_address.state" 
 		class="form-control clean" 
+		ng-disabled="!$ctrl.userform.isEditing"
 		placeholder="State"/>
 	<input 
-		ng-model="user.mailing_address.zip" 
+		ng-model="$ctrl.user.mailing_address.zip" 
 		class="form-control clean" 
+		ng-disabled="!$ctrl.userform.isEditing"
 		placeholder="Zip"/>
-	<button class="btn-lg btn-attention neat add-button" ng-click="updateUser()">
+	<button 
+		class="btn-lg btn-attention neat add-button"
+		ng-show="$ctrl.userform.isEditing"" 
+		ng-click="$ctrl.updateUser()">
 		Save Changes
 	</button>
-	<button class="a btn-lg btn-default neat add-button" ng-click="clearGame()">
+	<button 
+		class="btn-lg btn-default neat add-button"
+		ng-show="$ctrl.userform.isEditing"" 
+		ng-click="$ctrl.cancel()">
+		Cancel
+	</button>
+	<button 
+		class="btn-lg btn-attention neat add-button"
+		ng-show="!$ctrl.userform.isEditing"
+		ng-click="$ctrl.edit()">
+		Edit
+	</button>
+	<button 
+		class="a btn-lg btn-default neat add-button" 
+		ng-show="!$ctrl.userform.isEditing"
+		ng-click="$ctrl.setViewToFeaturedGames()">
 		Back to Browsing
 	</button>
 </div>

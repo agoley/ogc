@@ -8,16 +8,11 @@ header.component('logo', {
 	},
 	controller: function(){
 		var ctrl = this;
-		ctrl.clearGame = function () {
-			ctrl.view.showGameDetail = false;
-			ctrl.view.showCart = false;
-			ctrl.view.showCheckout = false;
-			ctrl.view.showConfirmation = false;
-			ctrl.view.showProfile = false;
-			ctrl.view.showFeaturedGames = true;
+		ctrl.setViewToFeaturedGames = function() {
+			ctrl.view = ViewService.setViewToFeaturedGames(ctrl.view);
 		}
 	},
-	template: 	"<a href='/home' ng-click='$ctrl.clearGame()'>" +
+	template: 	"<a href='/home' ng-click='$ctrl.setViewToFeaturedGames()'>" +
 					"<img id='logo' src='../images/logo-white.png'/>" +
 				"</a>"
 });
@@ -65,20 +60,23 @@ header.component('showLoginBtn', {
 header.component('shoppingCartBtn', {
 	bindings: {
 		user: '=',
-		viewCart: '&'
+		view: '='
 	},
-	controller: function(){
+	controller: function(ViewService){
 		var ctrl = this;
-		ctrl.getCartLength = function(){
+		ctrl.getCartLength = function(ViewService){
 			if(ctrl.user.cart){
 				return ctrl.user.cart.length;
 			} else {
 				return 0;
 			}
 		}
+		ctrl.setViewToCart = function () {
+			ctrl.view = ViewService.setViewToCart(ctrl.view);
+		}
 	},
 	template:  "<button class='btn navbar-btn neat outset' " +
-					"ng-click='$ctrl.viewCart()'> " +
+					"ng-click='$ctrl.setViewToCart()'> " +
 					"<span class='glyphicon " +
 						"glyphicon-shopping-cart' aria-hidden='true'></span> " +
 					"<span class='badge'>" +
@@ -93,7 +91,7 @@ header.component('titleBrowser', {
 	bindings: {
 		view: '='
 	},
-	controller: function(GamesFactory){
+	controller: function(GamesFactory, ViewService){
 		// It is necessary to declare a global ctrl variable, because the 'this' object
 		// will not be within the closure of callbacks and not accessible. By 
 		// creating a global reference to the 'this' object it can be reached.
@@ -112,10 +110,7 @@ header.component('titleBrowser', {
 				if (response.data) {
 					ctrl.view.game = response.data;
 					ctrl.view.game.release_date = new Date(ctrl.view.game.release_date);					
-					ctrl.view.showCheckout = false;
-					ctrl.view.showGameDetail = true;
-					ctrl.view.showFeaturedGames = false;
-					ctrl.view.showProfile = false;
+					ctrl.view = ViewService.setViewToGameDetail(ctrl.view);
 					ctrl.view.query = '';
 					ctrl.getMatches();
 					$("#intro").slideUp();

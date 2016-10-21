@@ -13,7 +13,7 @@
 	</div>
 	<div class="col col-md-6 col-xs-12">
 		<div class="pull-right signinup dropdown">
-			<shopping-cart-btn view-cart="viewCart()" user="user"></shopping-cart-btn>
+			<shopping-cart-btn view="view" user="user"></shopping-cart-btn>
 			<button 
 				class="btn navbar-btn neat outset dropdown-toggle" 
 				type="button" id="dropdownMenu1" 
@@ -28,7 +28,7 @@
     					href="#" 
     					ng-show="user.email" 
 						ng-click="viewProf()">
-						account
+						my account
 					</a>
 				</li>
 				<li>
@@ -37,7 +37,7 @@
 						ng-click='viewSignIn()' 
 						id='loginBtn' 
 						ng-hide='user.email'>
-							Sign In
+							sign In
 					</a>
 				</li>
     			<li>

@@ -23,6 +23,14 @@ welcome.factory('UserFactory', function($http) {
 		} 
 	}
 	
+	userFactory.update = function(user) {
+		return $http.post('//localhost:8080/user/update', user);
+	}
+	
+	userFactory.getTransactions = function () {
+		return $http.get('//localhost:8080/user/transactions');
+	} 
+	
 	userFactory.addItemToCart = function (g, t) {
 		return $http.post('//localhost:8080/user/addItemToCart', {game: g, type: t});
 	}
@@ -33,8 +41,7 @@ welcome.factory('UserFactory', function($http) {
 
 welcome.component('signupForm', {
 	bindings: {
-		user: '=',
-		showSignUp: '='
+		user: '='
 	},
 	controller: function(UserFactory){
 		var ctrl = this;
@@ -108,7 +115,8 @@ welcome.component('loginForm', {
 					"class='form-control pull-left neat-input' placeholder='Email...' >" +
 			"</div>" +
 			"<div class='row low-div'>" +
-				"<input type='password' id='password' ng-model='$ctrl.credentials.password' " +
+				"<input type='password' id='password' " +
+					 "ng-model='$ctrl.credentials.password' " +
 					 "class='form-control pull-left neat-input' " + 
 					 "placeholder='Password...' > " +
 			"</div>" +

@@ -1,0 +1,53 @@
+<div class="container game-profile-container">
+	<div ng-if="$ctrl.user.cart.length == 0">
+	Your cart is currently empty.
+	</div>
+	<ul class="list-unstyled">
+		<li ng-repeat="item in $ctrl.user.cart" class="low-div">
+			<div class="media">
+				<div class="media-left">
+					<img class="game-cart-image" ng-src="{{item.path}}"/>
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading bold"> {{item.title}} </h4>
+					<ul class="list-unstyled">
+						<li>Console: {{item.console}}</li>
+						<li ng-if="item.type == 'sale'">Cost: ${{item.cost}}</li>
+						<li ng-if="item.type == 'ingest'">Credit: ${{item.cost}}</li>
+						<li ng-if="item.type == 'trade'">Game Cash: ${{item.cost}}</li> 
+						<li>
+							<button 
+								class="a btn-md btn-default neat add-button" 
+								ng-click="$ctrl.removeFromCart(item)">
+								Remove from cart
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<ul class="list-inline low-div">
+		<li ng-if="total > 0">
+			<mark>Total Cost:  ${{$ctrl.user.cart.cost}}</mark>
+		</li>
+		<li ng-if="credit > 0">
+			<mark>Total Credit:  ${{$ctrl.user.cart.credit}}</mark>
+		</li>
+		<li ng-if="coin > 0">
+			<mark>Total Game Cash: ${{$ctrl.user.cart.coin}}</mark>
+		</li>
+	</ul>
+	<div class="low-div">
+		<button 
+			class="a btn-lg btn-attention neat add-button" 
+			ng-click="$ctrl.setViewToCheckout()"> 
+			Check Out 
+		</button>
+		<button 
+			class="a btn-lg btn-default neat add-button" 
+			ng-click="$ctrl.setViewToFeaturedGames()"> 
+			Back to Browsing 
+		</button>
+	</div>
+</div>

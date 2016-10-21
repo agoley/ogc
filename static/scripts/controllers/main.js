@@ -1,6 +1,11 @@
 'use strict';
 
-var app = angular.module('loginApp', ["header", "welcome", "gamesView"]);
+var app = angular.module('onlinegamecash', [
+	"header", 
+	"welcome", 
+	"gamesView", 
+	"userFunctionalManagement"
+	]);
   
 // todo transform into main component
 app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
@@ -34,13 +39,15 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	}
 	
 	// Get pending transactions for the user. Displayed in the profile page.
+	/*
+	Depr. 10.17.16
 	var getTransactions = function() {
 		$http.get('//localhost:8080/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
 			$scope.transForUser = data;
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');
 		});
-	};
+	};*/
 	
 	$scope.updateUser = function(){
 		$http.post('//localhost:8080/user/update', $scope.user).
@@ -268,11 +275,12 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 	}
 	
 	$scope.viewProf = function() {
-		$scope.displayCheckout = false;
-		$scope.displayCart = false;
-		$scope.displayGame = false;
-		$scope.displayConf = false;
-		$scope.displayProf = true;
+		$scope.view.showGameDetail = false;
+		$scope.view.showCart = false;
+		$scope.view.showCheckout = false;
+		$scope.view.showConfirmation = false;
+		$scope.view.showProfile = true;
+		$scope.view.showFeaturedGames = false;
 	}
 	
 	$scope.viewConf = function() {

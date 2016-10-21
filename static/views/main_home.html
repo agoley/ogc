@@ -10,9 +10,9 @@
 			<game-scroller view="view" category="family" user="user"/>
 			<game-scroller view="view" category="fighting" user="user"/>
 		</div>
-		<user-profile ng-show="view.showProfile"></user-profile>
+		<account-management user="user" view="view" ng-if="view.showProfile"/>
 		<confirmation ng-show="view.showConfirmation"></confirmation>
-		<cart-display ng-show="view.showCart"></cart-display>
+		<cart-view user="user" view="view" ng-if="view.showCart"></cart-view>
 		<game-detail 
 			user="user"
 			view="view"
