@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('onlinegamecash', [
+	"ngCookies",
 	"header", 
 	"welcome", 
 	"gamesView", 
@@ -8,7 +9,7 @@ var app = angular.module('onlinegamecash', [
 	]);
   
 // todo transform into main component
-app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout ) {
+app.controller('HomeController', ['$scope', '$http', '$timeout', '$cookies', function($scope, $http, $timeout, $cookies) {
 	$scope.view = {
 		showFeaturedGames: true,
 		showProfile: false,
@@ -614,7 +615,11 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', function($scope
 				$scope.buys = $scope.allBuysInCart();
 				$scope.trades = $scope.allTradesInCart();
 			} else {
-				$scope.user = {};
+				if ($cookies.getObject('guest')) {
+					$scope.user = $cookies.getObject('guest');
+				} else {
+					$scope.user = {};
+				}
 			}
 		}).error(function(data, status, headers, config) {
 			console.log('Error getting user');

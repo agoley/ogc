@@ -1,5 +1,5 @@
 <div class="low-div container">
 	<h3 class="bold">Order Confirmation</h3> 
-	<h5>Order Number: {{user.last_transaction._id}}</h5>
-	<button class="a btn-lg btn-default neat add-button" ng-click="clearGame(); clearLastTransaction();"> Back to Browsing </button>
+	<h5>Order Number: {{$ctrl.transForUser[0].order_no}}</h5>
+	<button class="a btn-lg btn-default neat add-button" ng-click="$ctrl.setViewToFeaturedGames()"> Back to Browsing </button>
 </div>

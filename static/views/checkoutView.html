@@ -1,0 +1,217 @@
+<!--Checkout view -->
+<div class="container game-profile-container">
+	<h2 class="bold"> Order Summary </h2>
+	<div class="low div"  ng-if="$ctrl.totals.credit > 0">
+		<h3> Here is what you're selling: </h3>
+		<ol class="list">
+			<li ng-repeat="item in $ctrl.buys" class="low-div">
+				{{item.title}} for ${{item.cost}}
+			</li>
+		</ol>
+		<mark>Total credit: ${{$ctrl.totals.credit}}</mark>
+		<div class="input-group col col-md-4">
+			Preffered method to recieve credit: 
+				<select 
+					data-ng-model="$ctrl.checkout.credit_preference" 
+					class="form-control" 
+					data-ng-options="opt for opt in $ctrl.creditTypes" required>
+				</select>
+		</div>
+		<div ng-if="$ctrl.checkout.credit_preference == 'Venmo'">
+			<div class="low-div input-group col col-md-4">
+				<span class="input-group-addon">@</span>
+				<input 
+					type="text" 
+					ng-model="$ctrl.checkout.venmo_name" 
+					class="form-control neat" 
+					placeholder="Venmo username">
+			</div>
+		</div>
+	</div>
+	<div class="low div" ng-if="$ctrl.totals.coin > 0">
+		<h3> Here is what you're trading: </h3>
+		<ol class="list">
+			<li ng-repeat="item in $ctrl.trades" class="low-div">
+				{{item.title}} for ${{item.cost}}
+			</li>
+		</ol>
+		<mark>Total game cash: ${{$ctrl.totals.coin}}</mark>
+	</div>
+	<div class="low div" ng-if="$ctrl.totals.cost > 0">
+		<h3> Here is what you're buying: </h3>
+		<ol class="list">
+			<li ng-repeat="item in $ctrl.sales" class="low-div">
+				{{item.title}} for ${{item.cost}}
+			</li>
+		</ol>
+		<mark>Subtotal: ${{$ctrl.totals.cost}}</mark>
+	</div>
+	<div class="low-div">
+		<h3>Personal Information</h3>
+		<div class="low-div input-group col col-md-4 neat">
+			<span class="input-group-addon glyphicon glyphicon-envelope"></span>
+			<input type="text" ng-model="$ctrl.user.email" class="form-control" placeholder="email">
+		</div>
+		<div ng-if="$ctrl.checkout.credit_preference == 'Mailed Check' || $ctrl.user.cart.cost > 0">
+			<div class="low-div input-group col col-md-4">
+				Address Line 1: 
+                    <input 
+                           type="text" 
+                            ng-model="$ctrl.user.mailing_address.lineOne" 
+                            class="form-control" 
+                            placeholder="Mailing Address Line 1">
+			</div>
+			<div class="low-div input-group col col-md-4">
+				Address Line 2: 
+                    <input 
+                           type="text" 
+                            ng-model="$ctrl.user.mailing_address.lineTwo"
+                            class="form-control" 
+                            placeholder="Mailing Address Line 2">
+			</div>
+			<div class="low-div input-group col col-md-4">
+				City: 
+                    <input 
+                            type="text" 
+                            ng-model="$ctrl.user.mailing_address.City" 
+                            class="form-control" 
+                            placeholder="City">
+			</div>
+			<div class="low-div input-group col col-md-4">
+				State:
+                    <input 
+                            type="text" 
+                            ng-model="$ctrl.user.mailing_address.state" 
+                            class="form-control" 
+                            placeholder="Street Number">
+			</div>
+			<div class="low-div input-group col col-md-4">
+				Zipcode: 
+                    <input 
+                            type="text" 
+                            ng-model="$ctrl.user.mailing_address.zip" 
+                            class="form-control" 
+                            placeholder="5 Digit Zip Code">
+			</div>
+		</div>
+	</div>
+	<div class="low-div" ng-if="$ctrl.totals.cost > 0">
+		<h3>Billing Information</h3>
+		<form name="co" id="checkout" action="http://localhost/payment-methods" method="post">
+			<label>Card Number</label>
+			<input class="form-control" data-braintree-name="number" value="4111111111111111">
+			<label>CVV</label>
+			<input class="form-control" data-braintree-name="cvv" value="100">
+			<label>Expiration Date</label>
+			<input class="form-control" data-braintree-name="expiration_date" value="10/20">
+			<label>Postal Code</label>
+			<input class="form-control" data-braintree-name="postal_code" value="94107">
+			<label>Card Holder Name</label>
+			<input class="form-control" data-braintree-name="cardholder_name" value="John Smith">
+			<input type="hidden" name="checkout" value="{{$ctrl.checkout}}">
+			<input type="hidden" name="user" value="{{$ctrl.user}}">
+			<input type="hidden" name="total" value="{{$ctrl.totals.cost}}">
+			<input type="hidden" name="credit" value="{{$ctrl.totals.credit}}">
+			<input type="hidden" name="coin" value="{{$ctrl.totals.coin}}">
+			
+			<div class="low-div policy">
+                <div ng-if="$ctrl.totals.credit > 0">
+                    <span class="glyphicon glyphicon-piggy-bank"></span> Credit Policy
+				    Credit is payed out after OnlineGameCash recieves the game(s) 
+                    and verifies working condition. If the game(s) recieved are not 
+                    in working condition they will be mailed back to you with no credit.
+				    You are responsible for mailing the game to OnlineGameCash.
+                </div>
+				
+                <div ng-if="$ctrl.totals.coin > 0">
+                    <span class="glyphicon glyphicon-send"></span> Trade Policy
+				    Game ca$h is acknowledged and will appear in your onlinegamecash.com 
+                    account after OnlineGameCash recieves the game(s) and verifies working 
+                    condition. If the game(s) recieved are not in working condition they will 
+                    be mailed back to you with no game ca$h.
+				    You are responsible for mailing the game to OnlineGameCash. 
+                    Game cash is only redeemable at onlinegamecash.com. 
+                </div>
+				
+			</div>
+			<input class="low-div" type="checkbox" ng-model="$ctrl.checkout.policy_accepted"> 
+            I accept the policy.
+			<div class="low-div">
+				<div>
+                    <input class="low-div" type="checkbox" ng-model="$ctrl.checkout.save"> 
+                    save my info for future use.
+                </div>
+				<!-- <button 
+                        class="a btn-lg btn-attention neat add-button" 
+                        ng-click="pay(); submitTransaction(user); refreshUser();">
+                        Submit Order
+                    </button> -->
+				<!-- <input 
+                        type="button" 
+                        class="a btn-lg btn-attention neat add-button" 
+                        onclick="pay();" value="Submit form"> -->
+			</div>
+            <div class="lower-div">
+                <!-- comment out until pushed online, then integrate with braintree -->
+                <!--<input 
+                        type="submit" 
+                        id="submit" 
+                        class="btn-lg btn-attention neat"
+                        value="Submit Order"> -->
+                <!-- stub submit for local development and testing -->
+                <div
+                        class="a btn-lg btn-attention neat add-button not-a-btn" 
+                        ng-click="$ctrl.submitTransaction()">
+                    Submit Order
+                </div>
+                <div
+                        class="a btn-lg btn-default neat add-button not-a-btn" 
+                        ng-click="$ctrl.setViewToFeaturedGames()">
+                    Back to Browsing 
+                </div>
+            </div>
+		</form>
+	</div>
+	<div ng-if="$ctrl.totals.cost == 0">
+		<div class="low-div policy">
+			<div ng-if="$ctrl.totals.credit > 0">
+                <span class="glyphicon glyphicon-piggy-bank"></span> Credit Policy
+                Credit is payed out after OnlineGameCash recieves the game(s) 
+                and verifies working condition. If the game(s) recieved are not 
+                in working condition they will be mailed back to you with no credit.
+                You are responsible for mailing the game to OnlineGameCash.
+            </div>
+				
+            <div ng-if="$ctrl.totals.coin > 0">
+                <span class="glyphicon glyphicon-send"></span> Trade Policy
+                Game ca$h is acknowledged and will appear in your onlinegamecash.com 
+                account after OnlineGameCash recieves the game(s) and verifies working 
+                condition. If the game(s) recieved are not in working condition they will 
+                be mailed back to you with no game ca$h.
+				You are responsible for mailing the game to OnlineGameCash. 
+                Game cash is only redeemable at onlinegamecash.com. 
+            </div>
+		</div>
+		<input 
+            class="low-div" 
+            type="checkbox" 
+            ng-model="$ctrl.checkout.policy_accepted"> 
+            I accept the policy.
+		<div class="low-div">
+			<div>
+                <input class="low-div" type="checkbox" ng-model="$ctrl.checkout.save"> 
+                save my info for future use.
+            </div>
+			<button 
+                    class="a btn-lg btn-attention neat add-button" 
+                    ng-click="$ctrl.submitTransaction()" >
+                Submit Order
+            </button> 
+            <button 
+                    class="a btn-lg btn-default neat add-button" 
+                    ng-click="$ctrl.setViewToFeaturedGames()">
+                Back to Browsing 
+            </button>
+		</div>
+	</div>
+</div>

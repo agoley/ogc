@@ -64,7 +64,7 @@ header.component('shoppingCartBtn', {
 	},
 	controller: function(ViewService){
 		var ctrl = this;
-		ctrl.getCartLength = function(ViewService){
+		ctrl.getCartLength = function(){
 			if(ctrl.user.cart){
 				return ctrl.user.cart.length;
 			} else {

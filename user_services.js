@@ -1,6 +1,7 @@
 /* User Services */
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Game = mongoose.model('Game');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
 var sha = require('sha256');
@@ -126,12 +127,21 @@ exports.getPendingTransForUser = function(req, res) {
 exports.submitTransaction = function(req, res) {
 	// If policy accepted
 	var trans = new Transaction({user_id: req.session.user.toString()});
+	var orderDate = new Date();
+	var orderNo = orderDate.valueOf();
 	// Set transaction fields
-	trans.set('user_cart', req.body.user_cart );
-	trans.set('email', req.body.email );
-	trans.set('status', "pending" );
-	trans.set('date', new Date());
+	trans.set('user_cart', req.body.user_cart);
+	trans.set('email', req.body.email);
+	trans.set('status', "pending");
+	trans.set('date', orderDate);
+	trans.set('order_no', orderNo);
 	
+    // check that all the games in the cart are in stock
+    if (!isCartInStock(req.body.user_cart)) {
+        res.json(404, {err: 'Not all games are in stock.'});
+    }
+    // IF THEY ARE UPDATE INVENTORY AND CONTINUE PROCESSING
+    
 	// If there is credit, add credit to the users credit buffer.
 	if(req.body.credit != null){
 		trans.set('credit', req.body.credit );
@@ -141,7 +151,8 @@ exports.submitTransaction = function(req, res) {
 			trans.set('venmo_name', req.body.venmo_name );
 		}
 		
-		//TODO: clean this method. All user changes should be made in a single find.
+		// TODO: clean this method. All user changes should be made in a single find.
+        // UPDATE: the users cart to empty
 		
 		// add credit 
 		User.findOne({ _id: req.session.user }).exec(function(err, user) {
@@ -185,6 +196,9 @@ exports.submitTransaction = function(req, res) {
 		// Charge here
 	}
 	
+	// update inventory
+	synchronizeGameCounts(req.body.user_cart);
+	
 	// Save the transaction
 	trans.save(function(err) {
      if (err){
@@ -193,10 +207,39 @@ exports.submitTransaction = function(req, res) {
      } else {
        res.json(trans);
      }
-   });
-	
-	
+   });	
 }
+
+function isCartInStock(cart) {
+	result = {
+		isInStock: true
+	};
+	for (i = 0; i < cart.length; i++ ) {
+		if (cart[i].type === 'sale') {
+			Game.findOne({title: cart[i].title, console: cart[i].console})
+				.exec(function(err, game) {
+				if (game.quantity < 0) {
+					result.isInStock =  false;
+				} 
+			});
+		}
+	}
+	return result.isInStock;
+}
+
+// adjust inventory based on the cart
+function synchronizeGameCounts(cart) {
+	for (i = 0; i < cart.length; i++ ) {
+		if (cart[i].type === 'sale') {
+			Game.findOne({title: cart[i].title, console: cart[i].console})
+				.exec(function(err, game) {
+				game.quantity = game.quantity-1;
+				game.save();
+			});
+		}
+	}
+}
+   
 
 function addSaleToCart(req, res) {
 	User.findOne({ _id: req.session.user })

@@ -1,4 +1,4 @@
-<div class="container game-profile-container">
+<div class="container-fluid game-profile-container">
 		<button 
 			ng-if="$ctrl.user.admin" 
 			class="btn navbar-btn neat outset" 
@@ -44,6 +44,14 @@
 								class="form-control neat-input" 
 								placeholder="yyyy-MM-dd">
 						</div>
+                        <div class="regular-bold low-div">
+							<input 
+								type="number" 
+								step="any" 
+								ng-model="$ctrl.view.game.quantity" 
+								class="form-control neat-input" 
+								placeholder="quantity">
+						</div>
 						<div class="regular-bold low-div">
 							<input 
 								type="number" 
@@ -70,26 +78,27 @@
 				</div>
 			</div>
 		</div>
-	<div class="media">
-		<div class="media-left">
+	<div class="row">
+		<div class="col col-md-3 col-xs-12">
 			<img class="game-profile-image" ng-src="{{$ctrl.view.game.image_path}}"/>
 		</div>
-		<div class="media-body">
+		<div class="col col-md-6 col-xs-12">
 			<h4 class="media-heading bold"> {{$ctrl.view.game.title}} </h4>
 				<ul class="list-unstyled">
 					<li>Console: {{$ctrl.view.game.console}}</li>
 					<li>Developer: {{$ctrl.view.game.developer}}</li>
-					<li>Genre: {{$ctrl.view.game.genre}}</li>
-					<li>Release Date: {{$ctrl.view.game.release_date}}</li>
+					<li>Release Date: {{$ctrl.view.game.release_date | date}}</li>
 					<li>Summary: {{$ctrl.view.game.summary}}</li>
 				</ul>
 		</div>
 	</div>
-	 <div class="radio low-div">
+	 <div class="radio low-div" ng-if="$ctrl.view.game.quantity > 0">
 		<label>
 			<input type="radio" 
 				name="optradio" 
-				ng-model="$ctrl.type" value="sale"> 
+				ng-model="$ctrl.type" 
+				value="sale"
+				ng-disabled="$ctrl.view.game.quantity < 0"> 
 				Buy this game for 
 				<span class="glyphicon glyphicon-usd" aria-hidden="true"></span> 
 				{{$ctrl.view.game.sell_price}}

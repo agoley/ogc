@@ -179,8 +179,8 @@ body {
 }
 
 #logo-footer {
-	width: 45px;
-	height: 45px;
+	width: 55px;
+	height: 55px;
     filter: alpha(opacity=40); /* For IE8 and earlier */
 }
 
@@ -204,6 +204,10 @@ div.a {
 .neat {
 	border-radius: 0;
 	border: 0px;
+}
+
+.not-a-btn {
+    display: inline-block;
 }
 
 .no-border {

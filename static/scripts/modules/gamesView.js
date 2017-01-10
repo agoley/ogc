@@ -1,5 +1,5 @@
 // Games module: contains components and factories for browsing and viewing games
-var gamesView = angular.module('gamesView', []);
+var gamesView = angular.module('gamesView', ["ngCookies"]);
 
 // Provide game services for the module
 gamesView.factory('GamesFactory', function ($http) {
@@ -26,8 +26,6 @@ gamesView.factory('GamesFactory', function ($http) {
 			"3DS", 
 			"DS" ];
 		
-
-	
 	// get featured games of this components category
 	gamesFactory.getFeaturedGames = function (category) {
 		if(category == 'action') {
@@ -109,6 +107,7 @@ gamesView.component('contentManager', {
 		
 		ctrl.uploadGame = function (game) {
 			GamesFactory.uploadGame(game).then(function(response) {
+				ctrl.view.game.release_date = new Date(ctrl.view.game.release_date);
 				ctrl.view.game = response.data;
 				ctrl.view.cm.uploadGame = false;
 				ctrl.game = {}; // reset the game
@@ -129,7 +128,7 @@ gamesView.component('gameDetail', {
 		game: '=',
 		view: '='
 	},
-	controller: function (GamesFactory, UserFactory, $timeout, $scope, ViewService) {
+	controller: function (GamesFactory, UserFactory, $timeout, $scope, $cookies, ViewService) {
 		var ctrl = this;
 		ctrl.editGame = false;
 		ctrl.genres = GamesFactory.genres;
@@ -156,7 +155,7 @@ gamesView.component('gameDetail', {
 					tot += ctrl.user.cart[i].cost;
 				}
 			}
-			ctrl.user.cart.coin;
+			ctrl.user.cart.coin = tot;
 		}
 		
 		ctrl.totalCredit = function () {
@@ -166,7 +165,7 @@ gamesView.component('gameDetail', {
 					tot += ctrl.user.cart[i].cost;
 				}
 			}
-			ctrl.user.cart.credit;
+			ctrl.user.cart.credit = tot;
 		}
 		
 		ctrl.updateCartTotals = function () {
@@ -181,23 +180,44 @@ gamesView.component('gameDetail', {
 			
 		ctrl.addItemToCart = function (item, type) {
 			console.log("adding item to cart");
-			UserFactory.addItemToCart(item, type).then(function (response) {
-				if (response.data) {
-					ctrl.user = response.data;
-					ctrl.view.addConfirm = true;
-					$timeout(function () {
-						ctrl.view.addConfirm = false; $scope.$apply();
-					}, 3000);
-					ctrl.updateCartTotals();
+			if (ctrl.user.email == null) {
+				// This is a guest.
+				if (ctrl.user.cart == null) {
+					// Create a guest user cart.
+					ctrl.user.cart = [];
 				}
-			});
+				
+				// Add the game to the guest cart.
+				ctrl.user.cart.push(UserFactory.formatCartItem(item, type));
+				
+				// Save the user in client cookie.
+				$cookies.putObject('guest', ctrl.user);
+				// Add confirmation animation.
+				ctrl.view.addConfirm = true;
+				$timeout(function () {
+					ctrl.view.addConfirm = false; $scope.$apply();
+				}, 3000);
+				ctrl.updateCartTotals();
+			} else {
+				// Add the game to the user.
+				UserFactory.addItemToCart(item, type).then(function (response) {
+					if (response.data) {
+						ctrl.user = response.data;
+						ctrl.view.addConfirm = true;
+						$timeout(function () {
+							ctrl.view.addConfirm = false; $scope.$apply();
+						}, 3000);
+						ctrl.updateCartTotals();
+					}
+				});
+			}
 		}
 		
 		ctrl.updateGame = function (game) {
 			GamesFactory.updateGame(game).then(function (response) {
 				if (response.data) {
-					// TODO: close edit game view
-					ctrl.view.game = data;
+					ctrl.view.game = response.data;
+					ctrl.view.game.release_date = new Date(ctrl.view.game.release_date);
 				}
 			});
 		}	

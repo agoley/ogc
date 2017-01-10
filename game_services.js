@@ -8,15 +8,14 @@ query.exec(function (err, titles) {
 	for(i = 0; i < titles.length; i++){
 		allGameTitles.push(titles[i].title);
 	}
-	//console.log("All Titles: " + allGameTitles);
 });
+
 exports.refreshTitles = function(req,res) {
 	query.exec(function (err, titles) {
 		if (err) return next(err);
 		for(i = 0; i < titles.length; i++){
 			allGameTitles.push(titles[i].title);
 		}
-		//console.log("All Titles: " + allGameTitles);
 	})
 	res.end();
 }
@@ -34,12 +33,13 @@ exports.update = function(req, res){
 			err = 'Game Not Found.';
 			console.log(err);
 		} else {
-			game.title = req.body.title
-			game.genre = req.body.genre
-			game.summary= req.body.summary
-			game.release_date = req.body.release_date
-			game.buy_price = req.body.buy_price
-			game.sell_price = req.body.sell_price
+			game.title = req.body.title;
+			game.genre = req.body.genre;
+			game.summary= req.body.summary;
+			game.release_date = req.body.release_date;
+			game.buy_price = req.body.buy_price;
+			game.sell_price = req.body.sell_price;
+            game.quantity = req.body.quantity;
 			game.save();
 		}
 		res.json(game);

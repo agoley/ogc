@@ -1,5 +1,4 @@
 // service to control the page layout
-
 angular.module('onlinegamecash').service('ViewService', function() {
   
   // set view to only display featured games
@@ -40,6 +39,17 @@ angular.module('onlinegamecash').service('ViewService', function() {
   		view.showCheckout = false;
   		view.showCart = true;
   		view.showConfirmation = false;
+		view.showGameDetail = false;
+		view.showFeaturedGames = false;
+		view.showProfile = false;
+		return view;
+  	}
+    
+    // set view to only display the cart view
+	this.setViewToConfirmation = function (view) {
+  		view.showCheckout = false;
+  		view.showCart = false;
+  		view.showConfirmation = true;
 		view.showGameDetail = false;
 		view.showFeaturedGames = false;
 		view.showProfile = false;

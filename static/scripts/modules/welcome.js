@@ -1,44 +1,6 @@
 // Welcome module: contains components and templates for the welcome splash
 var welcome = angular.module('welcome', []);
 
-// Provides user services
-welcome.factory('UserFactory', function($http) {
-	var userFactory = {};
-	// login request
-	userFactory.login = function(credentials) {
-		if(credentials.email && credentials.password){
-			return $http
-				.post('//localhost:8080/signin/',
-					credentials,
-					{withCredentials: true});
-		}
-	};	
-	// signup request
-	userFactory.signup = function(credentials) {
-		if(credentials.email && credentials.password){
-			return $http
-				.post('//localhost:8080/signup',
-					credentials,
-					{ withCredentials: true });
-		} 
-	}
-	
-	userFactory.update = function(user) {
-		return $http.post('//localhost:8080/user/update', user);
-	}
-	
-	userFactory.getTransactions = function () {
-		return $http.get('//localhost:8080/user/transactions');
-	} 
-	
-	userFactory.addItemToCart = function (g, t) {
-		return $http.post('//localhost:8080/user/addItemToCart', {game: g, type: t});
-	}
-	
-	return userFactory;
-});
-
-
 welcome.component('signupForm', {
 	bindings: {
 		user: '='

@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 	Schema  = mongoose.Schema;
 var TransactionSchema = new Schema({
 	user_id: String,
+	order_no: String,
 	user_cart: { type : Array , default : [] },
 	credit: Number,
 	charge: Number,

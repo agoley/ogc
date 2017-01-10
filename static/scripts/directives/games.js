@@ -72,12 +72,13 @@ app.directive("checkout", function() {
     };
 });
 
-app.directive("confirmation", function() {
+/*app.directive("confirmation", function() {
   return {
     restrict: 'E',
     templateUrl: "views/confirmation.html"
     };
 });
+*/
 
 /*
 depr. 10/11/16
