@@ -5,7 +5,7 @@ var app = angular.module('onlinegamecash', [
 	"header", 
 	"welcome", 
 	"gamesView", 
-	"userFunctionalManagement"
+	"userMngr"
 	]);
   
 // todo transform into main component
@@ -325,29 +325,29 @@ app.controller('HomeController', ['$scope', '$http', '$timeout', '$cookies', fun
 		Submit a transaction.
 		Change view to a confirmation page if successful.
 	**/
-	$scope.submitTransaction = function(user){
-		if(!$scope.checkout.policy_accepted) { return; }
-		$scope.checkout.mailing_address = user.mailing_address;
-		$scope.checkout.billing_address = user.billing_address;
-		$scope.checkout.user_cart = user.cart;
-		$scope.checkout.credit = $scope.credit;
-		$scope.checkout.charge = user.cart.cost;
-		$scope.checkout.coin = user.cart.coin;
-		
-		$http.post('//localhost:8080/submitTransaction', $scope.checkout, { withCredentials: true }).success(function(data, status, headers, config) {
-			$scope.viewConf();
-			$scope.trans = data;
-			user.cart = [];
-			$http.get('//localhost:8080/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
-				console.log("transactions: ", data);
-				$scope.transForUser = data;
-			}).error(function(data, status, headers, config) {
-				console.log('Error getting user');
-			});
-		}).error(function(data, status, headers, config) {
-			console.log("App failed to post to //localhost:8080/submitTransaction");
-		});
-	}
+//	$scope.submitTransaction = function(user){
+//		if(!$scope.checkout.policy_accepted) { return; }
+//		$scope.checkout.mailing_address = user.mailing_address;
+//		$scope.checkout.billing_address = user.billing_address;
+//		$scope.checkout.user_cart = user.cart;
+//		$scope.checkout.credit = $scope.credit;
+//		$scope.checkout.charge = user.cart.cost;
+//		$scope.checkout.coin = user.cart.coin;
+//		
+//		$http.post('//localhost:8080/submitTransaction', $scope.checkout, { withCredentials: true }).success(function(data, status, headers, config) {
+//			$scope.viewConf();
+//			$scope.trans = data;
+//			user.cart = [];
+//			$http.get('//localhost:8080/user/transactions', { withCredentials: true }).success(function(data, status, headers, config) {
+//				console.log("transactions: ", data);
+//				$scope.transForUser = data;
+//			}).error(function(data, status, headers, config) {
+//				console.log('Error getting user');
+//			});
+//		}).error(function(data, status, headers, config) {
+//			console.log("App failed to post to //localhost:8080/submitTransaction");
+//		});
+//	}
 	
 	/* $scope.clearLastTransaction = function(){
 		console.log("clearing.");

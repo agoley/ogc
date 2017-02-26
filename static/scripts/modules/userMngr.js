@@ -1,21 +1,21 @@
-// userFunctionalManagment Module: provides components and services for user functions
-var userFunctionalManagement = angular.module('userFunctionalManagement', []);
+// userMngr Module: provides components and services for user functions
+var userMngr = angular.module('userMngr', []);
 
-userFunctionalManagement.component('confirmation', {
+userMngr.component('confirmation', {
 	bindings: {
 		user: '=',
 		view: '='
 	},
-	controller: function (UserFactory, ViewService) {
+	controller: function(UserFactory, ViewService) {
 		var ctrl = this;
 		
-		ctrl.setViewToFeaturedGames = function () {
+		ctrl.setViewToFeaturedGames = function() {
 			  ctrl.view = ViewService.setViewToFeaturedGames(ctrl.view);
 		};
 		
 		ctrl.transForUser = [];
-				
-		UserFactory.getTransactions().then(function (response) {
+		
+		UserFactory.getTransactions().then(function(response) {
 			if (response.data) {
 				ctrl.transForUser = response.data;
 			}
@@ -24,7 +24,7 @@ userFunctionalManagement.component('confirmation', {
 	templateUrl: 'views/confirmation.html'
 });
 
-userFunctionalManagement.component('checkoutView', {
+userMngr.component('checkoutView', {
 	bindings: {
 		user: '=',
 		view: '='
@@ -76,11 +76,16 @@ userFunctionalManagement.component('checkoutView', {
             ctrl.checkout.credit = ctrl.totals.credit;
             ctrl.checkout.charge = ctrl.totals.cost;
             ctrl.checkout.coin = ctrl.totals.coin;
+			   ctrl.checkout.creds = ctrl.credentials;
             
-            UserFactory.submitTransaction(ctrl.checkout).then(function (response) {
+            UserFactory.submitTransaction(ctrl.checkout).then(function(response) {
                if (response.data) {
-						ctrl.user.cart = [];
-						ctrl.refreshUser();
+						if (ctrl.user.email == null) {
+							ctrl.user.cart = [];
+						} else {
+							ctrl.refreshUser();
+						}
+						console.log("transactions successfull, setting view to confirmation.");
 						ViewService.setViewToConfirmation(ctrl.view);
                } 
             });
@@ -105,7 +110,7 @@ userFunctionalManagement.component('checkoutView', {
     templateUrl: 'views/checkoutView.html'
 });
 
-userFunctionalManagement.component('accountManagement', {
+userMngr.component('accountManagement', {
 	bindings: {
 		user: '=',
 		view: '='
@@ -149,7 +154,7 @@ userFunctionalManagement.component('accountManagement', {
 	templateUrl: 'views/user_profile.html'
 });
 
-userFunctionalManagement.component('cartView', {
+userMngr.component('cartView', {
 	bindings: {
 		user: '=',
 		view: '='

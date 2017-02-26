@@ -72,6 +72,9 @@ header.component('shoppingCartBtn', {
 			}
 		}
 		ctrl.setViewToCart = function () {
+			$("#intro").slideUp();
+			var headerHeight = $('.header').height();
+			$("#core").css("padding-top", headerHeight);
 			ctrl.view = ViewService.setViewToCart(ctrl.view);
 		}
 	},

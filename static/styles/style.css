@@ -30,10 +30,11 @@ animated.ng-enter {
 
 .footer {
 	position: absolute;
-	height: 65px;
+	height: 95px;
 	bottom: 0px;
 	width: 100%;
 	color: #777777;
+	padding-top: 30px;
 	/* background-color: #F0F0F0; */
 	background-color: white; 
 	opacity: 0.8;
@@ -91,7 +92,7 @@ animated.ng-enter {
 }
 
 .main-body{
-	margin-bottom: 75px;
+	margin-bottom: 95px;
 }
 
 .header {
@@ -373,7 +374,12 @@ img.center {
 }
 
 .genre-header {
-	padding-left: 20px !important;
+	padding-left: 60px !important;
+	padding-top: 30px !important;
+}
+
+.scroll-locater {
+	padding-top: 30px !important;
 }
 
 .item-preview-active {

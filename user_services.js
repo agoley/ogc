@@ -1,19 +1,318 @@
-/* User Services */
+// User Services 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Game = mongoose.model('Game');
 var Transaction = mongoose.model('Transaction');
 var crypto = require('crypto');
 var sha = require('sha256');
+var twitterAPI = require('node-twitter-api'); // Twitter Auth
+var rt, rts; // Twitter token and token secret
+var twitter = new twitterAPI({
+    consumerKey: 'rASJtoCIWHLvqMDgvx3VgdkLd',
+    consumerSecret: '8FGvXSwJof0eoehWgVQ1EdcBAOmGIV56X0s9YHNWvHV589Suna',
+    callback: 'http://onlinegamecash.com/auth/twitter/return'
+});
+
+// HELPER FUNCTIONS START
+
+/**
+ * Hash a string.
+ * @param {String}
+ */
 function hashPW(pwd){
 	console.log("pwd: " + pwd);
    return crypto.createHash('sha256').update(pwd).
           digest('base64').toString();
 };
 
-/*function hashPW(pwd) {
-	return sha(pwd);
-};*/
+/**
+ * Check if a user exists.
+ * @param {String} User email. 
+ * @return {Boolean} True if the user exists else false.
+ */
+var exists = function(email) {
+	User.findOne({ email: email }).exec(function(err, user) {
+		if(user){
+			return true;
+		} else {
+			return false;
+		}
+	});
+}
+
+/**
+ * Creates a user with the give credentials.
+ * @param {Object} New user credentials. 
+ * @param {function} (Optional) Callback.
+ * @param {Object} request
+ * @param {Object} response
+ */
+var create = function(creds, callback, req, res) {
+		var result = {};
+		result.data = new User();
+		result.data.set('password', hashPW(creds.password));
+		result.data.set('email', creds.email);
+		result.data.save(function(err) {
+			if (err){
+				result.success = false;
+				callback(result, req, res);
+			} else {
+				result.success = true;
+				callback(result, req, res);;
+			}
+		});		
+}
+
+/**
+ * Completes a transaction after any validation steps.
+ * @param {Object} result of previous steps.
+ * @param {Object} request
+ * @param {Object} response
+ */
+var completeTransaction = function(result, req, res) {
+	if (!result.success) {
+		// Transaction failed validation 
+		// console.log("completeTransaction: failed validation");
+		res.json(404, {err: 'Transaction failed validation'});
+		return;
+	} else {
+		if (result.data) {
+			// A new user was created for this transaction
+			// console.log("completeTransaction: setting user: " + JSON.stringify(result.data));
+			setSessionUser(result.data, req.session);
+		}
+		
+		// Create the transaction
+		var trans = new Transaction();
+		var orderDate = new Date();
+		var orderNo = orderDate.valueOf();
+		
+		if (req.session.user) {
+			trans.set('user_id', req.session.user.toString());
+		} else {
+			trans.set('user_id', "guest");
+		}
+	
+		trans.set('user_cart', req.body.user_cart);
+		trans.set('email', req.body.email);
+		trans.set('status', "pending");
+		trans.set('date', orderDate);
+		trans.set('order_no', orderNo);
+    
+		// If there is credit, add credit to the users credit buffer.
+		if (req.body.credit > 0) {
+			trans.set('credit', req.body.credit );
+			trans.set('credit_preference', req.body.credit_preference );
+			if ( trans.credit_preference == 'Venmo' ) {
+				trans.set('credit_preference', req.body.credit_preference );
+				trans.set('venmo_name', req.body.venmo_name );
+			}
+		
+			// TODO: clean this method. All user changes should be made in a single find.		
+			// add credit 
+			User.findOne({ _id: req.session.user }).exec(function(err, user) {
+				if (user) {	
+					if(user.credit_buffered == null){
+						user.credit_buffered = 0;
+					}
+					user.credit_buffered = user.credit_buffered +  parseInt(req.body.credit);
+					user.cart = [];
+					user.save();
+				}	
+			});
+		}
+	
+		// If there is coin, add coin to the users coin buffer
+		if(req.body.coin > 0) {
+			trans.set('coin', req.body.coin );
+			// add coin 
+			User.findOne({ _id: req.session.user }).exec(function(err, user) {
+				if (!user){
+					console.log("completeTransaction: user not found: " + JSON.stringify(req.session.user));
+					res.status(404).json({err: 'User Not Found.'}); // TODO: set return flag
+				} else {
+					if(user.coin_buffered == null) {
+						user.coin_buffered = 0;
+					}	
+					user.coin_buffered = user.coin_buffered + parseInt(req.body.coin);
+					user.save();
+				}	
+			});
+		}
+	
+		// If there is a charge, charge the user.
+		if(req.body.charge > 0){
+			trans.set('charge', req.body.charge );
+			// Set mailing address
+			// Set billing address
+			// Set shipping type
+			// Charge here
+		}
+	
+		// update inventory
+		synchronizeGameCounts(req.body.user_cart);
+	
+		// Save the transaction
+		trans.save(function(err) {
+			if (err){
+				console.log("Error saving transaction: " + err);
+				res.redirect('/');
+     		} else {
+				console.log("completeTransaction: successfully saved transaction");
+       		res.json(trans); // TODO: pass new user back as well
+			}
+   	});	
+	}
+}
+
+/**
+ * Checks if any item in a cart is no longer in stock.
+ * @param {Object} users cart
+ * @return {Object} isInStock
+ */
+function isCartInStock(cart) {
+	result = {
+		isInStock: true
+	};
+	for (i = 0; i < cart.length; i++ ) {
+		if (cart[i].type === 'sale') {
+			Game.findOne({title: cart[i].title, console: cart[i].console})
+				.exec(function(err, game) {
+				if (game.quantity < 0) {
+					result.isInStock =  false;
+				} 
+			});
+		}
+	}
+	return result.isInStock;
+}
+
+/**
+ * Sysnchronize inventory during a transaction.
+ */
+function synchronizeGameCounts(cart) {
+	for (i = 0; i < cart.length; i++ ) {
+		if (cart[i].type === 'sale') {
+			Game.findOne({title: cart[i].title, console: cart[i].console})
+				.exec(function(err, game) {
+				game.quantity = game.quantity-1;
+				game.save();
+			});
+		}
+	}
+}
+   
+/**
+ * addSaleToCart
+ * @param {Object} req
+ * @param {Object} res
+ */
+function addSaleToCart(req, res) {
+	User.findOne({ _id: req.session.user })
+		.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			var cart = user.cart;
+			if(!cart){
+				cart = [];
+			} 
+			var game = req.body.game;
+			var item = 
+				{ title: game.title,
+				  console: game.console,
+				  path: game.image_path,
+				  quantity: 1,
+				  cost: game.sell_price,
+				  type: "sale"
+				};				
+			cart.push(item);
+			user.cart = cart;
+			user.save();
+			res.json(user)
+		}
+	});
+}
+
+/**
+ * addCreditToCart
+ * @param {Object} req
+ * @param {Object} res
+ */
+function addCreditToCart(req, res) {
+	User.findOne({ _id: req.session.user })
+		.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			var cart = user.cart;
+			if(!cart){
+				cart = [];
+			} 
+			if(!user.credit_buffered){
+				user.credit_buffered = 0;
+			}
+			var game = req.body.game;
+			var item = {
+				title: game.title, 
+				console: game.console, 
+				path: game.image_path, 
+				quantity: 1, 
+				cost: game.buy_price, 
+				type: 'ingest'
+			};
+			cart.push(item);
+			user.cart = cart;
+			user.save();
+			res.json(user)
+		}
+	});
+}
+
+/**
+ * addCoinToCart
+ * @param {Object} req
+ * @param {Object} res
+ */
+function addCoinToCart(req, res) {
+	User.findOne({ _id: req.session.user })
+		.exec(function(err, user) {
+		if (!user){
+			res.json(404, {err: 'User Not Found.'});
+		} else {
+			var cart = user.cart;
+			if(!cart){
+				cart = [];
+			} 
+			if(!user.coin_buffered){
+				user.coin_buffered = 0;
+			}
+			var game = req.body.game;
+			cart.push({ 
+				title: game.title, 
+				console: game.console, 
+				path: game.image_path, 
+				quantity: 1, 
+				cost: (game.buy_price + 5), 
+				type: 'trade'});
+			user.cart = cart;
+			user.save();
+			res.json(user)
+		}
+	});
+}
+	
+/**
+ * Sets the session user and username
+ * @param {Object} user
+ * @param {Object} session
+ */
+function setSessionUser(user, session) {
+	session.user = user.id;
+	session.username = user.username;
+}
+
+// HELPER FUNCTIONS END
 
 exports.removeFromCart = function(req, res) {
 	User.findOne({ _id: req.session.user })
@@ -41,9 +340,11 @@ exports.removeFromCart = function(req, res) {
 	});
 }
 
-/** Update a user
-* Req: user information to update with.
-*/
+/** 
+ * Update a user
+ * @param {Object} req
+ * @param {Object} res
+ */
 exports.updateUser = function(req, res) {
 	User.findOne({ _id: req.session.user }).exec(function(err, user) {
 		if (!user){
@@ -97,9 +398,10 @@ exports.clearLastTransaction = function(req, res) {
 }
 
 /**
-	Return last 5 transactions for a given user.
-	Passed in the request is a user id.
-*/
+ *	Return last 5 transactions for a given user.
+ *	@param {Object} req
+ * @param {Object} res
+ */
 exports.getPendingTransForUser = function(req, res) {
 	var session = req.session;
 	if(session){
@@ -118,212 +420,31 @@ exports.getPendingTransForUser = function(req, res) {
 	}
 };
 
-/* 
-	Save a transaction to the database
-	Coin/Credit/Charge a user
-	Req contains the transaction
-	Return the transaction
-*/
+/** 
+ *	Save a transaction to the database
+ *	Coin/Credit/Charge a user
+ *	@param {Object} req contains the transaction
+ *	@return {Object} the transaction
+ */
 exports.submitTransaction = function(req, res) {
-	// If policy accepted
-	var trans = new Transaction({user_id: req.session.user.toString()});
-	var orderDate = new Date();
-	var orderNo = orderDate.valueOf();
-	// Set transaction fields
-	trans.set('user_cart', req.body.user_cart);
-	trans.set('email', req.body.email);
-	trans.set('status', "pending");
-	trans.set('date', orderDate);
-	trans.set('order_no', orderNo);
+	var result = {};
 	
-    // check that all the games in the cart are in stock
-    if (!isCartInStock(req.body.user_cart)) {
-        res.json(404, {err: 'Not all games are in stock.'});
+	if (!req.body.policy_accepted) {
+		result.success = false;
+		console.log('submitTransaction: policy not accepted.');
+	}
+	
+   if (!isCartInStock(req.body.user_cart)) {
+		result.success = false;
+		console.log('submitTransaction: An item in the users cart is out of stock.');
     }
-    // IF THEY ARE UPDATE INVENTORY AND CONTINUE PROCESSING
-    
-	// If there is credit, add credit to the users credit buffer.
-	if(req.body.credit != null){
-		trans.set('credit', req.body.credit );
-		trans.set('credit_preference', req.body.credit_preference );
-		if( trans.credit_preference == 'Venmo' ) {
-			trans.set('credit_preference', req.body.credit_preference );
-			trans.set('venmo_name', req.body.venmo_name );
-		}
-		
-		// TODO: clean this method. All user changes should be made in a single find.
-        // UPDATE: the users cart to empty
-		
-		// add credit 
-		User.findOne({ _id: req.session.user }).exec(function(err, user) {
-			if (!user){
-				res.json(404, {err: 'User Not Found.'});
-			} else {
-			if(user.credit_buffered == null){
-				user.credit_buffered = 0;
-			}
-			user.credit_buffered = user.credit_buffered +  parseInt(req.body.credit);
-			user.cart = [];
-			user.save();
-			}	
-		});
-	}
 	
-	// If there is coin, add coin to the users coin buffer
-	if(req.body.coin != null) {
-		trans.set('coin', req.body.coin );
-		
-		// add coin 
-		User.findOne({ _id: req.session.user }).exec(function(err, user) {
-			if (!user){
-				res.json(404, {err: 'User Not Found.'});
-			} else {
-			if(user.coin_buffered == null){
-				user.coin_buffered = 0;
-			}
-			user.coin_buffered = user.coin_buffered + parseInt(req.body.coin);
-			user.save();
-			}	
-		});
+	if (req.body.creds) {
+		console.log("submitTransaction creds: " + req.body.creds.email);
+		create(req.body.creds, completeTransaction, req, res); 
+	} else {
+		completeTransaction(result, req, res);
 	}
-	
-	// If there is a charge, charge the user.
-	if(req.body.charge != null){
-		trans.set('charge', req.body.charge );
-		// Set mailing address
-		// Set billing address
-		// Set shipping type
-		// Charge here
-	}
-	
-	// update inventory
-	synchronizeGameCounts(req.body.user_cart);
-	
-	// Save the transaction
-	trans.save(function(err) {
-     if (err){
-		console.log(err);
-		res.redirect('/');
-     } else {
-       res.json(trans);
-     }
-   });	
-}
-
-function isCartInStock(cart) {
-	result = {
-		isInStock: true
-	};
-	for (i = 0; i < cart.length; i++ ) {
-		if (cart[i].type === 'sale') {
-			Game.findOne({title: cart[i].title, console: cart[i].console})
-				.exec(function(err, game) {
-				if (game.quantity < 0) {
-					result.isInStock =  false;
-				} 
-			});
-		}
-	}
-	return result.isInStock;
-}
-
-// adjust inventory based on the cart
-function synchronizeGameCounts(cart) {
-	for (i = 0; i < cart.length; i++ ) {
-		if (cart[i].type === 'sale') {
-			Game.findOne({title: cart[i].title, console: cart[i].console})
-				.exec(function(err, game) {
-				game.quantity = game.quantity-1;
-				game.save();
-			});
-		}
-	}
-}
-   
-
-function addSaleToCart(req, res) {
-	User.findOne({ _id: req.session.user })
-		.exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			var cart = user.cart;
-			if(!cart){
-				cart = [];
-			} 
-			var game = req.body.game;
-			var item = 
-				{ title: game.title,
-				  console: game.console,
-				  path: game.image_path,
-				  quantity: 1,
-				  cost: game.sell_price,
-				  type: "sale"
-				};				
-			cart.push(item);
-			user.cart = cart;
-			user.save();
-			res.json(user)
-		}
-	});
-}
-
-function addCreditToCart(req, res) {
-	User.findOne({ _id: req.session.user })
-		.exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			var cart = user.cart;
-			if(!cart){
-				cart = [];
-			} 
-			if(!user.credit_buffered){
-				user.credit_buffered = 0;
-			}
-			var game = req.body.game;
-			var item = {
-				title: game.title, 
-				console: game.console, 
-				path: game.image_path, 
-				quantity: 1, 
-				cost: game.buy_price, 
-				type: 'ingest'
-			};
-			cart.push(item);
-			user.cart = cart;
-			user.save();
-			res.json(user)
-		}
-	});
-}
-
-function addCoinToCart(req, res) {
-	User.findOne({ _id: req.session.user })
-		.exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			var cart = user.cart;
-			if(!cart){
-				cart = [];
-			} 
-			if(!user.coin_buffered){
-				user.coin_buffered = 0;
-			}
-			var game = req.body.game;
-			cart.push({ 
-				title: game.title, 
-				console: game.console, 
-				path: game.image_path, 
-				quantity: 1, 
-				cost: (game.buy_price + 5), 
-				type: 'trade'});
-			user.cart = cart;
-			user.save();
-			res.json(user)
-		}
-	});
 }
 
 // experimental
@@ -339,105 +460,9 @@ exports.addItemToCart = function(req, res) {
 	}
 };
 
-/*
-depreciated 9/23/16
-exports.addToCart = function(req, res) {
-	User.findOne({ _id: req.session.user })
-	.exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			var cart = user.cart;
-			if(!cart){
-				cart = [];
-			} 
-			// Check if the game exists in the cart
-			//var exists = false;
-			//for(var i = 0; i < cart.length; i++) {
-			//	if( cart[i].title == req.body.title && cart[i].console == req.body.console ) {
-			//		cart[i].quantity = cart[i].quantity + 1;
-			//		exists = true;
-			//	}
-			//}
-			//if(!exists) {
-			//	cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: req.body.sell_price});
-			//}
-			//
-			var item = { title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: req.body.sell_price, type: "sale"};
-			cart.push(item);
-			user.cart = cart;
-			user.save();
-			res.json(user)
-		}
-	});
-};
-
-/*
-depreciated 9/23/16
-Descrip: 
-	This service adds credit to a users account. Credit is gained when a user sells a game to ogc.
-	The credit is placed on hold until the game is mailed to ogc and verified.
-Return:
-	Returns the updated user.
-*/
-/*
-exports.creditUser = function(req, res) {
-	User.findOne({ _id: req.session.user })
-	.exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			var cart = user.cart;
-			if(!cart){
-				cart = [];
-			} 
-			if(!user.credit_buffered){
-				user.credit_buffered = 0;
-			}
-			cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: req.body.buy_price, type: 'ingest'});
-			user.cart = cart;
-			//user.credit_buffered = user.credit_buffered + req.body.buy_price;
-			user.save();
-			res.json(user)
-		}
-	});
-}
-*/
-/*
-depreciated 9/23/16
-Descrip: 
-	This service adds coin to a users account. Coin is gained when a user trades a game to ogc.
-	The coin is placed on hold until the game is mailed to ogc and verified.
-Return:
-	Returns the updated user.
-*/
-/*
-exports.coinUser = function(req, res) {
-	User.findOne({ _id: req.session.user })
-	.exec(function(err, user) {
-		if (!user){
-			res.json(404, {err: 'User Not Found.'});
-		} else {
-			var cart = user.cart;
-			if(!cart){
-				cart = [];
-			} 
-			if(!user.coin_buffered){
-				user.coin_buffered = 0;
-			}
-			cart.push({ title: req.body.title, console: req.body.console, path: req.body.image_path, quantity: 1, cost: (req.body.buy_price + 5), type: 'trade'});
-			user.cart = cart;
-			//user.coin_buffered = user.coin_buffered + (req.body.buy_price + 5);
-			user.save();
-			res.json(user)
-		}
-	});
-}
-*/
-
 /**
-	Clear the sessions user and return to home.
-**/
+ * Clear the sessions user and return to home.
+ */
 exports.signout = function(req, res) {
 	console.log("cookies on signout: " + JSON.stringify(req.cookies));
 	req.session.user = null;
@@ -445,8 +470,8 @@ exports.signout = function(req, res) {
 }
 	
 /**
-	Save the new user and return to home logged in.
-**/	
+ * Save the new user and return to home logged in.
+ */	
 exports.signup = function(req, res){
    // Check if a user with this email exists
    User.findOne({ email: req.body.email }).exec(function(err, user) {
@@ -479,8 +504,8 @@ exports.signup = function(req, res){
 };
 
 /**
-	Return true if req.session.user is not null
- **/
+ *	Return true if req.session.user is not null
+ */
 exports.isUserLoggedIn = function(req, res) {
 	if(req.session.user){
 		res.send("true");
@@ -490,8 +515,8 @@ exports.isUserLoggedIn = function(req, res) {
 };
 
 /**
- Verify credentials, set the session user and return. 
- **/
+ * Verify credentials, set the session user and return. 
+ */
 exports.signin = function(req, res) {
 	User.findOne({ email: req.body.email })
    .exec(function(err, user) {
@@ -499,11 +524,8 @@ exports.signin = function(req, res) {
 			req.session.msg = err;
 			res.redirect('/');
 		} else {
-			console.log("Found on sign in: " + user );
 			if (user.password != null && user.password === hashPW(req.body.password.toString())) {
-				req.session.user = user.id;
-				req.session.username = user.username;
-				console.log("Session user: " + req.session.user + ", and session id: " + req.session.id);
+				setSessionUser(user, req.session);
 				res.send(user);
 			}
 		}
@@ -526,15 +548,6 @@ exports.getUserProfile = function(req, res) {
 	});
 };
 
-/* Twitter Authorization */
-var twitterAPI = require('node-twitter-api');
-var twitter = new twitterAPI({
-    consumerKey: 'rASJtoCIWHLvqMDgvx3VgdkLd',
-    consumerSecret: '8FGvXSwJof0eoehWgVQ1EdcBAOmGIV56X0s9YHNWvHV589Suna',
-    callback: 'http://onlinegamecash.com/auth/twitter/return'
-});
-
-var rt, rts;
 exports.twitter =  function(req, res){
 		// Get a request token
 		twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results){

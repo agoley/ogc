@@ -2,7 +2,7 @@
 <div class="container game-profile-container">
 	<h2 class="bold"> Order Summary </h2>
 	<div class="low div"  ng-if="$ctrl.totals.credit > 0">
-		<h3> Here is what you're selling: </h3>
+		<h3> Here is what you're selling </h3>
 		<ol class="list">
 			<li ng-repeat="item in $ctrl.buys" class="low-div">
 				{{item.title}} for ${{item.cost}}
@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div class="low div" ng-if="$ctrl.totals.coin > 0">
-		<h3> Here is what you're trading: </h3>
+		<h3> Here is what you're trading </h3>
 		<ol class="list">
 			<li ng-repeat="item in $ctrl.trades" class="low-div">
 				{{item.title}} for ${{item.cost}}
@@ -38,7 +38,7 @@
 		<mark>Total game cash: ${{$ctrl.totals.coin}}</mark>
 	</div>
 	<div class="low div" ng-if="$ctrl.totals.cost > 0">
-		<h3> Here is what you're buying: </h3>
+		<h3> Here is what you're buying </h3>
 		<ol class="list">
 			<li ng-repeat="item in $ctrl.sales" class="low-div">
 				{{item.title}} for ${{item.cost}}
@@ -46,13 +46,87 @@
 		</ol>
 		<mark>Subtotal: ${{$ctrl.totals.cost}}</mark>
 	</div>
-	<div class="low-div">
-		<h3>Personal Information</h3>
-		<div class="low-div input-group col col-md-4 neat">
+	<form 
+			name="checkout_signup" 
+			class="low-div" 
+			ng-if="$ctrl.totals.coin > 0 && $ctrl.user.email == null">
+			<h3>Trading in Games Requires an Account</h3>
+			<div class="low-div input-group col col-md-4">
 			<span class="input-group-addon glyphicon glyphicon-envelope"></span>
-			<input type="text" ng-model="$ctrl.user.email" class="form-control" placeholder="email">
+			<input type="email" name="email" 
+					ng-model="$ctrl.credentials.email" 
+					class="form-control pull-left neat-input" 
+					placeholder="Email..."
+					ng-minlength="5" ng-maxlength="45">
+						</div>
+			<div class="info" ng-show="checkout_signup.email.$error.minlength">
+				Email must be at least 5 characters long.
+			</div>
+			<div class="info" 
+				ng-show="checkout_signup.email.$error.maxlength">
+				Email must be at most 45 characters long.
+			</div>
+			<div class="error" ng-show="$ctrl.userAlreadyexists"> 
+				Please choose another email 
+			</div>
+		<div class="low-div input-group col col-md-4">
+			<span class="input-group-addon glyphicon glyphicon-lock"></span>
+			<input type="password" name="password" 
+				ng-model="$ctrl.credentials.password" 
+				class="form-control pull-left neat-input" 
+				placeholder="Password..."
+				ng-minlength="6" ng-maxlength="45">
+			</div>
+			<div class="info" ng-show="checkout_signup.password.$error.minlength">
+				Password must be at least 5 characters long.
+			</div>
+			<div class="info" ng-show="checkout_signup.password.$error.maxlength">
+				Password must be at most 45 characters long.
+			</div>
+		<div class="low-div input-group col col-md-4">
+			<span class="input-group-addon glyphicon glyphicon-lock"></span>
+			<input type="password" name="password2" 
+				ng-model="$ctrl.credentials.password2"
+			 	class="form-control pull-left neat-input" 
+			 	placeholder="Enter password again..."
+				ng-match="checkout_signup.password">
+			</div>
+			<div class="error" ng-show="
+				$ctrl.credentials.password2 != $ctrl.credentials.password && 
+				checkout_signup.password2.$dirty &&
+				!checkout_signup.password.$error.maxlength &&
+				!checkout_signup.password.$error.minlength &&
+				$ctrl.credentials.password2 != null"> 
+				Passwords don't match.
+			</div>
+			<div class="success" ng-show="
+				$ctrl.credentials.password2 == $ctrl.credentials.password 
+				&& checkout_signup.password2.$dirty 
+				&& !checkout_signup.password.$error.maxlength 
+				&& !checkout_signup.password.$error.minlength 
+				&& $ctrl.credentials.password2 != null
+				&& $ctrl.credentials.password2 != ''"> 
+				Passwords match.
+			</div>
+	</form>
+	<div class="low-div" ng-hide="
+											$ctrl.totals.cost == 0 
+											&& $ctrl.totals.credit == 0 
+											&& $ctrl.totals.coin > 0 
+											&& $ctrl.user.email == null">
+		<div ng-if="!($ctrl.totals.coin > 0 && $ctrl.user.email == null)">
+			<h3>Personal Information</h3>
+			<div class="low-div input-group col col-md-4 neat" >
+				<span class="input-group-addon glyphicon glyphicon-envelope"></span>
+				<input 
+						 type="text" 
+						 ng-model="$ctrl.user.email" 
+						 class="form-control" 
+						 placeholder="email">
 		</div>
-		<div ng-if="$ctrl.checkout.credit_preference == 'Mailed Check' || $ctrl.user.cart.cost > 0">
+		</div>
+		<div ng-if="$ctrl.checkout.credit_preference == 'Mailed Check' || $ctrl.totals.cost > 0">
+			<h3>Shipping Address</h3>
 			<div class="low-div input-group col col-md-4">
 				Address Line 1: 
                     <input 
